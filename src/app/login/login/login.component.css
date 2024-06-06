@@ -1,0 +1,44 @@
+#login-container {
+    animation: bg 5s linear infinite alternate;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#logo-container {
+    margin-bottom: 80px;
+}
+
+#logo-container img {
+    max-width: 100%;
+}
+
+#login-container .cb-button {
+    width: 100%;
+    margin-top: 39px;
+}
+
+.cb-button {
+    background-color: transparent;
+    width: 100%;
+    box-shadow: none;
+    border: 1px solid #dcdcdc;
+    color: #AAA;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-weight: normal;
+    border-radius: 0;
+}
+
+.cb-button:focus {
+    outline: none;
+}
+
+.alert-message {
+    color: white;
+    font-size: 12px;
+}
+
+.alert-message p {
+    padding: 10px;
+}

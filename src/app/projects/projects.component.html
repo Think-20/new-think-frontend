@@ -1,0 +1,32 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let task of sortedTasks; let i = index" [expanded]="i == expandedIndex">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <p class="lead d-flex align-items-baseline">
+          <span>{{ taskService.jobDisplay(task) }}</span>
+          <br>
+          <span *ngIf="task?.project_files?.length > 0" class="lead subtitle ml-2">{{ task?.project_files[task.project_files.length - 1]?.responsible?.name + ' | ' + (task.project_files[task.project_files.length - 1].updated_at | date: 'dd/MM/yyyy HH:mm') }}</span>
+        </p>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <cb-file-upload [properties]="{ task : task }" [files]="task.project_files"
+      [fileServiceInterface]="projectFileService" [typeForm]="typeForm"
+      (uploadEmitter)="uploadDone(task)"
+      [readOnly]="task.budget != null" [readOnlyMessage]="'Após orçamento preenchido, não é possível alterar os arquivos'">
+    </cb-file-upload>
+    <button mat-button matTooltip="Download completo" class="aux-button"
+      type="button" (click)="downloadAll(task)">
+      <mat-icon>folder</mat-icon>
+    </button>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button *ngIf="showButtonSpecification(task) && isAttendance != null"
+          mat-button matTooltip="Ir para próxima etapa" class="cb-button button-navigate"
+          type="button" (click)="navigateTo(getRoute(task))">
+          {{ getText() }}
+        </button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+

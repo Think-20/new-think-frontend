@@ -1,0 +1,91 @@
+#container-box {
+    height: calc(100% - 64px);
+    padding: 5px 15px;
+}
+
+cb-sidenav.opened {
+    width: 14.5%;
+    flex: 14.5%;
+}
+
+#container-box > .row,
+#container-box > .row > .col-md-8,
+#container-box > .row > .col-md-4 {
+    height: 100%;
+    overflow: auto;
+}
+
+#my-master-container {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#my-second-container {
+  flex: 1 85%;
+  max-height: 100%;
+  max-width: 85%;
+}
+
+#my-second-container {
+  z-index: 10;
+}
+
+#timeline-container {
+  max-width: 19.25%;
+}
+
+#all-container {
+  padding: 0;
+  width: 80.75%;
+  flex: 80.75%;
+  max-width: 80.75%;
+  overflow-x: hidden !important;
+}
+
+.max-size {
+  max-width: 100% !important;
+}
+
+#my-second-container.max-size #all-container {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+@media screen and (min-width: 900px) {
+    #container-box > .row > .col-md-8 {
+        /*padding-bottom: 250px;*/
+    }
+}
+
+@media screen and (max-width: 500px) {
+  #all-container {
+    width: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+
+  #my-master-container {
+    flex-wrap: nowrap;
+  }
+  
+  #timeline-container {
+    display: none;
+  }
+  
+  cb-sidenav.opened {
+    width: 100%;
+    flex: 100%;
+  }
+
+  #my-second-container {
+    flex: 1 100%;
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+
+
+

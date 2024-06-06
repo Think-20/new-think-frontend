@@ -1,0 +1,237 @@
+<div class="col-md-12">
+  <form [formGroup]="providerForm" novalidate autocomplete="off">
+    <mat-card-title>
+      <p class="lead">Dados do fornecedor</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <mat-form-field class="col-md-3">
+          <input formControlName="fantasy_name" matInput placeholder="Nome*">
+          <mat-error>
+            Obrigatório, entre 3 e 50 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-9">
+          <input formControlName="name" matInput placeholder="Razão social*">
+          <mat-error>
+            Obrigatório, entre 3 e 100 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select placeholder="Tipo*" formControlName="person_type" [compareWith]="comparePersonType">
+            <mat-option *ngFor="let personType of personTypes" [value]="personType">
+              {{ personType.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select placeholder="Atendimento*" formControlName="employee" [compareWith]="compareEmployee">
+            <mat-option *ngFor="let employee of employees" [value]="employee">
+              {{ employee.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="site" matInput placeholder="Site">
+          <mat-error>
+            7 caract.
+          </mat-error>
+        </mat-form-field>
+        <cb-stars class="col-md-3 star-input" label="Score" [rate]="provider != undefined ? (provider.rate + 1) : 0" [input]="providerForm.controls.rate">
+          <input formControlName="rate" matInput>
+        </cb-stars>
+        <mat-form-field *ngIf="providerForm.get('person_type').value?.id == 1" class="col-md-3">
+          <input formControlName="cpf" mask="999.999.999-99" matInput placeholder="CPF*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="providerForm.get('person_type').value?.id == 2" class="col-md-3">
+          <input formControlName="cnpj" mask="99.999.999/9999-99" matInput placeholder="CNPJ*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="ie" mask="999.999.999.999" matInput placeholder="Inscrição estadual">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="mainphone" mask="(99) 9999-9999?9" matInput placeholder="Telefone principal*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="secundaryphone" mask="(99) 9999-9999?9" matInput placeholder="Telefone secundário">
+        </mat-form-field>
+        <div class="form-array" formArrayName="contacts">
+          <div *ngFor="let control of getContactsControls(providerForm); let i = index">
+            <form [formGroup]="getContactsControls(providerForm)[i]" novalidate autocomplete="off" class="flex contact-item">
+              <mat-form-field class="col-md-3">
+                <input formControlName="id" type="hidden">
+                <input formControlName="name" matInput placeholder="Contato*">
+                <mat-error>
+                  Obrigatório, mínimo 3 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="email" matInput placeholder="E-mail*">
+                <mat-error>
+                  Obrigatório, tipo e-mail. Máx 80
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="department" matInput placeholder="Departamento*">
+                <mat-error>
+                  Obrigatório, mínimo 3 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="cellphone" mask="(99) 9999-9999?9" matInput placeholder="Celular">
+                <mat-error>
+                  Tipo telefone
+                </mat-error>
+              </mat-form-field>
+              <button *ngIf="i > 0" type="button" class="delete-contact" (click)="deleteContact(i)" mat-button>
+                <mat-icon>clear</mat-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="getContactsControls(providerForm).length > 0" class="col-md-12">
+          <button type="button" class="add-contact" (click)="addContact()" mat-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <mat-form-field class="col-md-12">
+          <textarea formControlName="note" matInput placeholder="Observação: Indicação, já nos conhecia, como chegou até nós..."></textarea>
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <p class="lead">
+        Dados bancários
+      </p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <div class="form-array" formArrayName="contacts">
+          <div *ngFor="let control of getAccountsControls(providerForm); let i = index">
+            <form [formGroup]="getAccountsControls(providerForm)[i]" novalidate autocomplete="off" class="flex contact-item">
+              <input formControlName="id" type="hidden">
+              <mat-form-field class="col-md-6">
+                <input formControlName="favored" matInput placeholder="Favorecido*">
+                <mat-error>
+                  Obrigatório, entre 3 e 100 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="agency" matInput placeholder="Agência*">
+                <mat-error>
+                  Obrigatório, entre 4 e 6 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="account_number" matInput placeholder="Número*">
+                <mat-error>
+                  Obrigatório, entre 6 e 20 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-6">
+                <mat-select placeholder="Tipo de conta*" formControlName="bank_account_type" [compareWith]="compareBankAccountType">
+                  <mat-option *ngFor="let bankAccountType of bankAccountTypes | async" [value]="bankAccountType">
+                    {{ bankAccountType.description }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="col-md-6">
+                <mat-select placeholder="Banco*" formControlName="bank" [compareWith]="compareBank">
+                  <mat-option *ngFor="let bank of banks | async" [value]="bank">
+                    {{ bank.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button type="button" class="delete-account" (click)="deleteAccount(i)" mat-button>
+                <mat-icon>clear</mat-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <button *ngIf="getAccountsControls(providerForm).length > 0" type="button" class="add-account" (click)="addAccount()" mat-button>
+            <mat-icon>add</mat-icon>
+          </button>
+          <button *ngIf="getAccountsControls(providerForm).length == 0" type="button" class="cb-button" (click)="addAccount()" mat-raised-button>
+            Adicionar informações de pagamento
+          </button>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <p class="lead">
+        Endereço
+      </p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <mat-form-field class="col-md-3">
+          <input formControlName="cep" mask="99999-999" matInput placeholder="CEP*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input formControlName="street" matInput placeholder="Logradouro*">
+          <mat-error>
+            Obrigatório, entre 3 e 50 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="number" matInput placeholder="Número">
+          <mat-error>
+            Entre 1 e 11 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="complement" matInput placeholder="Complemento">
+        </mat-form-field>
+        <mat-form-field class="col-md-2">
+          <input matInput formControlName="state" [matAutocomplete]="autocompleteState" placeholder="Estado*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteState="matAutocomplete" [displayWith]="displayState">
+          <mat-option *ngFor="let state of states | async" [value]="state">
+            {{ state.code }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-4">
+          <input matInput formControlName="city" [matAutocomplete]="autocompleteCity" placeholder="Cidade*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteCity="matAutocomplete" [displayWith]="displayCity">
+          <mat-option *ngFor="let city of cities | async" [value]="city">
+            {{ city.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-3">
+          <input formControlName="neighborhood" matInput placeholder="Bairro*">
+          <mat-error>
+            Obrigatório, entre 3 e 30 caract.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(providerForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(providerForm.value, provider.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

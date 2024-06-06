@@ -1,0 +1,8 @@
+<cb-list-data page="clientList" loadingMessage="Carregando clientes..."
+  searchPlaceholder="Qual cliente você procura?" addActionUrl="/clients/new" [listData]="listData">
+</cb-list-data>
+<div class="col-md-12 button-section">
+  <a class="cb-button" [routerLink]="['/clients/import']" mat-raised-button>
+    Importar
+  </a>
+</div>

@@ -1,0 +1,32 @@
+<div class="col-md-12">
+  <form [formGroup]="functionalityForm" novalidate autocomplete="off">
+    <mat-card-title>
+      <p class="lead">Dados da funcionalidade</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <mat-form-field class="col-md-3">
+          <input formControlName="url" matInput placeholder="URL*">
+          <mat-error>
+            Obrigatório, entre 3 e 255 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="description" matInput placeholder="Descrição*">
+          <mat-error>
+            Obrigatório, entre 3 e 255 caract.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(functionalityForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit' || typeForm === 'profile'" color="primary" (click)="edit(functionalityForm.value, functionality.id)"
+          mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

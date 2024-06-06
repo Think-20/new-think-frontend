@@ -1,0 +1,23 @@
+<div class="col-md-12">
+  <form [formGroup]="costCategoryForm" novalidate>
+    <mat-card-title>
+      <p class="lead">Dados da categoria de custo</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+          <mat-form-field class="col-md-12">
+            <input formControlName="description" matInput placeholder="Descrição">
+            <mat-error>Obrigatório, entre 3 e 50 caract.</mat-error>
+          </mat-form-field>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(costCategoryForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(costCategoryForm.value, costCategory.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

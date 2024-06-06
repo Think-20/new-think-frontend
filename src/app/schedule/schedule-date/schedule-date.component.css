@@ -1,0 +1,33 @@
+.calendar {
+  min-width: 80px;
+  min-height: 95px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar .month {
+  width: 100%;
+  align-items: center;
+  font-size: 12px;
+  flex: 3 10;
+  display: flex;
+  justify-content: center;
+}
+
+.calendar .date {
+  font-size: 12px;
+  flex: 5 10;
+}
+
+.calendar .week-day {
+  text-transform: uppercase;
+  font-size: 8px;
+  flex: 1 10;
+}
+
+.calendar .status {
+  font-size: 8px;
+  flex: 1 10;
+}

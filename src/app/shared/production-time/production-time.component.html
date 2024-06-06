@@ -1,0 +1,18 @@
+<div class="production-time-container" [class.invalid]="input.invalid">
+  <div class="label">{{label}}</div>
+  <div class="label text-right" *ngIf="rate > 0">{{this.rate}} dia(s)</div>
+  <div class="production-time-content">
+    <span (mouseenter)="mouseEnter(i)"
+    (mouseleave)="mouseLeave()"
+    (click)="defineRate(i)"
+    class="production-time"
+    [class.selected]="rate >= i"
+    [style.width]="100/max + '%'"
+    *ngFor="let i of rates">
+    </span>
+  </div>
+  <ng-content></ng-content>
+  <mat-error *ngIf="input.invalid">
+    {{ errorMessage }}
+  </mat-error>
+</div>

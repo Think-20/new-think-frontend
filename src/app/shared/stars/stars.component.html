@@ -1,0 +1,14 @@
+<div class="stars-container">
+  <div *ngIf="hasLabel" class="label mat-input-placeholder"
+  [class.label-invalid]="input.invalid && input.touched">{{label}}</div>
+  <div class="stars-content">
+    <mat-icon (mouseenter)="mouseEnter(i)"
+    (mouseleave)="mouseLeave()"
+    (click)="defineRate(i)"
+    class="star"
+    *ngFor="let i of rates" style="width: 12px; font-size: 12px;">
+    {{ rate >= i ? 'star' : 'star_border' }}
+    </mat-icon>
+  </div>
+  <ng-content></ng-content>
+</div>

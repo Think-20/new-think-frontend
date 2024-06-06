@@ -1,0 +1,39 @@
+<div class="col-md-12">
+  <form novalidate autocomplete="off">
+    <mat-card-title>
+      <p class="lead">Dados do cliente</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <div class="col-md-12 text-center">
+         <button class="cb-button attachment" mat-raised-button type="button" (click)="fileInput.click()">
+           <img src="/assets/images/icons/excel.png" alt="Excel">
+            <br>
+            <p *ngIf="fileInput.files.length == 0">Clique para escolher um arquivo</p>
+            <p *ngIf="fileInput.files.length == 1">{{fileInput.files[0].name}}</p>
+           <input #fileInput type="file" accept=".xls,.xlsx" style="display:none;" />
+         </button>
+        </div>
+      </div>
+      <mat-card-actions class="text-right">
+        <button class="cb-button" mat-raised-button type="button" (click)="uploadSheet()">
+          IMPORTAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <div *ngIf="informations.length > 0">
+      <mat-card-title>
+        <p class="lead">Informações</p>
+      </mat-card-title>
+      <mat-card>
+        <div class="upload-informations">
+          <ul>
+            <li *ngFor="let information of informations; let i = index">
+              {{(i + 1)}} {{information.message}}
+            </li>
+          </ul>
+        </div>
+      </mat-card>
+    </div>
+  </form>
+</div>

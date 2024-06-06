@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Bloqueio de data</h1>
+<div [formGroup]="blockForm" mat-dialog-content>
+  <p class="description">Informe os dados abaixo para realizar o bloqueio dessa data:</p>
+  <mat-form-field>
+    <input [matDatepicker]="availableDatepicker" formControlName="date"
+      matInput placeholder="Data de bloqueio">
+    <mat-datepicker-toggle matSuffix [for]="availableDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #availableDatepicker></mat-datepicker>
+  </mat-form-field>
+  <mat-checkbox class="cb-normal-checkbox" [(ngModel)]="checked"  [ngModelOptions]="{standalone: true}" (click)="selectAll()">Marcar todos</mat-checkbox>
+  <mat-form-field>
+    <mat-select placeholder="Funcionários" formControlName="users" [compareWith]="compareEmployee" multiple>
+      <!--<mat-option value="0">Todos</mat-option>-->
+      <mat-option *ngFor="let employee of data.employees" [value]="employee.user">
+        {{ employee.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button class="cb-button" (click)="save(blockForm.value)">SALVAR</button>
+  <button mat-button class="cb-button" (click)="onNoClick()">FECHAR</button>
+</div>

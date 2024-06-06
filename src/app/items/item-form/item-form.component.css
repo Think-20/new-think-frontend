@@ -1,0 +1,49 @@
+.image-container {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.image-container img {
+    max-width: 150px;
+    max-height: 150px;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.button-image-add {
+    color: #BBB;
+}
+
+.pricing-item {
+    position: relative;
+    flex-wrap: wrap;
+ }
+
+ .add-pricing, .save-pricing, .edit-pricing, .delete-pricing {
+    z-index: 10;
+    min-width: 10px !important;
+    padding: 0px !important;
+    color: #BBB;
+ }
+ 
+ .add-pricing {
+    position: relative;
+    margin-top: -20px;
+    top: -16px;
+    left: 0px;
+ }
+
+ .save-pricing, .edit-pricing {
+    position: absolute;
+    right: 32px;
+    top: 3px;
+    z-index: 10;
+ }
+
+.delete-pricing {
+    position: absolute;
+    right: 4px;
+    top: 3px;
+    z-index: 10;
+}

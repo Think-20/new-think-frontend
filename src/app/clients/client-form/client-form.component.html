@@ -1,0 +1,197 @@
+<div class="col-md-12">
+  <form [formGroup]="clientForm" novalidate autocomplete="off">
+    <mat-card-title *ngIf="withHeader">
+      <p class="lead">Dados do cliente</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <mat-form-field class="col-md-3">
+          <input ucWords formControlName="fantasy_name" matInput placeholder="Nome*">
+          <mat-error>
+            Obrigatório, entre 3 e 50 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="name" matInput placeholder="Razão social*">
+          <mat-error>
+            Obrigatório, entre 3 e 100 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="site" matInput placeholder="Site">
+          <mat-error>
+            7 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select placeholder="Tipo*" formControlName="client_type" [compareWith]="compareClientType">
+            <mat-option *ngFor="let type of clientTypes" [value]="type">
+              {{ type.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select placeholder="Comissão*" formControlName="comission" [compareWith]="compareComission">
+            <mat-option *ngFor="let comission of comissions" [value]="comission">
+              {{ comission.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select placeholder="Status*" formControlName="client_status" [compareWith]="compareClientStatus">
+            <mat-option *ngFor="let status of clientStatus" [value]="status">
+              {{ status.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select placeholder="Atendimento*" formControlName="employee" [compareWith]="compareEmployee">
+            <mat-option *ngFor="let employee of employees" [value]="employee">
+              {{ employee.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <cb-stars class="col-md-3 star-input" label="Score" [rate]="client != undefined ? (client.rate + 1) : 0" [input]="clientForm.controls.rate">
+          <input formControlName="rate" matInput>
+        </cb-stars>
+        <mat-form-field class="col-md-3">
+          <input formControlName="cnpj" mask="99.999.999/9999-99" matInput placeholder="CNPJ*">
+          <div class="cb-checkbox-inside-control">
+            <mat-checkbox formControlName="external_toggle" [value]="1">Estrangeiro</mat-checkbox>
+            <input type="hidden" formControlName="external">
+          </div>
+          <mat-error>
+            Obrigatório, digite um CNPJ válido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="ie" matInput placeholder="Inscrição estadual">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="mainphone" mask="(99) 9999-9999?9" matInput placeholder="Telefone principal*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="secundaryphone" mask="(99) 9999-9999?9" matInput placeholder="Telefone secundário">
+        </mat-form-field>
+        <div class="form-array" formArrayName="contacts">
+          <div *ngFor="let control of getContactsControls(clientForm); let i = index">
+            <form [formGroup]="getContactsControls(clientForm)[i]" novalidate autocomplete="off" class="flex contact-item">
+              <mat-form-field class="col-md-3">
+                <input formControlName="id" type="hidden">
+                <input formControlName="name" matInput placeholder="Contato*">
+                <mat-error>
+                  Obrigatório, mínimo 3 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="email" matInput placeholder="E-mail*">
+                <mat-error>
+                  Obrigatório, tipo e-mail. Máx 80
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="department" matInput placeholder="Departamento*">
+                <mat-error>
+                  Obrigatório, mínimo 3 caract.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="col-md-3">
+                <input formControlName="cellphone" mask="(99) 9999-9999?9" matInput placeholder="Celular">
+                <mat-error>
+                  Tipo telefone
+                </mat-error>
+              </mat-form-field>
+              <button *ngIf="i > 0" type="button" class="delete-contact" (click)="deleteContact(i)" mat-button>
+                <mat-icon>clear</mat-icon>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <button type="button" class="add-contact" (click)="addContact()" mat-button>
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <mat-form-field class="col-md-12">
+          <textarea formControlName="note" matInput placeholder="Observação: Indicação, já nos conhecia, como chegou até nós..."></textarea>
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <p class="lead">
+        Endereço
+      </p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+            <small>Para cadastro de cliente estrangeiro, utilizar os códigos de estado "EX" e cidade
+              "Exterior".
+            </small>
+        </p>
+        </div>
+        <mat-form-field class="col-md-3">
+          <input formControlName="cep" mask="99999-999" matInput placeholder="CEP*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input formControlName="street" matInput placeholder="Logradouro*">
+          <mat-error>
+            Obrigatório, entre 3 e 50 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="number" matInput placeholder="Número">
+          <mat-error>
+            Entre 1 e 11 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="complement" matInput placeholder="Complemento">
+        </mat-form-field>
+        <mat-form-field class="col-md-2">
+          <input matInput formControlName="state" [matAutocomplete]="autocompleteState" placeholder="Estado*" autocomplete="off">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteState="matAutocomplete" [displayWith]="displayState">
+          <mat-option *ngFor="let state of states | async" [value]="state">
+            {{ state.code }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-4">
+          <input matInput formControlName="city" [matAutocomplete]="autocompleteCity" placeholder="Cidade*" autocomplete="off">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteCity="matAutocomplete" [displayWith]="displayCity">
+          <mat-option *ngFor="let city of cities | async" [value]="city">
+            {{ city.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-3">
+          <input formControlName="neighborhood" matInput placeholder="Bairro*">
+          <mat-error>
+            Obrigatório, entre 3 e 30 caract.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(clientForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(clientForm.value, client.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

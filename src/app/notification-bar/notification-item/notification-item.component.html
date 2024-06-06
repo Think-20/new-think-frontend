@@ -1,0 +1,16 @@
+<mat-card
+  [class.new]="printNew && userNotification.read == 0"
+  class="notification-item-content">
+  <button class="button-fixed" mat-button (click)="goTo(userNotification?.notification)">
+    <mat-icon>add</mat-icon>
+  </button>
+  <mat-card-header>
+    <div mat-card-avatar class="mat-card-photo" [ngStyle]="{ 'background-image' : userNotification?.notification?.notifier?.image }"></div>
+    <mat-card-title>{{userNotification?.notification?.notifier?.name}}</mat-card-title>
+    <mat-card-subtitle>{{userNotification?.notification?.date | date:'dd/MM/yyyy H:mm'}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p *ngIf="userNotification?.special == 0">{{userNotification?.notification?.message}}</p>
+    <p *ngIf="userNotification?.special == 1">{{userNotification?.special_message}}</p>
+  </mat-card-content>
+</mat-card>

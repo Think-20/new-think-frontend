@@ -1,0 +1,192 @@
+<div class="my-container">
+  <h3 class="lead">Cronograma</h3>
+</div>
+<div class="col-md-12">
+  <mat-card-title>
+    <div class="row search-bar-group">
+      <div class="title">
+        Vamos checar a disponibilidade?
+      </div>
+      <div class="buttons">
+        <a mat-button>
+          <mat-icon>search</mat-icon>
+        </a>
+        <a mat-button (click)="filter = filter ? false : true">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </a>
+        <a [routerLink]="['/jobs/new']" mat-button>
+          <mat-icon>add</mat-icon>
+        </a>
+      </div>
+    </div>
+  </mat-card-title>
+  <mat-card>
+    <form [formGroup]="scheduleForm">
+      <div class="row">
+        <input formControlName="task" type="hidden">
+        <input formControlName="id" type="hidden">
+        <input *ngIf="!isAdmin" formControlName="admin" type="hidden">
+        <mat-slide-toggle *ngIf="isAdmin" formControlName="admin" class="col-md-12 slider text-right"
+          [checked]="adminMode">
+          Forçar privilégios administrativos
+        </mat-slide-toggle>
+        <cb-production-time *ngIf="showExtraParams" class="col-md-9 production-time-input" label="Tempo estimado"
+          [rate]="1" [input]="scheduleForm.controls.duration" [errorMessage]="durationErrorMessage" [min]="0"
+          [max]="10">
+          <input formControlName="duration" type="hidden">
+        </cb-production-time>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="budget_value" matInput placeholder="Verba estimada*">
+          <mat-error>
+            {{ budgetErrorMessage }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select #jobActivity placeholder="Atividade*" formControlName="job_activity"
+            [compareWith]="compareJobActivity" (selectionChange)="getAvailableDates()">
+            <mat-option *ngFor="let job_activity of job_activities" [value]="job_activity"
+              [disabled]="job_activity.master == 1 && ! isAdmin">
+              {{ job_activity.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="showExtraParams" class="col-md-3">
+          <input readonly [matDatepicker]="availableDatepicker" formControlName="available_date" [min]="minDate"
+            matInput placeholder="Data disponível para início*" (dateChange)="getAvailableDates()">
+          <mat-datepicker-toggle matSuffix [for]="availableDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #availableDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [min]="scheduleForm.controls.available_date.value" [matDatepicker]="deadlineDatepicker"
+            formControlName="deadline" matInput placeholder="Deadline*">
+          <mat-datepicker-toggle matSuffix [for]="deadlineDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #deadlineDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <mat-select
+            [matTooltip]="scheduleForm.controls.responsible.disabled ? 'O responsável será selecionado automaticamente após seleção do job.' : ''"
+            placeholder="Responsável*" formControlName="responsible" [compareWith]="compareResponsible"
+            (selectionChange)="filterItemsByResponsible()">
+            <mat-option *ngFor="let responsible of responsibles" [value]="responsible"
+              [disabled]="scheduleForm.controls.job_activity.value.description != 'Modificação' && ! isAdmin && responsible.name == 'Miguel Rodrigues'">
+              {{ responsible.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <p *ngIf="itemsByResponsible.length > 0 && !checkValidDuration()" class="text-center">
+        <small>
+          {{ sumDuration() }} de {{ scheduleForm.controls.duration.value }} data(s) selecionada(s)
+        </small>
+        <br>
+      </p>
+      <mat-button-toggle-group *ngIf="scheduleForm.controls.responsible.value !== ''" class="items-container"
+        #group="matButtonToggleGroup" multiple>
+        <mat-button-toggle class="item-container" *ngFor="let item of itemsByResponsible; let i = index"
+          [checked]="item?.selected == true" [matTooltip]="item.message"
+          [disabled]="(item.status == 'false' || checkValidDuration() || hasSelectedItem(item)) && !adminMode"
+          [value]="item.date" aria-label="Selecionar data" (click)="toggleDate(item, i)">
+          <cb-schedule-date [item]="item"></cb-schedule-date>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <div *ngIf="scheduleForm.controls.job_activity?.value?.initial === 0 && typeForm !== 'edit'">
+        <div class="job-container">
+          <p class="lead">Selecionar a atividade anterior</p>
+          <div *ngIf="filter" [formGroup]="searchForm" class="row">
+            <mat-form-field class="col-md-2-4">
+              <input matInput formControlName="client" [matAutocomplete]="autocompleteclient" placeholder="Cliente">
+            </mat-form-field>
+            <mat-autocomplete #autocompleteclient="matAutocomplete">
+              <mat-option *ngFor="let client of clients" [value]="client.fantasy_name">
+                {{ client.fantasy_name }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-form-field class="col-md-2-4">
+              <mat-select placeholder="Atendimento" formControlName="attendance" [compareWith]="compareAttendance">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let attendance of attendances" [value]="attendance">
+                  {{ attendance.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <mat-select placeholder="Projetista" formControlName="creation" [compareWith]="compareAttendance">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let creation of creations" [value]="creation">
+                  {{ creation.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <mat-select placeholder="Tipo" formControlName="job_type" [compareWith]="compareJobType">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let job_type of job_types" [value]="job_type">
+                  {{ job_type.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <mat-select placeholder="Status" formControlName="status" [compareWith]="compareStatus">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let s of job_status" [value]="s">
+                  {{ s.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <table class="table mat-table">
+            <div class="mat-header-row">
+              <div class="mat-header-cell mat-column-id text-left">ID</div>
+              <div class="mat-header-cell mat-column-client">Job</div>
+              <div class="mat-header-cell mat-column-event">Evento</div>
+              <div class="mat-header-cell mat-column-activity">Atividade</div>
+              <div class="mat-header-cell mat-column-type">Tipo</div>
+              <div class="mat-header-cell mat-column-attendance">Atendimento</div>
+              <div class="mat-header-cell mat-column-creation">Criação</div>
+              <div class="mat-header-cell mat-column-date">Data</div>
+              <div class="mat-header-cell mat-column-status">Status</div>
+            </div>
+            <div class="mat-row-scroll">
+              <div class="mat-row" [class.selected]="task == scheduleForm.controls.task.value"
+                *ngFor="let task of loadedItems" (click)="setTask(task)">
+                <div class="mat-cell mat-column-id text-left">
+                  {{ jobService.showId(task.job) }}
+                </div>
+                <div class="mat-cell mat-column-client">
+                  {{ jobService.displayNameJob(task.job) }}
+                </div>
+                <div class="mat-cell mat-column-event">
+                  {{ task.job.event }}
+                </div>
+                <div class="mat-cell mat-column-activity">
+                  {{ taskService.jobDisplay(task) }}
+                </div>
+                <div class="mat-cell mat-column-type">
+                  {{ task.job.job_type.description }}
+                </div>
+                <div class="mat-cell mat-column-attendance">
+                  {{ task.job.attendance.name }}
+                </div>
+                <div class="mat-cell mat-column-creation">
+                  {{ task.job_activity?.description === 'Projeto externo' ? 'Externa' : task.responsible?.name }}
+                </div>
+                <div class="mat-cell mat-column-date">
+                  {{ task.job.created_at | date:'dd/MM/yy' }}
+                </div>
+                <div class="mat-cell mat-column-status">
+                  {{ task.job.status.description }}
+                </div>
+              </div>
+            </div>
+          </table>
+        </div>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button type="button" [disabled]="!buttonEnable" *ngIf="typeForm != 'edit'" mat-button class="cb-button"
+          (click)="go()">{{ buttonText }}</button>
+        <button type="button" [disabled]="!buttonEnable" *ngIf="typeForm == 'edit'" mat-button class="cb-button"
+          (click)="edit()">EDITAR</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

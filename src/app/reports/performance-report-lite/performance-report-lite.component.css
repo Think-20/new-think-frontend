@@ -1,0 +1,95 @@
+.data {
+  margin-top: 20px;
+}
+
+.mat-header-row {
+  align-items: flex-start !important;
+  border-bottom: 0 !important;
+}
+
+.report .cb-items, .report .cb-title {
+  color: #999;
+}
+
+.report .cb-items .content {
+  position: relative;
+}
+
+.report .cb-items .content .value {
+  font-size: 18px;
+  position: relative;
+}
+
+.value.strong {
+  color: #333;
+}
+
+.report .cb-items .content .percent {
+  font-size: 10px;
+  padding-right: 3px;
+}
+
+.report .cb-items .content .percent.positive {
+  color: rgba(0, 170, 0, 0.4);
+}
+
+.report .cb-items .content .percent.negative {
+  color: rgba(170, 0, 0, 0.4);
+}
+
+.report .cb-title {
+  align-content: flex-start;
+  width: 20%;
+}
+
+.report .cb-items {
+  width: 20%;
+  font-size: 9px;
+  text-align: right;
+  padding-right: 5px;
+  border-right: 1px solid #ddd;
+}
+
+.report .content {
+  display: flex;
+}
+
+.report .split {
+  position: relative;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.report .full {
+  width: 100%;
+}
+
+.report .cb-items:first-child {
+  padding-left: 0;
+}
+
+.report .cb-items:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.report .cb-items.opportunity {
+  width: 10%;
+}
+
+.report .cb-items .title, .report .cb-items .content {
+  max-width: 187px;
+  margin: auto;
+}
+
+.report .cb-items.opportunity-quantity .title, .report .cb-items.opportunity-quantity .content {
+  max-width: 75px;
+}
+
+.report .cb-items.opportunity-value .title, .report .cb-items.opportunity-value .content {
+  max-width: 100px;
+}
+
+

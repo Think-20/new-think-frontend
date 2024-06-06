@@ -1,0 +1,40 @@
+.production-time {
+    cursor: pointer;
+    color: #CCC;
+    width: 40px;
+    height: 10px;
+    display: inline-block;
+    background-color: white;
+    border: 1px solid #CCC;
+}
+
+.selected {
+    border: 1px solid white;
+    background-color: #CCC;
+}
+
+.invalid .label {
+  color: #f44336 !important;
+}
+
+.production-time-container {
+    padding-top: 20px;
+}
+
+.production-time-container .label {
+    width: calc(100% - 30px) !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+    font-size: 10px;
+    color: rgba(0,0,0,.54);
+    position: absolute;
+    top: 5px;
+}
+
+.production-time-container .label-right {
+    text-align: right;
+}
+
+.production-time-content {
+  margin-top: 8px;
+  margin-bottom: 3px;
+}

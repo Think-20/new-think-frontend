@@ -1,0 +1,26 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let task of sortedTasks; let i = index" [expanded]="i == expandedIndex">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <p class="lead d-flex align-items-baseline">
+          <span>{{ taskService.especificationDisplay(task.task) }}</span>
+          <span *ngIf="task?.specification_files?.length > 0"
+            class="lead subtitle ml-2">{{ task?.specification_files[task.specification_files.length - 1]?.responsible?.name + ' | ' + (task.specification_files[task.specification_files.length - 1].updated_at | date: 'dd/MM/yyyy HH:mm') }}</span>
+        </p>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row container-files">
+      <cb-file-upload class="col-md-6" [class.col-md-12]="task?.specification_files?.length == 0"
+        [properties]="{ task : task }" [files]="task.specification_files"
+        [fileServiceInterface]="specificationFileService" [typeForm]="typeForm" (uploadEmitter)="uploadDone(task)"
+        [readOnly]="task.budget != null"
+        [readOnlyMessage]="'Após orçamento preenchido, não é possível alterar os arquivos'" [max]="1">
+      </cb-file-upload>
+      <div *ngIf="task?.specification_files?.length > 0" class="col-md-6 text-right">
+        <button mat-button class="cb-button button-navigate" type="button" (click)="navigateToBudget(task)">
+          IR PARA AGENDA DO ORÇAMENTO
+        </button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

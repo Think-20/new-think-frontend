@@ -1,0 +1,29 @@
+.star {
+    cursor: pointer;
+    color: #CCC;
+    font-size: 21px;
+}
+
+.stars-container .label {
+    -webkit-transform: translateY(-0.58125em) scale(.75) perspective(100px) translateZ(.001px) !important;
+    transform: translateY(-0.58125em) scale(.75) perspective(100px) translateZ(.001px) !important;
+    -ms-transform: translateY(-0.58125em) scale(.75) !important;
+    width: 133.33333% !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+    font-size: 13.5px;
+    color: rgba(0,0,0,.54);
+    position: absolute;
+    margin-left: -30px;
+}
+
+.stars-container .label-invalid {
+  color: #f44336;
+}
+
+.stars-container {
+  height: 24px;
+}
+
+.stars-content {
+  text-align: center;
+}

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  front:
+    image: node:10
+    volumes:
+    - ./:/var/www/angular
+    working_dir: /var/www/angular
+    command: bash -c "npm install ; npm start"
+    ports:
+      - 4200:4200

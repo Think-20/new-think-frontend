@@ -1,0 +1,32 @@
+<div #container class="container-memorial">
+  <div [style.zoom]="(containerWidth / 840) - 0.02" class="memorial memorial-cabecalho">&nbsp;</div>
+  <div [style.zoom]="(containerWidth / 840) - 0.02" class="memorial memorial-corpo">
+    <form [formGroup]="proposalForm">
+      <p class="p1">São Paulo, {{ now | date: 'd' }} de {{ now | date: 'MMMM' | titlecase }} de {{ now | date: 'y' }}.</p>
+      <br>
+      <br>
+      <p>
+        <span class="pbold p2">À {{ (job?.not_client ? job?.agency?.name : job?.client?.name) }}</span>
+      </p>
+      <p class="p2">Att. Sr(a). {{ (job?.not_client) ? job?.agency?.contacts[0]?.name : job?.client?.contacts[0]?.name }}
+      </p>
+      <br>
+      <br>
+      <p class="text-center pcx">
+        <span class="pbold p3">PROPOSTA E MEMORIAL DESCRITIVO DE PROJETO, MONTAGEM E DESMONTAGEM DE STAND</span>
+      </p>
+      <br>
+      <div class="p4">
+        <p>Stand: {{ job.not_client == null ? job.client.fantasy_name : job.not_client }}</p>
+        <p>Área: -</p>
+        <p>Evento: {{ job.event }}</p>
+        <p>Local: -</p>
+        <p>Cidade: -</p>
+        <p>Data: -</p>
+        <p>Job: {{ showId(job) }}</p>
+      </div>
+      <cb-item-proposal-form [categories]="categories"></cb-item-proposal-form>
+    </form>
+  </div>
+  <div [style.zoom]="(containerWidth / 840) - 0.02" class="memorial memorial-rodape">&nbsp;</div>
+</div>

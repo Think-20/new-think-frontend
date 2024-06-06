@@ -1,0 +1,93 @@
+.item {
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.cb-progress {
+  margin-bottom: 10px;
+}
+
+.add-file, .delete-file, .download-file, .aux-button {
+  z-index: 10;
+  min-width: 10px !important;
+  margin-top: 10px;
+  padding: 0px !important;
+  color: rgba(255,255,255,0.5);
+}
+
+.aux-button {
+  min-width: 40px !important;
+  color: rgba(0,0,0,0.2);
+}
+
+.add-file {
+  position: relative;
+  margin-top: -20px;
+  left: 0px;
+}
+
+.delete-file, .download-file {
+position: absolute;
+z-index: 10;
+right: -0px;
+}
+
+.download-file {
+  right: 22px;
+}
+
+.project-image {
+  background: url('/assets/images/sem-foto.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  height: 95px;
+  margin: 10px 0 !important;
+  border: 1px solid #ddd;
+}
+
+.project-image-container {
+  min-width: 145px;
+}
+
+.project-image-container, .project-image {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.project-image::after {
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: calc(100%);
+  height: calc(100%);
+  content: '';
+  background-color: rgba(0,0,0,0.7);
+  transition: all 0.4s linear;
+}
+
+.project-image-container:hover .project-image::after {
+  opacity: 1;
+}
+
+.pdf {
+  background-size: 32px 32px !important;
+
+}
+
+.container-bar-add {
+  align-content: center;
+}
+
+.content-bar {
+  flex: 8;
+  padding-right: 10px;
+}
+
+.content-add {
+  flex: 2;
+  padding-right: 15px;
+}

@@ -1,0 +1,121 @@
+cb-item-proposal-form {
+  display: block;
+}
+
+.title {
+  color: #333;
+  letter-spacing: -1px;
+  font-weight: 500;
+}
+
+.group {
+  margin-top: 30px;
+}
+
+/* Espaços conforme o nível aumenta
+.group .group {
+  margin-left: 10px;
+}
+*/
+
+.items {
+  padding-left: 5px;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+  height: 0;
+}
+
+.child > .group {
+  border: none;
+  margin-bottom: 0px;
+}
+
+p, td {
+  color: #333;
+  font-size: 14px;
+  margin: 0px 5px;
+}
+
+.space-down {
+  margin-bottom: 50px;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+table, td {
+  font-size: 13px;
+  border-collapse: collapse;
+  border: 1px solid #e7e7e7;
+}
+
+td {
+  padding: 5px;
+}
+
+.line-title {
+  background-color: #edefee;
+  cursor: pointer;
+}
+
+.line-title .nivel, .line-title .title {
+  color: #333;
+  letter-spacing: -1px;
+  font-weight: 500;
+  padding: 5px;
+  text-align: left;
+}
+
+.group .group .title, .group .group .nivel {
+  font-weight: lighter;
+}
+
+.tb-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.title {
+  width: 70%;
+  text-transform: uppercase;
+}
+
+.nivel {
+  width: 5%;
+  text-align: center;
+  padding: 0px;
+  padding-right: 5px;
+}
+
+.qtd {
+  width: 12%;
+}
+
+.un {
+  width: 11%;
+}
+
+.description {
+  width: 47%;
+  padding-left: 15px;
+}
+
+.line-title .description {
+  padding-left: 5px;
+  text-transform: uppercase;
+}
+
+.subtitle-table {
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+.child .child .subtitle-table {
+  margin: 0px;
+}

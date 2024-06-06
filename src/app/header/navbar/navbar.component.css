@@ -1,0 +1,42 @@
+mat-toolbar {
+  display: flex;
+}
+
+.menuNotifications {
+  max-height: 90%;
+}
+
+.menuItemNotification {
+  padding: 0 !important;
+  height: auto !important;
+}
+
+.cbNotificationItem {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.cbNotificationItem:last-child {
+  border-bottom: none !important;
+}
+
+.mat-toolbar {
+  background-color: #e5e6e8 !important;
+  color: white !important;
+  padding-left: 0 !important;
+}
+
+.my-button {
+  min-width: 40px;
+}
+
+#logoNavBar {
+  width: 120px;
+  margin-left: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  #logoNavBar {
+    display: none;
+  }
+}

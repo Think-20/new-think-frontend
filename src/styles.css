@@ -1,0 +1,901 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+  outline: none !important;
+}
+
+body {
+    background-color: rgba(231,230,239,0.25);
+    line-height: unset;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, dd, dt, p, div, span, table {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.lead {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: lighter;
+}
+
+html, body, cb-login {
+    height: 100%;
+}
+
+.cb-hidden {
+  display: none !important;
+}
+
+.cb-invisible {
+  visibility: hidden;
+  margin-top: -9999px;
+  height: 0;
+  position: absolute !important;
+}
+
+.cb-button {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid #dcdcdc !important;
+    color: #AAA !important;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+    font-weight: normal !important;
+    border-radius: 0 !important;
+}
+
+.cb-button[disabled] {
+    background-color: #EEE !important;
+}
+
+.cb-button:focus {
+    outline: none;
+}
+
+.button-grid-inline {
+  display: inline-block;
+  text-align: right;
+}
+
+.my-container {
+    width: 100%;
+    padding: 15px;
+    min-height: 64px;
+}
+
+#container-box .row .col-md-8 .my-container {
+  margin-bottom: 16px;
+}
+
+#container-box .row .col-md-4 .my-container {
+  margin-bottom: 16px;
+}
+
+.form-array {
+  width: 100%;
+}
+
+.mat-row-scroll {
+  margin-top: 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 500px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.center {
+  align-items: center;
+}
+
+.flex-spacer {
+    flex-grow: 5;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+button {
+    outline: 0;
+}
+
+.department-container {
+  position: relative;
+  line-height: 42px;
+  padding-right: 47px !important;
+  font-size: 15px !important;
+}
+
+.department-3 {
+  background-color: #ed008f;
+}
+
+.department-5 {
+  background-color: #00aff2;
+}
+
+.department-7 {
+  background-color: #a4ce3a;
+}
+
+.department-2 {
+  background-color: #f44336;
+}
+
+.department-1 {
+  background-color: #e5e6e8;
+}
+
+.department-4 {
+  background-color: #ffca00;
+}
+
+.department-6 {
+  background-color: #c377e0;
+}
+
+.department-3-transparent {
+  background-color: #ed008e15;
+}
+
+.department-5-transparent {
+  background-color: #00aff215;
+}
+
+.department-7-transparent {
+  background-color: #a4ce3a15;
+}
+
+.department-2-transparent {
+  background-color: #f4433615;
+}
+
+.department-1-transparent {
+  background-color: #e5e6e815;
+}
+
+.department-4-transparent {
+  background-color: #ffca0015;
+}
+
+.department-6-transparent {
+  background-color: #c377e015;
+}
+
+.department-3-border {
+  border-left: 4px solid #ed008e;
+}
+
+.department-5-border {
+  border-left: 4px solid #00aff2;
+}
+
+.department-7-border {
+  border-left: 4px solid #a4ce3a;
+}
+
+.department-1-border {
+  border-left: 4px solid #e5e6e8;
+}
+
+.department-4-border {
+  border-left: 4px solid #ffca00;
+}
+
+.department-6-border {
+  border-left: 4px solid #c377e0;
+}
+
+.department {
+  position: absolute;
+  top: 2px;
+  right: 15px;
+  display: table;
+  width: 20px;
+  height: 20px;
+  content: ' ';
+}
+
+.mat-dialog-container::-webkit-scrollbar {
+  border-radius: 9px;
+  width: 8px;
+}
+
+.mat-dialog-container::-webkit-scrollbar-thumb {
+  border-radius: 9px;
+  background-color: rgba(231,230,239,0.25);
+}
+
+#container-box > .row > .col-md-8::-webkit-scrollbar,
+#container-box > .row > .col-md-4::-webkit-scrollbar,
+.cb-scroll::-webkit-scrollbar,
+.menuNotifications::-webkit-scrollbar,
+#menu-container::-webkit-scrollbar, .mat-select-panel::-webkit-scrollbar,
+.mat-autocomplete-panel::-webkit-scrollbar,
+.mat-row-scroll::-webkit-scrollbar {
+    border-radius: 9px;
+    width: 8px;
+}
+
+#container-box > .row > .col-md-8::-webkit-scrollbar-thumb,
+.cb-scroll::-webkit-scrollbar-thumb,
+.menuNotifications::-webkit-scrollbar-thumb,
+#container-box > .row > .col-md-4::-webkit-scrollbar-thumb,
+#menu-container::-webkit-scrollbar-thumb,
+.mat-row-scroll::-webkit-scrollbar-thumb {
+    border-radius: 9px;
+    background-color: rgb(229, 230, 232);
+}
+
+.mat-select-panel::-webkit-scrollbar-thumb,
+.mat-autocomplete-panel::-webkit-scrollbar-thumb {
+  border-radius: 9px;
+  background-color: rgb(229, 230, 232);
+}
+
+.mat-card-actions {
+  padding-bottom: 0 !important;
+}
+
+h1, h2, h3, h4 {
+  padding-top: 20px;
+}
+
+.my-container > h1, .my-container > h2, .my-container > h3, .my-container > h4 {
+  padding-top: 0;
+  margin-top: 7px;
+}
+
+.mat-card-actions {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.mat-card {
+  box-shadow: none !important;
+}
+
+.inside-mat-card .mat-card {
+  padding: 5px 0px !important;
+}
+
+.mat-form-field-flex, .mat-select-placeholder, .mat-select-value-text, .mat-radio-label-content {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+}
+
+.mat-select {
+  padding-bottom: 1.29688em;
+}
+
+.mat-card, .mat-button, .mat-icon-button, .mat-raised-button {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mat-menu-item {
+  text-decoration: none !important;
+  font-size: 14px;
+}
+
+.mat-menu-item[disabled]:hover {
+  color: rgba(0,0,0,.38) !important;
+}
+
+.mat-raised-button:hover {
+  text-decoration: none !important;
+}
+
+.mat-menu-item .mat-icon {
+  font-size: 20px !important;
+}
+
+.mat-menu-item:hover {
+  color: rgba(0,0,0,.87);
+}
+
+mat-card-title {
+    /*
+    background-color: #fbfbfb;
+    */
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    margin-bottom: 0px !important;
+    padding: 15px 15px 15px 15px;
+    font-weight: 400 !important;
+    /*
+    box-shadow: 0px 0px 0px rgba(0,0,0,.1),
+        -1px 1px 2px rgba(0,0,0,.1),
+        1px 0px 2px rgba(0,0,0,.1);
+    */
+    border-bottom: 1px solid #eee;
+}
+
+.mat-card-subtitle:not(:first-child), .mat-card-title:not(:first-child) {
+  margin-top: 0 !important;
+}
+
+mat-card-title > p {
+  font-size: 16px !important;
+  font-weight: 300 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mat-row, .mat-header-row {
+  display: flex;
+  align-items: center;
+  height: auto !important;
+  border-bottom: 1px solid #ddd;
+}
+
+.mat-cell, .mat-header-cell {
+    padding: 0px 10px;
+}
+
+.mat-table {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+.mat-header-cell {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+}
+
+cb-timecard .mat-table {
+  min-width: 500px;
+}
+
+cb-timecard .mat-card {
+  overflow-x: auto;
+}
+
+.mat-row::after, .mat-header-row::after {
+    display: table;
+    content: '';
+    clear: both;
+}
+
+.button-section {
+  margin: 10px 0px;
+}
+
+.upload-informations {
+  color: #555;
+}
+
+#searchForm .mat-row, #searchForm .mat-header-row {
+  border-bottom: 0px;
+}
+
+#searchForm .mat-card {
+  padding: 0px;
+}
+
+#searchForm .mat-table {
+  margin: 0px;
+}
+
+#searchForm .report .mat-header-cell {
+  font-size: 10px;
+  padding-bottom: 0px;
+}
+
+#searchForm .report .mat-cell {
+  padding-top: 0px;
+  font-size: 300;
+  font-size: 20px;
+  color: rgba(0,0,0,.5);
+}
+
+.records-not-found {
+  padding: 10px;
+  color: rgba(0,0,0,.5);
+  text-align: center;
+}
+
+.search-bar-group {
+  align-items: center;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.search-bar-group .mat-form-field-infix {
+  border-top: 3px solid transparent;
+}
+
+.search-bar-group .title {
+  padding-left: 15px;
+  flex: 1 5;
+}
+
+.search-bar-group .bar {
+  flex: 4 5;
+  height: 36px;
+  padding-right: 10px;
+}
+
+.search-bar-group .buttons {
+  padding-right: 10px;
+}
+
+.filter-button-active .mat-icon {
+  color: #00afef !important;
+}
+
+.search-bar-group .mat-form-field-element {
+  text-align: right;
+  color: #AAA;
+}
+
+.search-bar-group a {
+  color: #BBB !important;
+  min-width: 24px;
+  padding: 0px 5px;
+}
+
+.search-bar-group a:hover {
+  color: #BBB !important;
+}
+
+.search-bar-group .mat-form-field-underline {
+  display: none;
+}
+
+.mat-select-underline {
+  height: 1px !important;
+}
+
+.search-bar-group .mat-focused .mat-form-field-label.mat-float,
+.search-bar-group .mat-form-field-label.mat-float:not(.mat-empty) {
+  opacity: 0 !important;
+  margin-top: -3px;
+  height: auto;
+  padding: 2px 0;
+}
+
+.search-bar-group .mat-form-field-label.mat-empty {
+  opacity: 1 !important;
+  text-align: right;
+  margin-top: -3px;
+  height: auto;
+  padding: 2px 0;
+}
+
+.filter-grid {
+  padding: 15px 0px 15px 0px !important;
+  border-bottom: 1px solid #eee;
+}
+
+#login-content .mat-form-field {
+  height: 43px;
+}
+
+.mat-checkbox-checked .mat-checkbox-background {
+  background-color: #00afef !important;
+}
+
+.mat-checkbox .mat-checkbox-ripple .mat-ripple-element {
+  background-color: #00afef2f !important;
+}
+
+.mat-form-field-underline.mat-form-field-underline,
+.mat-select:not(.mat-select-disabled).mat-primary .mat-select-underline {
+   background-color: rgba(0,0,0,.15);
+}
+
+.mat-select-arrow {
+   color: rgba(0,0,0,.18);
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-ripple,
+.mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-underline {
+   background-color: #00afef !important;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #00afef !important;
+}
+
+.mat-badge-warn .mat-badge-content {
+  background-color: #00afef !important;
+}
+
+.mat-tab-label {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+  text-transform: uppercase;
+  font-size: 11px;
+  min-width: 120px !important;
+  padding: 0px 10px !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+.mat-focused .mat-form-field-label .mat-select-placeholder, .mat-datepicker-toggle-active,
+.mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-trigger,
+.mat-form-field.mat-focused:not(.ng-invalid) .mat-form-field-label,
+.mat-form-field.mat-focused.mat-primary:not(.mat-select-disabled):not(.ng-invalid) .mat-select-arrow,
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled)
+
+
+
+.mat-form-field.mat-focused.mat-primary:not(.mat-select-disabled):not(.ng-invalid),
+
+*/
+.mat-datepicker-toggle .mat-icon-button {
+  outline: none !important;
+}
+
+.mat-datepicker-toggle-active,
+.mat-form-field.mat-focused:not(.ng-invalid) .mat-form-field-label,
+.mat-form-field.mat-focused.ng-untouched .mat-form-field-label,
+.mat-form-field.mat-focused:not(.ng-invalid) .mat-select-arrow,
+.mat-form-field.mat-focused.ng-untouched .mat-select-arrow,
+.mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #00afef !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #00afef !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: rgba(0,175,239,.26);
+}
+
+.mat-select-panel .mat-option-multiple {
+  color: rgba(0,0,0,.38) !important;
+}
+
+.mat-select-panel .mat-option-multiple .mat-pseudo-checkbox {
+  color: rgba(0,0,0,.28);
+  background-color: white;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-calendar-body-selected {
+  background-color: #00afef !important;
+}
+
+.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
+  background-color: #00afef !important;
+}
+
+/*
+.mat-select-panel .mat-option-multiple.mat-selected {
+  color: black !important;
+}
+
+.mat-select-panel .mat-option-multiple.mat-selected .mat-pseudo-checkbox-checked {
+  color: black !important;
+  background-color: black !important;
+}
+*/
+
+#login-content .mat-focused .mat-form-field-label.mat-float, #login-content .mat-form-field-label.mat-float:not(.mat-empty) {
+  opacity: 0 !important;
+}
+
+.mat-form-field-label.mat-empty {
+  opacity: 1 !important;
+}
+
+.mat-form-field-invalid .mat-form-field-label {
+  color: #f44336;
+}
+
+#dataTableShow dl {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+#dataTableShow dd, dt {
+    flex: 1 50%;
+    padding: 8px 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0;
+}
+
+#dataTableShow dd {
+    flex: 1 75%;
+    text-align: left;
+}
+
+#dataTableShow dt {
+    flex: 1 25%;
+    text-align: left;
+    background-color: #fbfbfb;
+    font-weight: 300;
+}
+
+#dataTableShow .mat-card {
+    padding: 0;
+}
+
+.mat-select {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.mat-form-field-element {
+  height: 17px;
+}
+
+.stars-container input {
+    visibility: hidden !important;
+}
+
+.star-input .stars-container {
+    position: relative;
+    height: 33px;
+    border-bottom: 1px solid #DDD;
+
+}
+
+.star-input .stars-content {
+    text-align: right;
+    margin-top: 13px;
+    background-color: white;
+    z-index: 10;
+}
+
+.mat-form-field-subscript-wrapper {
+  overflow: visible !important;
+}
+
+.mat-error {
+  margin-top: -4px;
+  font-size: 9px;
+}
+
+.mat-slide-toggle-content {
+  font-size: 12px;
+  color: rgba(117, 117, 117, 0.77) !important;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgba(0, 175, 239, 0.5);
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #00afef;
+}
+
+.mat-form-field-wrapper.mat-form-field-wrapper {
+  margin-top: 6px !important;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-disabled .mat-form-field-underline {
+  background-image: none !important;
+  background-color: rgba(0,0,0,.15) !important;
+}
+
+/* Briefing form */
+
+.mat-card-title.row {
+  display: flex !important;
+  margin: 0 !important;
+}
+
+.mat-card-title.row .col-md-6 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Botão dentro de form-fields */
+.button-inner-mat-input {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  padding: 2px 0px !important;
+  min-width: 20px !important;
+  line-height: 0 !important;
+  height: 27px;
+  color: #AAA !important;
+}
+
+cb-schedule {
+  height: 100%;
+}
+
+.menuNotifications cb-notification-item .mat-card {
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+
+.menuNotifications .mat-menu-content {
+  padding: 0 !important;
+}
+
+.col-md-2-4 {
+  width: 20%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-1-7 {
+  width: 14.28%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.mat-expansion-panel-header-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: rgba(0,0,0,1);
+}
+
+.mat-expansion-panel-header-title p {
+  font-size: 18px;
+}
+
+.mat-expansion-panel {
+  box-shadow: none !important;
+}
+
+.divisor {
+  margin: 7px -24px;
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #00afef;
+}
+
+.galleria > .info-container > .thumbnails .thumbnails-scroller > .thumbnail.active:after,
+.galleria > .info-container > .thumbnails .thumbnails-scroller > .thumbnail:hover:after {
+  animation: none !important;
+}
+
+.galleria > .info-container > .thumbnails .thumbnails-scroller > .thumbnail,
+.galleria > .info-container > .thumbnails .thumbnails-scroller > .thumbnail {
+  border-radius: 0 !important;
+}
+
+.mat-expansion-panel:not(:last-child):not(.mat-expanded) {
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+
+.cb-progress {
+  height: 2px !important;
+}
+
+.cb-checkbox-inside-control {
+  position: absolute;
+  right: 5px;
+  top: -18px;
+  z-index: 10;
+}
+
+.cb-checkbox-inside-control span {
+  font-size: 10px;
+  color: #999;
+}
+
+.cb-checkbox-inside-control .mat-checkbox-inner-container {
+  max-width: 12px;
+  max-height: 12px;
+}
+
+.cb-checkbox-inside-control .mat-checkbox-inner-container .mat-checkbox-frame {
+  border-color: #BBB;
+}
+
+.memorial mat-checkbox label {
+  margin-bottom: 3px;
+  margin-left: 3px;
+}
+
+.memorial .mat-checkbox-inner-container {
+  width: 15px;
+  height: 15px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.memorial .mat-checkbox-frame {
+  border: 0;
+}
+
+.memorial .mat-checkbox-checked .mat-checkbox-background {
+  background-color: transparent !important;;
+}
+
+.memorial .mat-checkbox-checkmark-path {
+  stroke: #888 !important;
+}
+
+.memorial .mat-checkbox .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgba(0, 0, 0, .1) !important;
+}
+
+.memorial mat-checkbox label {
+  margin-bottom: 3px;
+  margin-left: 3px;
+}
+
+.memorial .mat-checkbox-inner-container {
+  width: 15px;
+  height: 15px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.cb-normal-checkbox {
+  font-size: 14px;
+}
+
+.cb-normal-checkbox .mat-checkbox-inner-container {
+  width: 15px;
+  height: 15px;
+}
+
+.cb-normal-checkbox .mat-checkbox-frame {
+  border-color: rgba(0,0,0,0.25);
+}
+
+cb-proposals .mat-expansion-panel-body {
+  overflow-x: hidden;
+}
+
+.schedule-table .add-block .mat-badge-medium .mat-badge-content {
+  right: -8px !important;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 11px;
+  background-color: #00afef;
+}
+
+.mat-drawer-side {
+  border-right: 0 !important;
+}
+
+.mat-drawer-inner-container {
+  overflow: hidden !important;
+}
+
+.mat-card-header-text {
+  margin: 0px 7px !important;
+}
+
+.items-container .item-container .mat-button-toggle-label-content {
+  line-height: normal;
+  padding: 0;
+  width: 100%;
+}

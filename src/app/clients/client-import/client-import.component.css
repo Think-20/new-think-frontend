@@ -1,0 +1,7 @@
+.attachment {
+    border-color: transparent !important;
+}
+
+.attachment img {
+    width: 150px;
+}

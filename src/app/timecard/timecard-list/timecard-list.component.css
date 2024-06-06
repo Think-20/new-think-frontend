@@ -1,0 +1,175 @@
+.clearfix::before,
+.clearfix::after {
+  flex-basis: 0;
+  order: 1;
+}
+
+.filter-adm {
+  margin-right: 15px;
+}
+
+.filter-noadm {
+  background-color: white;
+}
+
+.filter-grid {
+  padding: 20px !important;
+}
+
+.mat-row {
+  flex-wrap: wrap;
+}
+
+.mat-header-cell {
+  text-transform: uppercase;
+  font-size: 10px;
+  text-align: center;
+}
+
+.mat-cell {
+  text-align: center;
+}
+
+.mat-column-action {
+  width: 10%;
+}
+
+.mat-column-date {
+  width: 7%;
+}
+.mat-column-local-in {
+  width: 13%;
+}
+.mat-column-hours {
+  width: 20%;
+
+}
+.mat-column-local-out {
+  width: 13%;
+
+}
+.mat-column-total {
+  width: 8%;
+
+}
+.mat-column-balance {
+  width: 8%;
+
+}
+.mat-column-reason {
+  width: 13%;
+
+}
+.mat-column-approved {
+  width: 8%;
+}
+
+.mat-column-place {
+  width: 50%;
+}
+
+.mat-cell-icon {
+  font-size: 15px;
+}
+
+.button-check {
+  width: 100%;
+}
+
+.button-check:first-child {
+  margin-bottom: 10px;
+}
+
+.mat-column-local-in a, .mat-column-local-out a {
+  color: rgba(0,0,0,.87);
+}
+
+#justifyForm .inputs {
+  align-items: flex-end;
+  /*
+  flex-basis: 60%;
+  max-width: 60%;
+  */
+  margin-bottom: -4px;
+  padding: 0 !important;
+}
+
+#justifyForm .buttons {
+  /*
+  flex-basis: 20%;
+  max-width: 20%;
+  */
+}
+
+#justifyCardTitle {
+  padding-bottom: 10px;
+}
+
+#justifyForm .date-panel {
+  justify-content: center;
+  align-items: flex-end;
+  display: flex;
+  flex-flow: column;
+  margin-left: 12px;
+  text-align: center;
+  padding: 0;
+  text-align: right;
+  margin-bottom: -22px;
+}
+
+#justifyForm .date-panel h6,  #justifyForm .date-panel h2 {
+  margin: 0;
+  padding: 0;
+  color: #888;
+  font-weight: 300;
+}
+
+#justifyForm .date-panel h6 {
+  font-size: 15px;
+}
+
+#justifyForm .date-panel h2 {
+  font-size: 39px;
+}
+
+#justifyCardTitle .mat-card-title {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.user-mode .mat-column-reason {
+  width: 21% !important;
+}
+
+#justifyForm .mat-form-field {
+  height: 59px;
+}
+
+@media screen and (max-width: 800px) {
+  #justifyForm .inputs, #justifyForm .buttons {
+    width: 100%;
+    flex-basis: 100%;
+    max-width: unset;
+  }
+
+  #justifyForm .date-panel {
+    display: none;
+  }
+
+  #justifyForm .buttons div {
+    width: 50%;
+    float: left;
+  }
+
+  #justifyForm .buttons div .cb-button {
+    width: 100%;
+    max-width: unset;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #justifyForm .inputs.row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}

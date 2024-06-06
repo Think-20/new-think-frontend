@@ -1,0 +1,489 @@
+<div class="container-home" style="margin-right: 1rem;margin-left: 1rem;">
+  <div class="my-container">
+    <h3 class="lead row">
+      <div class="col-md-12">
+        <div class="flex center">
+          Home | Julio Cirelo 
+          <button mat-button type="button" class="month-arrow">
+            <mat-icon (click)="addMonth(-1)">keyboard_arrow_left</mat-icon>
+          </button>
+          &nbsp;Relatórios de
+          <span class="actualMonth" (click)="monthSelect.open()">
+            &nbsp;{{ month?.name }}
+            <mat-select class="select-hidden col-md-3" #monthSelect>
+              <mat-option *ngFor="let month of months" (click)="updateMonth(month)">{{month?.name}}</mat-option>
+            </mat-select>
+          </span>
+          <span class="actualYear" (click)="yearSelect.open()">
+            {{ year }}
+            <mat-select class="select-hidden col-md-3" #yearSelect>
+              <mat-option *ngFor="let year of years" (click)="updateYear(year)">{{year}}</mat-option>
+            </mat-select>
+          </span>
+          <span>até</span>
+          <span class="actualMonth" (click)="nextMonthSelect.open()">
+            &nbsp;{{ nextMonth?.name }}
+            <mat-select class="select-hidden col-md-3" #nextMonthSelect>
+              <mat-option *ngFor="let month of months" (click)="updateNextMonth(month)">{{month?.name}}</mat-option>
+            </mat-select>
+          </span>
+          <span class="actualYear" (click)="nextYearSelect.open()">
+            {{ nextYear }}
+            <mat-select class="select-hidden col-md-3" #nextYearSelect>
+              <mat-option *ngFor="let year of years" (click)="updateNextYear(year)">{{year}}</mat-option>
+            </mat-select>
+          </span>
+          <button mat-button type="button" class="month-arrow">
+            <mat-icon (click)="addMonth(1)">keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </div>
+    </h3>
+  </div>
+
+    <div class="home-grid">
+        <div class="home-card">
+            <div class="home-card-header d-flex justify-content-between">
+                <mat-icon>add</mat-icon>
+                Alertas:
+            </div>
+
+            <div class="home-card-body home-card-body-count">
+                <span class="home-card-count d-flex justify-content-end">01</span>
+            </div>
+        </div>
+        <div class="home-card">
+            <div class="home-card-header d-flex justify-content-between">
+                <mat-icon>add</mat-icon>
+                Memórias:
+            </div>
+
+            <div class="home-card-body home-card-body-count">
+                <span class="home-card-count d-flex justify-content-end">07</span>
+            </div>
+        </div>
+        <div class="home-card">
+            <div class="home-card-body">
+                <div class="home-card-grid-2fr">
+                    <div class="text-right d-flex flex-column">
+                      <span class="home-card-size-18">45</span>
+                      <span class="home-card-small-description">Tempo Médio de Aprovação (Dias): | Ref.: 38 Dias</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <span class="home-card-size-18">4.231.080</span>
+                      <span class="home-card-small-description">Tendência Aprovação Anual: | Ref.: 4.200.000</span>
+                    </div>
+                </div>
+                <div class="home-card-grid-2fr">
+                    <div class="text-right d-flex flex-column">
+                      <span class="home-card-size-18">07</span>
+                      <span class="home-card-small-description">Intervalo Médio Aprovação (Dias): | Ref.: 13 Dias</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <span class="home-card-size-18">420.000</span>
+                      <span class="home-card-small-description">Média aprovação Mês: | Ref.: 400.000</span>
+                    </div>
+                </div>
+                <div class="home-card-grid-2fr">
+                    <div class="text-right d-flex flex-column">
+                      <span class="home-card-size-18">183.000</span>
+                      <span class="home-card-small-description">Ticket Médio Aprovação | Ref.: 190.000</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <span class="home-card-size-18">183.000</span>
+                      <span class="home-card-small-description">Ticket Médio Jobs: | Ref.: 170.000</span>
+                    </div>
+                </div>
+                <div class="home-card-grid-2fr">
+                    <div class="text-right d-flex flex-column">
+                      <span class="home-card-size-18">453.000</span>
+                      <span class="home-card-small-description">Maior Venda | Ref.: 5338.000</span>
+                    </div>
+                    <div class="d-flex flex-column">
+                      <span class="home-card-size-18">Nestlé | Apas</span>
+                      <span class="home-card-small-description">ùltimo Aprovado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="home-card">
+          <div class="home-card-header d-flex justify-content-end">
+              News:
+          </div>
+
+          <div class="home-card-body">
+            <div class="home-card-grid-2fr">
+                <div class="text-right d-flex flex-column">
+                  <span>Último Job Aprovado</span>
+                </div>
+                <div class="d-flex flex-column">
+                  <span></span>
+                </div>
+            </div>
+            <div class="home-card-grid-2fr">
+                <div class="text-right d-flex flex-column">
+                  <span>Eventos em Rolando</span>
+                </div>
+                <div class="d-flex flex-column">
+                  <span></span>
+                </div>
+            </div>
+            <div class="home-card-grid-2fr">
+                <div class="text-right d-flex flex-column">
+                  <span>Aniversariante</span>
+                </div>
+                <div class="d-flex flex-column">
+                  <span></span>
+                </div>
+            </div>
+            <div class="home-card-grid-2fr">
+                <div class="text-right d-flex flex-column">
+                  <span>Comunicados</span>
+                </div>
+                <div class="d-flex flex-column">
+                  <span></span>
+                </div>
+            </div>
+            <div class="home-card-grid-2fr">
+                <div class="text-right d-flex flex-column">
+                  <span>Metas</span>
+                </div>
+                <div class="d-flex flex-column">
+                  <span></span>
+                </div>
+            </div>
+            <div class="home-card-grid-2fr">
+                <div class="text-right d-flex flex-column">
+                  <span>Records</span>
+                </div>
+                <div class="d-flex flex-column">
+                  <span></span>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="home-card">
+          <div class="home-card-header d-flex justify-content-end">
+              Ranking:
+          </div>
+
+          <div class="home-card-body">
+              <div class="home-card-grid-2fr">
+                  <div class="text-right d-flex flex-column">
+                      <div class="d-flex flex-column">
+                          <span class="home-card-small-1-description">1 Quarter</span>
+                          <span class="fw-500">03</span>
+                          <span class="home-card-small-1-description">2 Quarter</span>
+                          <span class="fw-500">01</span>
+                          <span class="home-card-small-1-description">3 Quarter</span>
+                          <span class="fw-500">04</span>
+                          <span class="home-card-small-1-description">4 Quarter</span>
+                          <span class="fw-500">02</span>
+                      </div>
+                  </div>
+                  <div class="d-flex flex-column">
+                    <div>
+                      <span class="d-flex home-card-small-description">Últimos 12 meses</span>
+                      <span class="home-card-count">01</span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="home-grid-2">
+    <div class="home-card grid-row-2 home-card-column-between">
+        <div class="home-card-header d-flex justify-content-end">
+            Jobs:
+        </div>
+        <div class="home-card-body">
+            <div class="home-card-grafico">
+              <div id="chart">
+                <apx-chart
+                [series]="chartOptionsPieJobs.series"
+                [chart]="chartOptionsPieJobs.chart"
+                [labels]="chartOptionsPieJobs.labels"
+                [legend]="chartOptionsPieJobs.legend"
+                [dataLabels]="chartOptionsPieJobs.dataLabels"
+                [fill]="chartOptionsPieJobs.fill"
+                [states]="chartOptionsPieJobs.states"
+                [plotOptions]="chartOptionsPieJobs.plotOptions"
+                [stroke]="chartOptionsPieJobs.stroke"
+                [theme]="chartOptionsPieJobs.theme"
+                [responsive]="chartOptionsPieJobs.responsive"
+                [colors]="chartOptionsPieJobs.colors"
+              ></apx-chart>
+              </div>
+              
+            </div>
+        </div>
+        <div class="home-card-footer d-flex justify-content-between">
+            <div class="d-flex flex-column">
+                <span class="home-card-size-18">1.200.000</span>
+                <span>Meta Jobs</span>
+            </div>
+            <div class="d-flex flex-column">
+              <span class="home-card-size-18">400.000</span>
+              <span>Meta Aprovação</span>
+          </div>
+        </div>
+      </div>
+      <div class="home-card home-card-column-between">
+          <div class="home-card-header d-flex justify-content-end">
+              <span>20% | Aprovados:</span>
+          </div>
+
+          <div class="home-card-body">
+              <span class="c-aprovados home-card-count d-flex justify-content-end">07</span>
+          </div>
+
+          <div class="home-card-footer">
+              <div class="d-flex justify-content-between">
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                  <span>$ 2.000.000</span>
+              </div>
+          </div>
+      </div>
+      <div class="home-card home-card-column-between">
+          <div class="home-card-header d-flex justify-content-end">
+              <span >10% | Avançados:</span>
+          </div>
+
+          <div class="home-card-body">
+              <span class="c-avancados home-card-count d-flex justify-content-end">12</span>
+          </div>
+
+          <div class="home-card-footer">
+            <div class="d-flex justify-content-end">
+                <span>$ 2.000.000</span>
+            </div>
+        </div>
+      </div>
+      <div class="home-card home-card-column-between">
+          <div class="home-card-header d-flex justify-content-end">
+              <span>10% | Ajustes:</span>
+          </div>
+
+          <div class="home-card-body">
+              <span class="c-ajustes home-card-count d-flex justify-content-end">23</span>
+          </div>
+
+          <div class="home-card-footer">
+              <div class="d-flex justify-content-end">
+                  <span>$ 2.000.000</span>
+              </div>
+          </div>
+      </div>
+      <div class="home-card home-card-column-between">
+          <div class="home-card-header d-flex justify-content-end">
+              <span>30% | Stand-by</span>
+          </div>
+
+          <div class="home-card-body">
+              <span class="c-stand-by home-card-count d-flex justify-content-end">54</span>
+          </div>
+
+          <div class="home-card-footer">
+              <div class="d-flex justify-content-between">
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                  <span>$ 2.000.000</span>
+              </div>
+          </div>
+      </div>
+      <div class="home-card home-card-column-between">
+        <div class="home-card-header d-flex justify-content-end">
+            <span>40% | Reprovados</span>
+        </div>
+
+        <div class="home-card-body">
+            <span class="c-reprovados home-card-count d-flex justify-content-end">73</span>
+        </div>
+
+        <div class="home-card-footer">
+            <div class="d-flex justify-content-between">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+                <span>$ 2.000.000</span>
+            </div>
+        </div>
+    </div>
+    <div class="home-card grid-span-2 home-card-column-between">
+      <div class="home-card-header d-flex justify-content-end">
+          <span>Metas:</span>
+      </div>
+
+      <div class="home-card-body">
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Últimos 12 meses</span>
+                  <div class="d-flex">
+                    <span>4.950.000</span>
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                    <span>4.800.000</span>
+                  </div>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 50%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Mês</span>
+                  <div class="d-flex">
+                    <span>280.000</span>
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                    <span>4.800.000</span>
+                  </div>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 75%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Quarter</span>
+                  <div class="d-flex">
+                    <span>1300.000</span>
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                    <span>1.200.000</span>
+                  </div>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 40%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Anual</span>
+                  <div class="d-flex">
+                    <span>3.810.000</span>
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                    <span>4.800.000</span>
+                  </div>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 35%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="home-card grid-span-2 home-card-column-between">
+      <div class="home-card-header d-flex justify-content-between">
+          <span>04</span>
+          <span>Em Produção:</span>
+      </div>
+
+      <div class="home-card-body">
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Ford | Salão Automóvel</span>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 90%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Microsoft | Futurecomm</span>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 80%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Nestlé | Rock in Rio</span>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 40%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+          <div>
+              <div class="d-flex justify-content-between">
+                  <span>Coca-Cola | Apas</span>
+              </div>
+              <div class="home-card-bar">
+                  <div style="width: 35%" class="home-card-progress-bar"></div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="home-card home-card-column-between">
+      <div class="home-card-header d-flex justify-content-between">
+          <mat-icon>add</mat-icon>
+          DeadLine:
+      </div>
+
+      <div class="home-card-body">
+          <span class="home-card-count d-flex justify-content-end">05</span>
+      </div>
+
+      <div class="home-card-footer">
+        <div class="d-flex justify-content-end">
+            <span>$ 7.000.000</span>
+        </div>
+    </div>
+  </div>
+  <div class="home-card">
+    <div id="chart">
+      <apx-chart
+            [series]="chartOptionsPie.series"
+            [chart]="chartOptionsPie.chart"
+            [labels]="chartOptionsPie.labels"
+            [dataLabels]="chartOptionsPie.dataLabels"
+            [fill]="chartOptionsPie.fill"
+            [legend]="chartOptionsPie.legend"
+            [states]="chartOptionsPie.states"
+            [colors]="chartOptionsPie.colors"
+            [plotOptions]="chartOptionsPie.plotOptions"
+            [stroke]="chartOptionsPie.stroke"
+            [theme]="chartOptionsPie.theme"
+            [responsive]="chartOptionsPie.responsive"
+          ></apx-chart>
+    </div>
+  </div>
+  <div class="home-card grid-span-4">
+      <div class="home-card-header d-flex justify-content-between">
+        <div class="d-flex">
+            Tendência
+            <mat-icon>keyboard_arrow_down</mat-icon>
+        </div>
+        <div>
+          Meta Mensal: 400.000,00
+        </div>
+      </div>
+
+      <div class="home-card-body">
+        <div id="chart">
+          <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [yaxis]="chartOptions.yaxis"
+          [colors]="chartOptions.colors"
+          [dataLabels]="chartOptions.dataLabels"
+          [grid]="chartOptions.grid"
+          [stroke]="chartOptions.stroke"
+          [title]="chartOptions.title"
+        ></apx-chart>
+        </div>
+        
+      </div>
+  </div>
+  <div class="home-card grid-span-1">
+      <div class="home-card-header d-flex justify-content-between">
+          <mat-icon>add</mat-icon>
+          Sold Out:
+      </div>
+
+      <div class="home-card-body">
+          <span class="home-card-count d-flex justify-content-end">01</span>
+      </div>
+
+      <div class="home-card-footer">
+        <div class="d-flex justify-content-end">
+            <span>$ 2.000.000</span>
+        </div>
+    </div>
+  </div>
+  </div>
+</div>

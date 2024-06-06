@@ -1,0 +1,209 @@
+<div class="col-md-12">
+  <form [formGroup]="eventForm" novalidate autocomplete="off">
+    <mat-card-title *ngIf="withHeader">
+      <p class="lead">Dados do evento</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <mat-form-field class="col-md-6">
+          <input ucWords formControlName="name" matInput placeholder="Nome*">
+          <mat-error>
+            Obrigatório, entre 3 e 100 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input ucWords formControlName="edition" matInput placeholder="Edição">
+          <mat-error>
+            Até 20 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input matInput formControlName="place" [matAutocomplete]="autocompletePlace" placeholder="Local*" autocomplete="off">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+          <a [routerLink]="['/places/new']" target="_blank" class="button-inner-mat-input" mat-button>
+            <mat-icon>add</mat-icon>
+          </a>
+        </mat-form-field>
+        <mat-autocomplete #autocompletePlace="matAutocomplete" [displayWith]="displayPlace">
+          <mat-option *ngFor="let place of places" [value]="place">
+            {{ place.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-12">
+          <textarea formControlName="note" matInput placeholder="Informações adicionais"></textarea>
+          <mat-error>
+            Entre 3 e 1000 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input ucWords formControlName="organizer" matInput placeholder="Organizador*">
+          <mat-error>
+            Obrigatório, entre 3 e 100 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="phone" mask="(99) 9999-9999?9" matInput placeholder="Telefone*">
+          <mat-error>
+            Tipo telefone
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="email" matInput placeholder="E-mail*">
+          <mat-error>
+            Obrigatório, tipo e-mail. Máx 80
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="site" matInput placeholder="Site*">
+          <mat-error>
+            Obrigatório, entre 7 e 100 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [matDatepicker]="iniDatepicker" formControlName="ini_date" matInput placeholder="Data de início*">
+          <mat-datepicker-toggle matSuffix [for]="iniDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #iniDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [matDatepicker]="finDatepicker" formControlName="fin_date" matInput placeholder="Data final*">
+          <mat-datepicker-toggle matSuffix [for]="finDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #finDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="time" formControlName="ini_hour" matInput placeholder="Horário de início*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="time" formControlName="fin_hour" matInput placeholder="Horário final*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [matDatepicker]="iniMountingDatepicker" formControlName="ini_date_mounting" matInput placeholder="Início da montagem*">
+          <mat-datepicker-toggle matSuffix [for]="iniMountingDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #iniMountingDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [matDatepicker]="finMountingDatepicker" formControlName="fin_date_mounting" matInput placeholder="Final da montagem*">
+          <mat-datepicker-toggle matSuffix [for]="finMountingDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #finMountingDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="time" formControlName="ini_hour_mounting" matInput placeholder="Horário de início*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="time" formControlName="fin_hour_mounting" matInput placeholder="Horário final*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [matDatepicker]="iniUnmountingDatepicker" formControlName="ini_date_unmounting" matInput placeholder="Início da desmontagem*">
+          <mat-datepicker-toggle matSuffix [for]="iniUnmountingDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #iniUnmountingDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input [matDatepicker]="finUnmountingDatepicker" formControlName="fin_date_unmounting" matInput placeholder="Final da desmontagem*">
+          <mat-datepicker-toggle matSuffix [for]="finUnmountingDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #finUnmountingDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="time" formControlName="ini_hour_unmounting" matInput placeholder="Horário de início*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input type="time" formControlName="fin_hour_unmounting" matInput placeholder="Horário final*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-4" (click)="previewFile(event?.plan, 'plan')">
+          <input formControlName="plan" matInput placeholder="Planta*" (click)="planInput.click()">
+          <input type="file" class="cb-hidden" #planInput (change)="uploadFile('plan', planInput)">
+        </mat-form-field>
+        <mat-form-field class="col-md-4" (click)="previewFile(event?.manual, 'manual')">
+          <input formControlName="manual" matInput placeholder="Manual*" (click)="manualInput.click()">
+          <input type="file" class="cb-hidden" #manualInput (change)="uploadFile('manual', manualInput)">
+        </mat-form-field>
+        <mat-form-field class="col-md-4" (click)="previewFile(event?.regulation, 'regulation')">
+          <input formControlName="regulation" matInput placeholder="Regulamento*" (click)="regulationInput.click()">
+          <input type="file" class="cb-hidden" #regulationInput (change)="uploadFile('regulation', regulationInput)">
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+          <input formControlName="employee" matInput placeholder="Cadastrado por" [readonly]="true">
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+          <input [matDatepicker]="createdDatepicker" formControlName="created_at" matInput placeholder="Cadastrado em" [readonly]="true">
+          <mat-datepicker-toggle matSuffix [for]="createdDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #createdDatepicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="col-md-4">
+          <input [matDatepicker]="updatedDatepicker" formControlName="updated_at" matInput placeholder="Atualizado em" [readonly]="true">
+          <mat-datepicker-toggle matSuffix [for]="updatedDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #updatedDatepicker></mat-datepicker>
+        </mat-form-field>
+        <div class="col-md-12">
+          <mat-card-actions class="col-md-12 text-right">
+            <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(eventForm.value)" mat-raised-button>
+              SALVAR
+            </button>
+            <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(eventForm.value, event.id)" mat-raised-button>
+              EDITAR
+            </button>
+          </mat-card-actions>
+        </div>
+      </div>
+    </mat-card>
+    <div *ngIf="typeForm === 'show'">
+      <mat-card-title>
+        <p class="lead">Histórico de jobs</p>
+      </mat-card-title>
+      <mat-card>
+        <table class="table mat-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell mat-column-id">ID</div>
+            <div class="mat-header-cell mat-column-name">Nome</div>
+            <div class="mat-header-cell mat-column-date">Data</div>
+            <div class="mat-header-cell mat-column-attendance">Atendimento</div>
+            <div class="mat-header-cell mat-column-creation">Criação</div>
+            <div class="mat-header-cell mat-column-budget_value">Valor</div>
+            <div class="mat-header-cell mat-column-status">Status</div>
+          </div>
+          <div class="mat-row" *ngFor="let job of event?.jobs">
+            <div class="mat-cell mat-column-id">
+              <a [routerLink]="['/jobs/show/', job.id]">{{ jobService.showId(job) }}</a>
+            </div>
+            <div class="mat-cell mat-column-name">
+              {{ jobService.displayNameEvent(job, null) }}
+            </div>
+            <div class="mat-cell mat-column-date">
+              {{ job.created_at | date:'dd/MM/yy' }}
+            </div>
+            <div class="mat-cell mat-column-attendance">
+              {{ job.attendance.name }}
+            </div>
+            <div class="mat-cell mat-column-creation">
+              {{ jobService.displayCreation(job) }}
+            </div>
+            <div class="mat-cell mat-column-budget_value">
+              {{ job.budget_value | currency: 'BRL' }}
+            </div>
+            <div class="mat-cell mat-column-status">
+              {{ job.status.description }}
+            </div>
+          </div>
+        </table>
+      </mat-card>
+    </div>
+  </form>
+</div>

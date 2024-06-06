@@ -1,0 +1,27 @@
+<div id="login-container">
+    <div id="login-content" class="col-md-3">
+      <form [formGroup]="loginForm" novalidate>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="logo-container">
+                <img src="{{ API }}/assets/images/logo/think-normal.png" alt="Think Ideias">
+              </div>
+            </div>
+            <mat-form-field class="col-md-12">
+              <input autocomplete="off" formControlName="email" matInput placeholder="E-mail">
+            </mat-form-field>
+            <mat-form-field class="col-md-12">
+              <input autocomplete="off" type="password" formControlName="password" matInput placeholder="Senha">
+            </mat-form-field>
+            <div class="col-md-12">
+              <button [@alert-message]="state" 
+              class="cb-button" 
+              [disabled]="!loginForm.valid" 
+              (click)="login(loginForm.value)" mat-raised-button>
+                {{message}}
+              </button>
+            </div>
+          </div>
+      </form>
+    </div>
+</div>

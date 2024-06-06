@@ -1,0 +1,54 @@
+.mat-column-id {
+  width: 13%;
+}
+
+.mat-column-name {
+    width: 25%;
+}
+
+.mat-column-date {
+    width: 12%;
+}
+
+.mat-column-attendance {
+    width: 20%;
+}
+
+.mat-column-creation {
+    width: 20%;
+}
+
+.mat-column-budget_value {
+    width: 15%;
+}
+
+.mat-column-status {
+    width: 15%;
+}
+
+.mat-cell, .mat-header-cell {
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.mat-column2-id {
+  width: 10%;
+}
+
+.mat-column2-description {
+    width: 45%;
+    text-align: left;
+}
+
+.mat-column2-type {
+    width: 25%;
+    text-align: left;
+}
+
+.mat-column2-date {
+    width: 20%;
+}
+
+mat-card > .table {
+  padding-bottom: 0 !important;
+}

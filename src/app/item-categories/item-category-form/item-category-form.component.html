@@ -1,0 +1,36 @@
+<div class="col-md-12">
+  <form [formGroup]="itemCategoryForm" novalidate>
+    <mat-card-title>
+      <p class="lead">Dados da categoria de item</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+          <mat-form-field class="col-md-6">
+            <input formControlName="description" matInput placeholder="Descrição">
+            <mat-error>
+              Obrigatório, entre 3 e 50 caract.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput formControlName="item_category" [matAutocomplete]="autocompleteItem" placeholder="Categoria de item">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-autocomplete #autocompleteItem="matAutocomplete" [displayWith]="displayItemCategory">
+              <mat-option *ngFor="let itemCategory of itemCategories" [value]="itemCategory">
+                {{ itemCategory.description }}
+              </mat-option>
+          </mat-autocomplete>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(itemCategoryForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(itemCategoryForm.value, itemCategory.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

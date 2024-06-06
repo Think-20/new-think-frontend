@@ -1,0 +1,64 @@
+<div class="line-job"
+#menuTrigger="matMenuTrigger"
+(menuOpened)="openMenu(item)"
+[matMenuTriggerFor]="menu"
+[matMenuTriggerData]="{item: item, chrono: chrono}"
+[ngClass]="getLineClass(item)"
+(dblclick)="goToJob(item.task.job, item)">
+  <div class="mat-cell mat-column-creation">
+    {{ item.task?.responsible?.name }}
+  </div>
+  <div class="mat-cell mat-column-job">
+    {{ jobDisplay(item) }}
+  </div>
+  <div class="mat-cell mat-column-type">
+    {{ item.task.job.job_type?.description }}
+  </div>
+  <div class="mat-cell mat-column-client">
+    {{ item.task.job.client != null ? item.task.job.client.fantasy_name : item.task.job.not_client }}
+  </div>
+  <div class="mat-cell mat-column-agency">
+    {{ item.task.job.agency ? item.task.job.agency.fantasy_name : '' }}
+  </div>
+  <div class="mat-cell mat-column-event">
+    {{ item.task.job.event }}
+  </div>
+  <div class="mat-cell mat-column-event-date">
+    &nbsp;
+  </div>
+  <div class="mat-cell mat-column-budget">
+    <span *ngIf="canShowDetails(item)">
+      {{ item.task.job.budget_value | number: '1.2' }}
+      <br>
+      <span *ngIf="calcValue(item.task.job) > 0">
+        {{ calcValue(item.task.job) | number: '1.2' }}{{ item.task.job.job_type.description == 'Stand' ? '/m²' : '' }}{{ item.task.job.job_type.description == 'Cenografia' ? '/mom.' : '' }}
+      </span>
+      <span *ngIf="item.task.job.moments > 0">
+        {{ item.task.job.moments }} mom.
+      </span>
+    </span>
+  </div>
+  <div class="mat-cell mat-column-area">
+    {{ canShowDetails(item)
+      && item.task.job.job_type.description == 'Stand'
+      && item.task.job.area != null
+      ? (item.task.job.area | number ) + ' m²' : '' }}
+  </div>
+  <div class="mat-cell mat-column-time">
+    <p>{{ timeDisplay(item, chrono) }}</p>
+    <mat-icon *ngIf="item.task?.job?.id != null" class="time-icon"
+    [class.time-icon-alarm]="timeIconDisplay() == 'alarm'"
+    [class.time-icon-done]="timeIconDisplay() == 'done'">
+      {{ timeIconDisplay() }}
+    </mat-icon>
+  </div>
+  <div class="mat-cell mat-column-deadline">
+    {{ item.task.job?.deadline | date:'dd/MM' }}
+  </div>
+  <div class="mat-cell mat-column-attendance">
+    {{ item.task.job?.attendance?.name }}
+  </div>
+  <div class="mat-cell mat-column-stat">
+    {{ canShowDetails(item) ? item.task.job?.status?.description : '' }}
+  </div>
+</div>

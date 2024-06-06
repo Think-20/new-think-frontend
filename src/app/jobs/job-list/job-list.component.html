@@ -1,0 +1,224 @@
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-job="job">
+      <a [disabled]="!permissionVerify('show', job)" [routerLink]="['/jobs/show', job.id]" mat-menu-item>
+        <mat-icon>subject</mat-icon> Visualização
+      </a>
+      <a [disabled]="!permissionVerify('edit', job)" [routerLink]="['/jobs/edit', job.id]" mat-menu-item>
+        <mat-icon>mode_edit</mat-icon> Editar
+      </a>
+      <button [disabled]="!permissionVerify('delete', job)" (click)="delete(job)" mat-menu-item>
+        <mat-icon>delete</mat-icon> Remover
+      </button>
+  </ng-template>
+</mat-menu>
+
+
+<div class="my-container">
+  <h3 class="lead">Jobs</h3>
+</div>
+
+<div class="col-md-12" id="searchForm">
+  <form [formGroup]="searchForm" autocomplete="off">
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Lista
+        </div>
+        <mat-form-field class="bar">
+          <input #search matInput formControlName="search" placeholder="Qual job você procura?" autocomplete="off">
+        </mat-form-field>
+        <div class="buttons">
+          <a mat-button (click)="search.focus()">
+            <mat-icon>search</mat-icon>
+          </a>
+          <a mat-button (click)="filter = filter ? false : true" [class.filter-button-active]="hasFilterActive">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </a>
+          <a [routerLink]="['/jobs/new']" mat-button>
+            <mat-icon>add</mat-icon>
+          </a>
+          <a matTooltip="Limpar filtro" *ngIf="hasFilterActive" (click)="clearFilter()" mat-button>
+            <mat-icon>clear</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card *ngIf="filter" class="filter-grid">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="col-md-2-4">
+            <input matInput formControlName="client" [matAutocomplete]="autocompleteclient" placeholder="Cliente">
+          </mat-form-field>
+          <mat-autocomplete #autocompleteclient="matAutocomplete">
+              <mat-option *ngFor="let client of clients" [value]="client.fantasy_name">
+              {{ client.fantasy_name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-form-field *ngIf="isAdmin" class="col-md-2-4">
+            <mat-select placeholder="Atendimento" formControlName="attendance" [compareWith]="compareAttendance">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let attendance of attendances" [value]="attendance">
+                {{ attendance.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-2-4">
+            <mat-select placeholder="Projetista" formControlName="creation" [compareWith]="compareAttendance">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let creation of creations" [value]="creation">
+                {{ creation.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-2-4">
+            <mat-select placeholder="Tipo" formControlName="job_type" [compareWith]="compareJobType">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let job_type of job_types" [value]="job_type">
+                {{ job_type.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-2-4">
+            <mat-select placeholder="Status" formControlName="status" [compareWith]="compareStatus">
+              <mat-option></mat-option>
+              <mat-option *ngFor="let s of status" [value]="s">
+                {{ s.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <hr>
+          <div class="col-md-12">
+            <p><small>Você também pode filtrar por período do cronograma</small></p>
+            <br>
+          </div>
+          <mat-form-field class="col-md-3">
+            <input [matDatepicker]="initialDatepicker" formControlName="initial_date"
+              matInput placeholder="Data inicial">
+            <mat-datepicker-toggle matSuffix [for]="initialDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #initialDatepicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="col-md-3">
+            <input [matDatepicker]="finalDatepicker" formControlName="final_date"
+              matInput placeholder="Data final">
+            <mat-datepicker-toggle matSuffix [for]="finalDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #finalDatepicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+    <mat-paginator *ngIf="jobs" [length]="pagination?.total" [pageSize]="pagination?.per_page" [pageIndex]="pageIndex" [pageSizeOptions]="[pagination?.per_page]"
+      (page)="changePage($event)"></mat-paginator>
+    <mat-card>
+      <div *ngIf="jobs?.length > 0">
+        <table class="table mat-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell mat-column-id">ID</div>
+            <div class="mat-header-cell mat-column-client">Cliente</div>
+            <div class="mat-header-cell mat-column-event">Evento</div>
+            <div class="mat-header-cell mat-column-type">Tipo</div>
+            <div class="mat-header-cell mat-column-attendance">Atendimento</div>
+            <div class="mat-header-cell mat-column-creation">Criação</div>
+            <div class="mat-header-cell mat-column-date">Data</div>
+            <div class="mat-header-cell mat-column-date-creation">Crono</div>
+            <div class="mat-header-cell mat-column-status">Status</div>
+            <div class="mat-header-cell mat-column-status_updated">Definição</div>
+            <div class="mat-header-cell mat-column-action">Ação</div>
+          </div>
+          <div class="mat-row" *ngFor="let job of jobs" [@rowAppeared]="rowAppearedState">
+            <div class="mat-cell mat-column-id">
+              {{ jobService.showId(job) }}
+            </div>
+            <div class="mat-cell mat-column-client">
+              {{ job.client ? job.client.fantasy_name : job.not_client }}
+            </div>
+            <div class="mat-cell mat-column-event">
+              {{ job.event }}
+            </div>
+            <div class="mat-cell mat-column-type">
+              {{ job.job_type.description }}
+            </div>
+            <div class="mat-cell mat-column-attendance">
+              {{ job.attendance.name }}
+            </div>
+            <div class="mat-cell mat-column-creation">
+              {{ jobService.displayCreation(job) }}
+            </div>
+            <div class="mat-cell mat-column-date">
+              {{ job.created_at | date:'dd/MM/yy' }}
+            </div>
+            <div class="mat-cell mat-column-available-date">
+              {{ job?.available_date | date:'dd/MM/yy' }}
+            </div>
+            <div class="mat-cell mat-column-status">
+              <!--(click)=select.open()-->
+              {{ job.status.description }}
+              <!--
+              <mat-select #select class="langSelect" (change)="editStatus($event, job)">
+                <mat-option *ngFor="let s of status" [value]="s">
+                  {{ s.description }}
+                </mat-option>
+              </mat-select>
+              -->
+            </div>
+            <div class="mat-cell mat-column-status_updated">
+              {{ job?.status_updated_at | date:'dd/MM/yy' }}
+            </div>
+            <div class="mat-cell mat-column-action">
+              <button mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+          </div>
+        </table>
+      </div>
+      <div *ngIf="searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Aguarde...
+          </small>
+        </p>
+      </div>
+      <div *ngIf="jobs.length == 0 && searchForm.controls.search.value != '' && !searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Não encontramos resultados para sua busca. :(
+          </small>
+        </p>
+      </div>
+      <div *ngIf="jobs.length == 0 && searchForm.controls.search.value == '' && !searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Ainda não existe nenhum job cadastrado. Que tal
+            <a [routerLink]="['/jobs/new']">cadastrar</a> agora?
+          </small>
+        </p>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Relatório
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card>
+      <table class="table mat-table report">
+        <div class="mat-header-row">
+          <div class="mat-header-cell col-md-2 text-center">Total</div>
+          <div class="mat-header-cell col-md-3 text-right">Última atualização</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell col-md-2 text-center">{{ pagination?.total }}</div>
+          <div class="mat-cell col-md-3 text-right">
+            {{ dataInfo?.updatedInfo?.date }}
+            <p class="updated-info-employee">
+              {{ dataInfo?.updatedInfo?.employee }}
+            </p>
+          </div>
+        </div>
+      </table>
+    </mat-card>
+    <mat-paginator *ngIf="jobs" [length]="pagination?.total" [pageSize]="pagination?.per_page" [pageIndex]="pageIndex" [pageSizeOptions]="[pagination?.per_page]"
+      (page)="changePage($event)"></mat-paginator>
+  </form>
+</div>

@@ -1,0 +1,21 @@
+.mat-column-name {
+    width: 40%;
+}
+
+.mat-column-city {
+    width: 25%;
+}
+
+.mat-column-state {
+    width: 25%;
+}
+
+.mat-column-action {
+    width: 10%;
+    text-align: right;
+}
+
+.filter-grid .row .col-md-12 {
+  display: flex;
+  flex-wrap: wrap;
+}

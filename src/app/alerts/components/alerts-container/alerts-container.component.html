@@ -1,0 +1,79 @@
+<div class="my-container">
+    <h3 class="title">Alertas</h3>
+</div>
+
+<div class="col-md-12">
+  <mat-card style="min-height: 25rem;" class="container-fluid d-flex flex-column">
+    <div class="title">
+        Você possui {{ ('0' + projects?.count).slice(-3) }} projetos sem atualização de status
+    </div>
+    
+    <div *ngIf="projects?.data.length" class="table-responsive mt-4" style="padding-bottom: 1rem;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-center mat-header-cell">DIAS</th>
+            <th class="text-center mat-header-cell">CRIAÇÃO</th>
+            <th class="text-center mat-header-cell">JOB</th>
+            <th class="text-center mat-header-cell">TIPO</th>
+            <th class="text-center mat-header-cell">CLIENTE</th>
+            <th class="text-center mat-header-cell">EVENTO</th>
+            <th class="text-center mat-header-cell">VERBA/VALOR</th>
+            <th class="text-center mat-header-cell">ÁREA</th>
+            <!-- <th></th> -->
+            <th class="text-center mat-header-cell">DEADLINE</th>
+            <th class="text-center mat-header-cell">ATEND.</th>
+            <th class="text-center mat-header-cell">STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of projects?.data">
+            <td class="text-center" style="min-width: 4.3rem;">{{ ('00' + project.days_without_update).slice(-3) }}</td>
+            <td class="text-center">{{ project.creation_responsible ? project.creation_responsible : '-' }}</td>
+            <td class="text-center">{{ project.job_activity }}</td>
+            <td class="text-center">{{ project.job_type }}</td>
+            <td class="text-center">{{ project.client }}</td>
+            <td class="text-center">{{ project.event }}</td>
+            <td class="text-center">{{ project.budget_value | number: '1.2' }}</td>
+            <td class="text-center">{{ project.area }} m²</td>
+            <!-- <td class="text-center">
+              <p>D+1</p>
+              <mat-icon class="time-icon"
+                [class.time-icon-alarm]="'alarm' == 'alarm'">
+                alarm
+              </mat-icon>
+            </td> -->
+            <td class="text-center">{{ project.deadline | date : "dd/MM" }}</td>
+            <td class="text-center">{{ project.attendance }}</td>
+            <!-- <td class="text-center">{{ project.status }}</td> -->
+            <td class="text-center">
+              <div class="btn-group">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ project.status }}
+                  </button>
+                  <div class="dropdown-menu" data-container="body">
+                      <a *ngFor="let status of statusProjects" (click)="updateStatusProject(status, project)" class="dropdown-item">{{ status.name }}</a>
+                  </div>
+                </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="!projects?.data.length" class="col-md-12 d-flex justify-content-center mt-5 records-not-found">
+      <p>
+        <small>Todos seus projetos estão com o status atualizado!</small>
+      </p>
+    </div>
+
+    <div class="mt-auto">
+      <hr>
+      <p class="fs-12">
+        Por favor, mantenha sempre o status atualizado para que possamos calcular com mais precisão os índices de performace de toda equipe.<br />
+        Em uma semana lembraremos novamente antes de lançar novos projetos. Obrigado!
+      </p>
+    </div>
+        
+  </mat-card>
+</div>

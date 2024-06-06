@@ -1,0 +1,89 @@
+<div class="col-md-12">
+  <form [formGroup]="placeForm" novalidate autocomplete="off">
+    <mat-card-title *ngIf="withHeader">
+      <p class="lead">Dados do local</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <mat-form-field class="col-md-3">
+          <input ucWords formControlName="name" matInput placeholder="Local*">
+          <mat-error>
+            Obrigatório, entre 3 e 100 caract.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <p class="lead">
+        Endereço
+      </p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+            <small>Para cadastro de cliente estrangeiro, utilizar os códigos de estado "EX" e cidade "Exterior".
+            </small>
+          </p>
+        </div>
+        <mat-form-field class="col-md-3">
+          <input formControlName="cep" mask="99999-999" matInput placeholder="CEP*">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input formControlName="street" matInput placeholder="Logradouro*">
+          <mat-error>
+            Obrigatório, entre 3 e 50 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="number" matInput placeholder="Número">
+          <mat-error>
+            Entre 1 e 11 caract.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input formControlName="complement" matInput placeholder="Complemento">
+        </mat-form-field>
+        <mat-form-field class="col-md-2">
+          <input matInput formControlName="state" [matAutocomplete]="autocompleteState" placeholder="Estado*" autocomplete="off">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteState="matAutocomplete" [displayWith]="displayState">
+          <mat-option *ngFor="let state of states | async" [value]="state">
+            {{ state.code }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-4">
+          <input matInput formControlName="city" [matAutocomplete]="autocompleteCity" placeholder="Cidade*" autocomplete="off">
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #autocompleteCity="matAutocomplete" [displayWith]="displayCity">
+          <mat-option *ngFor="let city of cities | async" [value]="city">
+            {{ city.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-form-field class="col-md-3">
+          <input formControlName="neighborhood" matInput placeholder="Bairro*">
+          <mat-error>
+            Obrigatório, entre 3 e 30 caract.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(placeForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(placeForm.value, place.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

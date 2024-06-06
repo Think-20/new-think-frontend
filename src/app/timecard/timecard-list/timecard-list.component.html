@@ -1,0 +1,232 @@
+<div class="col-md-12" id="searchForm">
+  <form [formGroup]="justifyForm" id="justifyForm" autocomplete="off">
+    <mat-card-title id="justifyCardTitle" *ngIf="!accessList">
+      <div class="row">
+        <div class="buttons col-md-3">
+          <div>
+            <button [disabled]="!activeCheckin" class="cb-button button-check" color="primary" (click)="register(justifyForm.value)" mat-raised-button>
+              CHECK IN
+            </button>
+          </div>
+          <div>
+            <button [disabled]="!activeCheckout" class="cb-button button-check" color="primary" (click)="register(justifyForm.value)" mat-raised-button>
+              CHECK OUT
+            </button>
+          </div>
+        </div>
+        <div class="inputs row col-md-6">
+          <mat-form-field class="col-md-6">
+            <mat-select placeholder="Local*" formControlName="place_id" [compareWith]="comparePlace">
+              <mat-option *ngFor="let place of places" [value]="place">
+                {{ place.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!--
+          <mat-form-field class="col-md-6">
+            <input matInput  formControlName="place" placeholder="Local*" autocomplete="off">
+
+              <input matInput [matAutocomplete]="autocompletePlace" formControlName="place" placeholder="Local*" autocomplete="off">
+            <mat-autocomplete #autocompletePlace="matAutocomplete" [displayWith]="displayPlace">
+              <mat-option *ngFor="let place of places" [value]="place">
+                {{ place.description }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          -->
+          <mat-form-field class="col-md-6">
+            <input matInput formControlName="reason" placeholder="Justificativa de horas*" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="date-panel col-md-3">
+          <h6>{{ date | date:'dd' }} de {{ date | date:'MMMM' }} de {{ date | date:'yyyy' }}</h6>
+          <h2>{{ date | date:'h:mm a' }}</h2>
+        </div>
+        <mat-form-field *ngIf="justifyPlace" class="col-md-12">
+          <input matInput formControlName="place" placeholder="Descrição do local e motivo*" autocomplete="off">
+        </mat-form-field>
+      </div>
+    </mat-card-title>
+    <mat-card-title *ngIf="accessList">
+      <div class="row search-bar-group">
+        <div class="title">
+          Lista
+        </div>
+        <a mat-button class="filter-adm" (click)="filtering = filtering ? false : true">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </a>
+      </div>
+    </mat-card-title>
+    <div *ngIf="!accessList" class="row">
+      <div class="container">
+
+      </div>
+    </div>
+    <mat-card class="filter-grid">
+      <form [formGroup]="filterForm" autocomplete="off">
+        <div class="row">
+          <div class="search-bar-group">
+            <div *ngIf="!accessList" class="filter-noadm">
+              <a mat-button (click)="filtering = filtering ? false : true">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </a>
+            </div>
+          </div>
+          <mat-form-field [class.cb-hidden]="!filtering" class="col-md-2">
+            <input matInput formControlName="year" placeholder="Ano">
+          </mat-form-field>
+          <mat-form-field [class.cb-hidden]="!filtering" class="col-md-3">
+            <mat-select placeholder="Mês" formControlName="month" [compareWith]="compareMonth">
+              <mat-option *ngFor="let month of months" [value]="month">
+                {{ month.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field [class.cb-hidden]="!filtering" *ngIf="accessList" class="col-md-4">
+            <input matInput [matAutocomplete]="autocompleteEmployee" formControlName="employee" placeholder="Funcionário">
+            <mat-autocomplete #autocompleteEmployee="matAutocomplete" [displayWith]="displayEmployee">
+              <mat-option *ngFor="let employee of employees" [value]="employee">
+                {{ employee.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field [class.cb-hidden]="!filtering" class="col-md-3">
+            <mat-select placeholder="Local" formControlName="place" [compareWith]="comparePlace">
+              <mat-option *ngFor="let place of places" [value]="place">
+                {{ place.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="false" class="col-md-2 button-grid-inline">
+            <button (click)="filter()" type="button" class="cb-button" mat-raised-button>FILTRAR</button>
+          </div>
+        </div>
+      </form>
+    </mat-card>
+    <mat-card>
+      <div *ngIf="timecards?.length > 0">
+        <table class="table mat-table" [class.user-mode]="!accessList">
+          <!--
+          <div class="mat-row">
+            <div class="mat-header-cell col-md-12">
+                <strong>Filtrando o mês:</strong> {{ filterForm.controls.month.value.name }}
+            </div>
+          </div>
+          -->
+          <div class="mat-header-row">
+            <div class="mat-header-cell mat-column-date">Dia</div>
+            <div class="mat-header-cell mat-column-local-in">Local Check in</div>
+            <div class="mat-header-cell mat-column-hours">Horário</div>
+            <div class="mat-header-cell mat-column-local-out">Local Check out</div>
+            <div class="mat-header-cell mat-column-total">Total</div>
+            <div class="mat-header-cell mat-column-balance">Saldo</div>
+            <div class="mat-header-cell mat-column-reason">Justificativa</div>
+            <div class="mat-header-cell mat-column-approved">Aprov.</div>
+            <div *ngIf="accessList" class="mat-header-cell mat-column-action">Ação</div>
+          </div>
+          <div class="mat-row" *ngFor="let timecard of timecards" [@rowAppeared]="rowAppearedState">
+            <div class="mat-cell mat-column-date">
+              {{ timecard.entry | date: 'dd' }}
+            </div>
+            <div class="mat-cell mat-column-local-in">
+              <a href="//maps.google.com/?q={{timecard.autoEntryPlaceCoordinates}}" target="_blank" matTooltip="Local automático: {{ timecard.autoEntryPlace }} - Descrição do local: {{ timecard.entryPlace != null ? timecard.entryPlace : 'Não externo, sem descrição.' }}">{{ timecard.entry_place.description }}</a>
+            </div>
+            <div class="mat-cell mat-column-hours">
+              {{ timecard.entry | date:'HH:mm'  }} <span *ngIf="timecard.exit != ''">às {{ timecard.exit | date:'HH:mm'  }}</span>
+            </div>
+            <div class="mat-cell mat-column-local-out">
+              <a href="//maps.google.com/?q={{timecard.autoExitPlaceCoordinates}}" target="_blank" matTooltip="Local automático: {{ timecard.autoExitPlace }} - Descrição do local: {{ timecard.exitPlace != null ? timecard.exitPlace : 'Não externo, sem descrição.' }}">{{ timecard.exit_place?.description }}</a>
+            </div>
+            <div class="mat-cell mat-column-total">
+              {{ total([timecard]) }}
+            </div>
+            <div class="mat-cell mat-column-balance">
+              {{ timecard.balance }}
+            </div>
+            <div class="mat-cell mat-column-reason">
+              <cb-read-more *ngIf="timecard.reason != null" [text]="timecard.reason"></cb-read-more>
+            </div>
+            <div class="mat-cell mat-column-approved">
+              <span *ngIf="timecard.approved == 1">
+                <mat-icon *ngIf="timecard.approved_user == null" matTooltip="Sistema">done</mat-icon>
+                <mat-icon *ngIf="timecard.approved_user != null" matTooltip="{{timecard.approved_user.employee.name}}">done</mat-icon>
+              </span>
+              <span *ngIf="timecard.approved == 0">
+                <mat-icon>close</mat-icon>
+              </span>
+            </div>
+            <div *ngIf="accessList" class="mat-cell mat-column-action">
+              <mat-menu #menu="matMenu">
+                <button [disabled]="!accessApprove" [routerLink]="['/timecard/edit', timecard.id]" mat-menu-item>
+                  <mat-icon>done</mat-icon> Aprovar
+                </button>
+                <button [disabled]="!accessEdit" [routerLink]="['/timecard/edit', timecard.id]" mat-menu-item>
+                  <mat-icon>mode_edit</mat-icon> Editar
+                </button>
+                <button [disabled]="!accessDelete" (click)="delete(timecard)" mat-menu-item>
+                  <mat-icon>delete</mat-icon> Remover
+                </button>
+              </mat-menu>
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+            <!--
+            <div *ngIf="timecard.entry_place?.description == 'Externo'" class="mat-cell mat-column-place">
+              <small>{{ timecard.entryPlace }}</small>
+            </div>
+            <div *ngIf="timecard.exit_place?.description == 'Externo'" class="mat-cell mat-column-place">
+              <small>{{ timecard.exitPlace }}</small>
+            </div>
+            -->
+          </div>
+        </table>
+      </div>
+      <div *ngIf="searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Aguarde...
+          </small>
+        </p>
+      </div>
+      <div *ngIf="timecards.length == 0 && !searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Não encontramos resultados para sua busca. :(
+          </small>
+        </p>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Relatório
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card>
+      <table class="table mat-table report">
+        <div class="mat-header-row">
+          <div class="mat-header-cell col-md-3 text-center">Dias</div>
+          <div class="mat-header-cell col-md-3 text-center">Total período</div>
+          <div class="mat-header-cell col-md-3 text-center">Saldo período</div>
+          <div class="mat-header-cell col-md-3 text-center">Saldo acumulado</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell col-md-3 text-center">{{ timecards.length }}</div>
+          <div class="mat-cell col-md-3 text-center">{{ total(timecards) }}</div>
+          <div class="mat-cell col-md-3 text-center">{{ balance(timecards) }}</div>
+          <div class="mat-cell col-md-3 text-center">{{ totalBalance != null ? totalBalance : '00:00' }}</div>
+        </div>
+      </table>
+    </mat-card>
+  </form>
+</div>
+
+<!--
+<div class="col-md-12 button-section">
+  <a class="cb-button" [routerLink]="['/timecard/approvals']" mat-raised-button>
+    APROVAR
+  </a>
+</div>
+-->

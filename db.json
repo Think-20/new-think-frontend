@@ -1,0 +1,815 @@
+{
+  "item": [
+    {
+      "name": "Marceneiro",
+      "description": "Marceneiro",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 1
+    },
+    {
+      "name": "Serralheiro",
+      "description": "Serralheiro",
+      "itemCategoryId": 2,
+      "costsCategoryId": 1,
+      "id": 2
+    },
+    {
+      "name": "Eletricista",
+      "description": "Eletricista",
+      "itemCategoryId": 8,
+      "costsCategoryId": 1,
+      "id": 3
+    },
+    {
+      "name": "Tapeceiro",
+      "description": "Tapeceiro",
+      "itemCategoryId": 9,
+      "costsCategoryId": 1,
+      "id": 4
+    },
+    {
+      "name": "Pintor",
+      "description": "Pintor",
+      "itemCategoryId": 9,
+      "costsCategoryId": 1,
+      "id": 5
+    },
+    {
+      "name": "Limpeza",
+      "description": "Limpeza",
+      "itemCategoryId": 9,
+      "costsCategoryId": 1,
+      "id": 6
+    },
+    {
+      "name": "Carreto",
+      "description": "Carreto",
+      "itemCategoryId": 10,
+      "costsCategoryId": 1,
+      "id": 7
+    },
+    {
+      "name": "Segurança",
+      "description": "Segurança",
+      "itemCategoryId": 11,
+      "costsCategoryId": 2,
+      "id": 8
+    },
+    {
+      "name": "Piso mdf - branco",
+      "description": "Piso mdf - branco",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 9
+    },
+    {
+      "name": "Parede 2 faces - Napa",
+      "description": "Parede 2 faces - Napa",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 10
+    },
+    {
+      "name": "Parede de lona impressa",
+      "description": "Parede de lona impressa",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 11
+    },
+    {
+      "name": "Parede viva de ficus",
+      "description": "Parede viva de ficus",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 12
+    },
+    {
+      "name": "Testeira de ferro",
+      "description": "Testeira de ferro",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 13
+    },
+    {
+      "name": "Forro de bagum",
+      "description": "Forro de bagum",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 14
+    },
+    {
+      "name": "Balcão - reforma",
+      "description": "Balcão - reforma",
+      "itemCategoryId": 1,
+      "costsCategoryId": 1,
+      "id": 15
+    },
+    {
+      "name": "Cantoneira Alumínio",
+      "description": "Cantoneira Alumínio",
+      "itemCategoryId": 2,
+      "costsCategoryId": 1,
+      "id": 16
+    },
+    {
+      "name": "Fita anti-derrapante",
+      "description": "Fita anti-derrapante",
+      "itemCategoryId": 2,
+      "costsCategoryId": 1,
+      "id": 17
+    },
+    {
+      "name": "Cabo de aço",
+      "description": "Cabo de aço",
+      "itemCategoryId": 2,
+      "costsCategoryId": 1,
+      "id": 18
+    },
+    {
+      "name": "Adesivo Recorte/Impressão",
+      "description": "Adesivo Recorte/Impressão",
+      "itemCategoryId": 3,
+      "costsCategoryId": 1,
+      "id": 19
+    },
+    {
+      "name": "Isopor Letra caixa com led - 1,5",
+      "description": "Isopor Letra caixa com led - 1,5",
+      "itemCategoryId": 3,
+      "costsCategoryId": 1,
+      "id": 20
+    },
+    {
+      "name": "Espuma Pack",
+      "description": "Espuma Pack",
+      "itemCategoryId": 3,
+      "costsCategoryId": 1,
+      "id": 21
+    },
+    {
+      "name": "Placa PS",
+      "description": "Placa PS",
+      "itemCategoryId": 3,
+      "costsCategoryId": 1,
+      "id": 22
+    },
+    {
+      "name": "Lona",
+      "description": "Lona",
+      "itemCategoryId": 3,
+      "costsCategoryId": 1,
+      "id": 23
+    },
+    {
+      "name": "Banqueta alta",
+      "description": "Banqueta alta",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 24
+    },
+    {
+      "name": "Poltrona",
+      "description": "Poltrona",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 25
+    },
+    {
+      "name": "Geladeira",
+      "description": "Geladeira",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 26
+    },
+    {
+      "name": "Mesa Alta  - Vidro",
+      "description": "Mesa Alta  - Vidro",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 27
+    },
+    {
+      "name": "TV 60\"",
+      "description": "TV 60\"",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 28
+    },
+    {
+      "name": "TV 42\"",
+      "description": "TV 42\"",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 29
+    },
+    {
+      "name": "Mesa lateral",
+      "description": "Mesa lateral",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 30
+    },
+    {
+      "name": "Pia",
+      "description": "Pia",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 31
+    },
+    {
+      "name": "Lixeira",
+      "description": "Lixeira",
+      "itemCategoryId": 4,
+      "costsCategoryId": 1,
+      "id": 32
+    },
+    {
+      "name": "Raffis",
+      "description": "Raffis",
+      "itemCategoryId": 5,
+      "costsCategoryId": 1,
+      "id": 33
+    },
+    {
+      "name": "Bancada/Prateleira",
+      "description": "Bancada/Prateleira",
+      "itemCategoryId": 6,
+      "costsCategoryId": 1,
+      "id": 34
+    },
+    {
+      "name": "Lapidado temperado 6mm",
+      "description": "Lapidado temperado 6mm",
+      "itemCategoryId": 7,
+      "costsCategoryId": 1,
+      "id": 35
+    },
+    {
+      "name": "RRT",
+      "description": "RRT",
+      "itemCategoryId": 12,
+      "costsCategoryId": 2,
+      "id": 36
+    },
+    {
+      "name": "Documentação, Regulamentações e Burocracias",
+      "description": "Documentação, Regulamentações e Burocracias",
+      "itemCategoryId": 12,
+      "costsCategoryId": 2,
+      "id": 37
+    },
+    {
+      "name": "Foto",
+      "description": "Foto",
+      "itemCategoryId": 13,
+      "costsCategoryId": 3,
+      "id": 38
+    },
+    {
+      "name": "Video (Produção e Edição)",
+      "description": "Video (Produção e Edição)",
+      "itemCategoryId": 13,
+      "costsCategoryId": 3,
+      "id": 39
+    },
+    {
+      "name": "Video Simples (Redes Sociais)",
+      "description": "Video Simples (Redes Sociais)",
+      "itemCategoryId": 13,
+      "costsCategoryId": 3,
+      "id": 40
+    },
+    {
+      "name": "Faixa de Inaguração",
+      "description": "Faixa de Inaguração",
+      "itemCategoryId": 3,
+      "costsCategoryId": 3,
+      "id": 41
+    },
+    {
+      "name": "Adesivos",
+      "description": "Faixa de Inaguração",
+      "itemCategoryId": 3,
+      "costsCategoryId": 3,
+      "id": 42
+    },
+    {
+      "name": "Uniformes",
+      "description": "Uniformes",
+      "itemCategoryId": 3,
+      "costsCategoryId": 3,
+      "id": 43
+    },
+    {
+      "name": "Brindes",
+      "description": "Brindes",
+      "itemCategoryId": 3,
+      "costsCategoryId": 3,
+      "id": 44
+    },
+    {
+      "name": "Hospedagem",
+      "description": "Hospedagem",
+      "itemCategoryId": 10,
+      "costsCategoryId": 4,
+      "id": 45
+    },
+    {
+      "name": "Transporte Equipe",
+      "description": "Transporte Equipe",
+      "itemCategoryId": 10,
+      "costsCategoryId": 4,
+      "id": 46
+    },
+    {
+      "name": "Alimentação",
+      "description": "Alimentação da equipe",
+      "itemCategoryId": 10,
+      "costsCategoryId": 4,
+      "id": 47
+    },
+    {
+      "name": "Frete (distância ida e volta)",
+      "description": "Frete (distância ida e volta)",
+      "itemCategoryId": 10,
+      "costsCategoryId": 4,
+      "id": 48
+    }
+  ],
+  "costs-category": [
+    {
+      "description": "Custo Líquido",
+      "id": 1
+    },
+    {
+      "description": "Custo Operacional",
+      "id": 2
+    },
+    {
+      "description": "Custo de Merchandising",
+      "id": 3
+    },
+    {
+      "description": "Logística",
+      "id": 4
+    }
+  ],
+  "item-category": [
+    {
+      "description": "Marcenaria",
+      "id": 1
+    },
+    {
+      "description": "Serralheria",
+      "id": 2
+    },
+    {
+      "description": "Comunicação Visual",
+      "id": 3
+    },
+    {
+      "description": "Mobiliário",
+      "id": 4
+    },
+    {
+      "description": "Paisagismo",
+      "id": 5
+    },
+    {
+      "description": "Acessórios",
+      "itemCategoryId": 4,
+      "id": 6
+    },
+    {
+      "description": "Vidraçaria",
+      "id": 7
+    },
+    {
+      "description": "Elétrica",
+      "id": 8
+    },
+    {
+      "description": "Superficies",
+      "id": 9
+    },
+    {
+      "description": "Logística",
+      "id": 10
+    },
+    {
+      "description": "Segurança e monitoramento",
+      "id": 11
+    },
+    {
+      "description": "Licenciamento",
+      "id": 12
+    },
+    {
+      "description": "Fotografia e gravação",
+      "id": 13
+    }
+  ],
+  "measures": [
+    {
+      "id": 1,
+      "description": "Unidade"
+    },
+    {
+      "id": 2,
+      "description": "Hora"
+    },
+    {
+      "id": 3,
+      "description": "Serviço"
+    },
+    {
+      "id": 4,
+      "description": "Kilo"
+    },
+    {
+      "id": 5,
+      "description": "Metro"
+    },
+    {
+      "id": 6,
+      "description": "Metro quadrado"
+    }
+  ],
+  "finalities": [
+    {
+      "id": 1,
+      "description": "Compra"
+    },
+    {
+      "id": 2,
+      "description": "Locação"
+    }
+  ],
+  "purchase-orders": [
+    {
+      "projectId": "1",
+      "itemId": 1,
+      "estimatedValue": "120",
+      "quantity": "5",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 1
+    },
+    {
+      "projectId": "1",
+      "itemId": 2,
+      "estimatedValue": "12",
+      "quantity": "12",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 2
+    },
+    {
+      "projectId": "1",
+      "itemId": 3,
+      "estimatedValue": "35",
+      "quantity": "12",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 3
+    },
+    {
+      "projectId": "1",
+      "itemId": 4,
+      "estimatedValue": "5",
+      "quantity": "30",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 4
+    },
+    {
+      "projectId": "1",
+      "itemId": 7,
+      "estimatedValue": "10",
+      "quantity": "3",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 5
+    },
+    {
+      "projectId": "1",
+      "itemId": 9,
+      "estimatedValue": "75",
+      "quantity": "10",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 6
+    },
+    {
+      "projectId": "1",
+      "itemId": 10,
+      "estimatedValue": "41.47",
+      "quantity": "7",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 7
+    },
+    {
+      "projectId": "1",
+      "itemId": 11,
+      "estimatedValue": "70.34",
+      "quantity": "1",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 8
+    },
+    {
+      "projectId": "1",
+      "itemId": 12,
+      "estimatedValue": "150",
+      "quantity": "1",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 9
+    },
+    {
+      "projectId": "1",
+      "itemId": 13,
+      "estimatedValue": "89",
+      "quantity": "1",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 10
+    },
+    {
+      "projectId": "1",
+      "itemId": 14,
+      "estimatedValue": "34.06",
+      "quantity": "1",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 11
+    },
+    {
+      "projectId": "1",
+      "itemId": 15,
+      "estimatedValue": "450",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 12
+    },
+    {
+      "projectId": "1",
+      "itemId": 16,
+      "estimatedValue": "12",
+      "quantity": "90",
+      "measureId": 5,
+      "finalityId": 1,
+      "id": 13
+    },
+    {
+      "projectId": "1",
+      "itemId": 17,
+      "estimatedValue": "3.5",
+      "quantity": "10",
+      "measureId": 6,
+      "finalityId": 1,
+      "id": 14
+    },
+    {
+      "projectId": "1",
+      "itemId": 18,
+      "estimatedValue": "350",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 15
+    },
+    {
+      "projectId": "1",
+      "itemId": 19,
+      "estimatedValue": "45",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 16
+    },
+    {
+      "projectId": "1",
+      "itemId": 20,
+      "estimatedValue": "190",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 17
+    },
+    {
+      "projectId": "1",
+      "itemId": 21,
+      "estimatedValue": "95",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 18
+    },
+    {
+      "projectId": "1",
+      "itemId": 22,
+      "estimatedValue": "90",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 19
+    },
+    {
+      "projectId": "1",
+      "estimatedValue": "42",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 20
+    },
+    {
+      "projectId": "1",
+      "itemId": 24,
+      "estimatedValue": "75",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 21
+    },
+    {
+      "projectId": "1",
+      "itemId": 25,
+      "estimatedValue": "350",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 22
+    },
+    {
+      "projectId": "1",
+      "itemId": 26,
+      "estimatedValue": "180",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 2,
+      "id": 23
+    },
+    {
+      "projectId": "1",
+      "itemId": 27,
+      "estimatedValue": "69",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 2,
+      "id": 24
+    },
+    {
+      "projectId": "1",
+      "itemId": 28,
+      "estimatedValue": "650",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 2,
+      "id": 25
+    },
+    {
+      "projectId": "1",
+      "itemId": 33,
+      "estimatedValue": "140",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 26
+    },
+    {
+      "projectId": "1",
+      "itemId": 34,
+      "estimatedValue": "50",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 27
+    },
+    {
+      "projectId": "1",
+      "itemId": 35,
+      "estimatedValue": "95",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 2,
+      "id": 28
+    },
+    {
+      "projectId": "1",
+      "itemId": 8,
+      "estimatedValue": "80",
+      "quantity": "5",
+      "measureId": 3,
+      "finalityId": 2,
+      "id": 29
+    },
+    {
+      "projectId": "1",
+      "itemId": 36,
+      "estimatedValue": "500",
+      "quantity": "1",
+      "measureId": 3,
+      "finalityId": 1,
+      "id": 30
+    },
+    {
+      "projectId": "1",
+      "itemId": 37,
+      "estimatedValue": "3000",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 31
+    },
+    {
+      "projectId": "1",
+      "itemId": 38,
+      "estimatedValue": "20",
+      "quantity": "5",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 32
+    },
+    {
+      "projectId": "1",
+      "itemId": 40,
+      "estimatedValue": "400",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 33
+    },
+    {
+      "projectId": "1",
+      "itemId": 41,
+      "estimatedValue": "2",
+      "quantity": "10",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 34
+    },
+    {
+      "projectId": "1",
+      "itemId": 42,
+      "estimatedValue": "10",
+      "quantity": "4",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 35
+    },
+    {
+      "projectId": "1",
+      "itemId": 43,
+      "estimatedValue": "20",
+      "quantity": "10",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 36
+    },
+    {
+      "projectId": "1",
+      "itemId": 45,
+      "estimatedValue": "80",
+      "quantity": "10",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 37
+    },
+    {
+      "projectId": "1",
+      "itemId": 47,
+      "estimatedValue": "25",
+      "quantity": "10",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 38
+    },
+    {
+      "projectId": "1",
+      "itemId": 48,
+      "estimatedValue": "400",
+      "quantity": "1",
+      "measureId": 1,
+      "finalityId": 1,
+      "id": 39
+    }
+  ],
+  "projects": [
+    {
+      "name": "Projeto Fictício",
+      "client": "Unilever",
+      "attendance": "Francisco",
+      "event": "XVI - Feira de ...",
+      "place": "São Paulo",
+      "entryDate": "2017-07-31",
+      "assemblyDate": "2017-07-31",
+      "disassemblyDate": "2017-08-03",
+      "step": "1",
+      "id": 1
+    }
+  ]
+}

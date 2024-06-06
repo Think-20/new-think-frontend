@@ -1,0 +1,19 @@
+.mat-column-id {
+  width: 15%;
+}
+
+.mat-column-entry, .mat-column-exit {
+  width: 15%;
+}
+
+.mat-column-action {
+  width: 15%;
+}
+
+.mat-column-reason {
+  width: 30%;
+}
+
+.mat-column-approved {
+  width: 10%;
+}

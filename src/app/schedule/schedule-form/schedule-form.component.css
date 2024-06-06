@@ -1,0 +1,83 @@
+p {
+    font-size: 14px;
+}
+
+.mat-column-id {
+  width: 10%;
+}
+
+.mat-column-client {
+    width: 11%;
+}
+
+.mat-column-event {
+    width: 10%;
+}
+
+.mat-column-activity {
+    width: 10%;
+}
+
+.mat-column-date {
+    width: 10%;
+}
+
+.mat-column-type {
+    width: 11%;
+}
+
+.mat-column-attendance {
+    width: 15%;
+}
+
+.mat-column-creation {
+  width: 13%;
+}
+
+.mat-column-status {
+    width: 10%;
+}
+
+.mat-row, .mat-header-row {
+  text-align: center;
+}
+
+.mat-row {
+  cursor: pointer;
+  min-height: 43px;
+}
+
+.selected {
+  background-color: #eee;
+}
+
+.job-container {
+  margin-top: 20px;
+}
+
+.search-bar-group .title {
+  flex: 4 5;
+}
+
+.items-container {
+  flex-direction: row;
+  flex-flow: wrap;
+  border: 0;
+  justify-content: left;
+  border: 1px solid #ccc;
+  border-width: 1px 0 0 1px;
+}
+
+.item-container {
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 0px !important;
+  flex: 0 0 10%;
+}
+
+.slider {
+  margin-bottom: 15px;
+}
+
+.mat-row-scroll {
+  max-height: 200px;
+}

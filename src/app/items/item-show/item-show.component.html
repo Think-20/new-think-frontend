@@ -1,0 +1,36 @@
+<div id="dataTableShow" class="col-md-12" *ngIf="item">
+  <mat-card-title>
+    <p class="lead">Dados do item</p>
+  </mat-card-title>
+  <mat-card>
+    <dl>
+      <dt>Foto</dt>
+      <dd>
+        <img width="200" [src]="getImage(item.image)" alt="Foto do item">
+      </dd>
+      <dt>Nome</dt>
+      <dd>{{item.name}}</dd>
+      <dt>Descrição</dt>
+      <dd>{{item.description}}</dd>
+      <dt>Categoria de Item</dt>
+      <dd>{{item.item_category?.description}}</dd>
+      <dt>Categoria de custo</dt>
+      <dd>{{item.cost_category?.description}}</dd>
+    </dl>
+  </mat-card>
+  <mat-card-title>
+    <p class="lead">Preços</p>
+  </mat-card-title>
+  <div *ngFor="let pricing of item.pricings; let i = index">
+    <mat-card>
+      <dl>
+        <dt>Preço</dt>
+        <dd>R$ {{pricing.price}}</dd>
+        <dt>Unidade de medida</dt>
+        <dd>{{pricing.measure.description}}</dd>
+        <dt>Fornecedor</dt>
+        <dd>{{pricing.provider.fantasy_name}}</dd>
+      </dl>
+    </mat-card>
+  </div>
+</div>

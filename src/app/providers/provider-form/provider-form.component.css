@@ -1,0 +1,32 @@
+ .contact-item {
+    position: relative;
+    flex-wrap: wrap;
+ }
+
+ .add-contact, .add-account, .delete-account, .delete-contact {
+    z-index: 10;
+    min-width: 10px !important;
+    padding: 0px !important;
+    color: #BBB;
+ }
+ 
+ .add-contact, .add-account {
+    position: relative;
+    margin-top: -20px;
+    left: 0px;
+ }
+
+ .add-contact {
+    top: -16px;
+ }
+
+ .add-account {
+    top: -9px;
+ }
+
+.delete-contact, .delete-account {
+    position: absolute;
+    right: 6px;
+    top: 3px;
+    z-index: 10;
+}

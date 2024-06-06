@@ -1,0 +1,19 @@
+#my-master-container {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+}
+
+#my-second-container {
+    flex: 1 75%;
+}
+
+#sidenav-container {
+  height: 100%;
+}
+
+#sidenav {
+  height: 100%;
+  width: 300px;
+}

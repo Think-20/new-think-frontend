@@ -1,0 +1,16 @@
+<div id="my-master-container">
+    <cb-sidenav #sidenav opened="opened" [class.opened]="sidenav.opened"></cb-sidenav>
+    <div id="my-second-container" [class.max-size]="!sidenav.opened">
+        <cb-navbar #navbar (toggleMenuEmitter)="sidenav.toggleMenu()" [opened]="sidenav.opened"></cb-navbar>
+        <div id="container-box" class="my-container">
+            <div class="row">
+                <div id="all-container" class="col-md-8 {{currentRoute}}">
+                  <router-outlet></router-outlet>
+                </div>
+                <div *ngIf="sidenav.opened" id="timeline-container" class="col-md-4">
+                    <cb-notification-bar (notificationLoadEmitter)="navbar.notificationsLoaded($event)"></cb-notification-bar>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

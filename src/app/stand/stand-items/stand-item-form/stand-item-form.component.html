@@ -1,0 +1,32 @@
+<p class="lead">Item de stand</p>
+<mat-card>
+  <form [formGroup]="standItemForm" class="row" novalidate autocomplete="off">
+    <input formControlName="id" type="hidden">
+    <mat-form-field class="col-md-8">
+      <input formControlName="title" matInput placeholder="Título*">
+      <mat-error>
+        Obrigatório, entre 3 e 30 caract.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-md-4">
+      <input formControlName="quantity" matInput placeholder="Quantidade*">
+      <mat-error>
+        Obrigatório, de 1 a 99.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="col-md-12">
+      <input formControlName="description" matInput placeholder="Descrição*">
+      <mat-error>
+        Obrigatório, entre 3 e 5000 caract.
+      </mat-error>
+    </mat-form-field>
+    <div class="col-md-12 text-right">
+      <button class="cb-button" color="primary" (click)="save()" mat-raised-button>
+        SALVAR
+      </button>
+      <button matDialogClose class="cb-button" color="primary" mat-raised-button>
+        CANCELAR
+      </button>
+    </div>
+  </form>
+</mat-card>

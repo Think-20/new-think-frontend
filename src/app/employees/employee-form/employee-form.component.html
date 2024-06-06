@@ -1,0 +1,53 @@
+<form [formGroup]="employeeForm" novalidate autocomplete="off">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-12 photo-container">
+        <img src="{{ imagePath }}" alt="Foto do funcionário">
+        <mat-progress-bar class="progress" *ngIf="progress > 0 && progress < 99" mode="determinate" value="{{progress}}"></mat-progress-bar>
+      </div>
+      <div class="col-md-12 text-center">
+        <input [disabled]="typeForm == 'show'" #inputFile type="file" accept="image/jpeg,image/png" (change)="uploadFile(inputFile)"
+          style="display:none;" />
+        <button type="button" class="btn-upload cb-button" (click)="inputFile.click()" mat-raised-button>
+          <mat-icon>cloud_upload</mat-icon> &nbsp; Editar imagem
+        </button>
+      </div>
+      <mat-form-field class="col-md-3">
+        <input ucWords formControlName="name" matInput placeholder="Nome*">
+        <mat-error>
+          Obrigatório, entre 3 e 50 caract.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input currencyMask formControlName="payment" matInput placeholder="Salário*">
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Função" formControlName="position" [compareWith]="comparePosition">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let position of positions" [value]="position">
+            {{ position.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Departamento" formControlName="department" [compareWith]="compareDepartment">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let department of departments" [value]="department">
+            {{ department.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-md-3">
+        <mat-checkbox class="cb-normal-checkbox" value="1" formControlName="schedule_active">Ativo no calendário</mat-checkbox>
+      </div>
+    </div>
+    <mat-card-actions class="col-md-12 text-right">
+      <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(employeeForm.value)" mat-raised-button>
+        SALVAR
+      </button>
+      <button class="cb-button" *ngIf="typeForm === 'edit' || typeForm === 'profile'" color="primary" (click)="edit(employeeForm.value, employee.id)" mat-raised-button>
+        EDITAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -1,0 +1,88 @@
+<div id="dataTableShow" class="col-md-12" *ngIf="provider">
+  <mat-card-title>
+    <p class="lead">Dados do fornecedor</p>
+  </mat-card-title>
+  <mat-card>
+    <dl>
+      <dt>Nome</dt>
+      <dd>{{provider.name}}</dd>
+      <dt>Nome fantasia</dt>
+      <dd>{{provider.fantasy_name}}</dd>
+      <dt>CNPJ</dt>
+      <dd>{{provider.cnpj}}</dd>
+      <dt>Inscrição estadual</dt>
+      <dd>{{provider.ie}}</dd>
+      <dt>Telefone principal</dt>
+      <dd>{{provider.mainphone}}</dd>
+      <dt>Telefone secundário</dt>
+      <dd>{{provider.secundaryphone}}</dd>
+      <dt>Site</dt>
+      <dd>{{provider.site}}</dd>
+      <dt>Score</dt>
+      <dd>
+        <cb-stars [readonly]="true" [rate]="provider.rate"></cb-stars>
+      </dd>
+      <dt>Atendimento</dt>
+      <dd>{{provider.employee.name}}</dd>
+    </dl>
+  </mat-card>
+  <div *ngFor="let contact of provider.contacts; let i = index">
+    <mat-card-title>
+      <p class="lead">Contato {{i+1}}</p>
+    </mat-card-title>
+    <mat-card>
+      <dl>
+        <dt>Nome</dt>
+        <dd>{{contact.name}}</dd>
+        <dt>E-mail</dt>
+        <dd>{{contact.email}}</dd>
+        <dt>Departamento</dt>
+        <dd>{{contact.department}}</dd>
+        <dt>Celular</dt>
+        <dd>{{contact.cellphone}}</dd>
+      </dl>
+    </mat-card>
+  </div>
+  <div *ngFor="let account of provider.accounts; let i = index">
+    <mat-card-title>
+      <p class="lead">Conta bancária {{i+1}}</p>
+    </mat-card-title>
+    <mat-card>
+      <dl>
+        <dt>Favorecido</dt>
+        <dd>{{account.favored}}</dd>
+        <dt>Agência</dt>
+        <dd>{{account.agency}}</dd>
+        <dt>Conta</dt>
+        <dd>{{account.account_number}}</dd>
+        <dt>Tipo de conta</dt>
+        <dd>{{account.bank_account_type.description}}</dd>
+        <dt>Banco</dt>
+        <dd>{{account.bank.name}}</dd>
+      </dl>
+    </mat-card>
+  </div>
+  <mat-card-title>
+    <p class="lead">Endereço</p>
+  </mat-card-title>
+  <mat-card>
+    <dl>
+      <dt>Logradouro</dt>
+      <dd>{{provider.street}}</dd>
+      <dt>Número</dt>
+      <dd>{{provider.number}}</dd>
+      <dt>Bairro</dt>
+      <dd>{{provider.neighborhood}}</dd>
+      <dt>Complemento</dt>
+      <dd>{{provider.complement}}</dd>
+      <dt>Cidade</dt>
+      <dd>{{provider.city.name}}</dd>
+      <dt>CEP</dt>
+      <dd>{{provider.cep}}</dd>
+    </dl>
+  </mat-card>
+  <mat-card-title>
+    <p class="lead">Projetos relacionados</p>
+  </mat-card-title>
+  <mat-card></mat-card>
+</div>

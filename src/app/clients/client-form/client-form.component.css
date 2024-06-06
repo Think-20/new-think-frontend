@@ -1,0 +1,25 @@
+ .contact-item {
+    position: relative;
+    flex-wrap: wrap;
+ }
+
+ .add-contact, .delete-contact {
+    z-index: 10;
+    min-width: 10px !important;
+    padding: 0px !important;
+    color: #BBB;
+ }
+ 
+ .add-contact {
+    position: relative;
+    margin-top: -20px;
+    top: -16px;
+    left: 0px;
+ }
+
+.delete-contact {
+    position: absolute;
+    right: 6px;
+    top: 3px;
+    z-index: 10;
+}

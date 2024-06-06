@@ -1,0 +1,21 @@
+.photo-container {
+  text-align: center;
+}
+
+.photo-container img {
+  max-width: 250px;
+  border: 1px solid #ddd;
+  padding: 2px;
+  margin: 10px 0;
+  background-color: white;
+}
+
+.photo-container .progress {
+  max-width: 250px;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.btn-upload {
+  margin-bottom: 10px;
+}

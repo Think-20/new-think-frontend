@@ -1,0 +1,94 @@
+ .closed_item-item {
+    position: relative;
+    flex-wrap: wrap;
+ }
+
+ .add-stand_item, .delete-stand_item, .edit-stand_item {
+    z-index: 10;
+    min-width: 10px !important;
+    padding: 0px !important;
+    color: #BBB;
+ }
+
+ .add-stand_item {
+    position: relative;
+    margin-top: -20px;
+    top: -16px;
+ }
+
+ .stand-closed-item.add-stand_item {
+    right: 0px;
+ }
+
+ .stand-opened-item.add-stand_item {
+    left: 0px;
+ }
+
+ .edit-stand_item {
+  position: absolute;
+  z-index: 10;
+ }
+
+ .stand-closed-item .edit-stand_item {
+  left: 22px;
+  top: -10px;
+ }
+
+ .stand-opened-item .edit-stand_item {
+  right: 22px;
+  top: -10px;
+ }
+
+ .delete-stand_item {
+  position: absolute;
+  z-index: 10;
+ }
+
+ .stand-closed-item .delete-stand_item {
+  left: 0;
+  top: -10px;
+ }
+
+ .stand-opened-item .delete-stand_item {
+  right: 0;
+  top: -10px;
+ }
+
+ .stand-item {
+  position: relative;
+  font-size: 13px;
+  padding-bottom: 10px;
+ }
+
+ .stand-item .square {
+  width: 29px;
+  height: 29px;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+.stand-item.stand-closed-item .title {
+  text-align: right;
+}
+.stand-item.stand-closed-item .description {
+  text-align: left;
+}
+
+.stand-item.stand-opened-item .title {
+  text-align: left;
+}
+.stand-item.stand-opened-item .description {
+  text-align: right;
+}
+
+.stand-item .title label {
+  margin-bottom: 0;
+}
+
+.stand-item .description {
+  color: #888;
+}
+
+.onlyShow {
+  opacity: 0.7;
+}

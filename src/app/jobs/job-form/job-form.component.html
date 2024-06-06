@@ -1,0 +1,276 @@
+<form [formGroup]="jobForm" novalidate autocomplete="off">
+  <input type="hidden" formControlName="id">
+  <!--
+  <mat-card-title class="row">
+    <p class="col-md-6 lead">Dados do job</p>
+    <p *ngIf="job" class="col-md-6 text-right">{{jobService.showId(job)}}</p>
+  </mat-card-title>
+  -->
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Atividade*" formControlName="job_activity" [compareWith]="compareJobActivity">
+          <mat-option *ngFor="let job_activity of job_activities" [value]="job_activity">
+            {{ job_activity.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select  placeholder="Tipo*" formControlName="job_type" [compareWith]="compareJobType">
+          <mat-option *ngFor="let job_type of job_types" [value]="job_type">
+            {{ job_type.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field [class.cb-invisible]="jobForm.controls.job_type?.value?.description != 'Stand'" class="col-md-3">
+        <input matInput formControlName="area" placeholder="Área (m²)*">
+      </mat-form-field>
+      <mat-form-field [class.cb-invisible]="jobForm.controls.job_type?.value?.description != 'Cenografia'" class="col-md-3">
+        <input matInput formControlName="moments" placeholder="Momentos*">
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input [matDatepicker]="availableDatepicker" formControlName="available_date" matInput placeholder="Data disponível para início*">
+        <mat-datepicker-toggle matSuffix [for]="availableDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #availableDatepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input [matDatepicker]="deadlineDatepicker" formControlName="deadline" matInput placeholder="Deadline*">
+        <mat-datepicker-toggle matSuffix [for]="deadlineDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #deadlineDatepicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input matInput formControlName="agency" [matAutocomplete]="autocompleteAgency" placeholder="Agência">
+        <mat-error>
+          Obrigatório
+        </mat-error>
+        <a [routerLink]="['/clients/new']" target="_blank" class="button-inner-mat-input" mat-button>
+          <mat-icon>add</mat-icon>
+        </a>
+      </mat-form-field>
+      <mat-autocomplete #autocompleteAgency="matAutocomplete" [displayWith]="displayAgency">
+        <mat-option *ngFor="let agency of agencies" [value]="agency">
+          {{ agency.fantasy_name }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-form-field class="col-md-3" *ngIf="jobForm.controls.agency.value == ''">
+        <input matInput formControlName="client" [matAutocomplete]="autocompleteclient" placeholder="Cliente*">
+        <mat-error>
+          Obrigatório
+        </mat-error>
+        <a [routerLink]="['/clients/new']" target="_blank" class="button-inner-mat-input" mat-button>
+          <mat-icon>add</mat-icon>
+        </a>
+      </mat-form-field>
+      <mat-autocomplete #autocompleteclient="matAutocomplete" [displayWith]="displayClient">
+        <mat-option *ngFor="let client of clients" [value]="client">
+          {{ client.fantasy_name }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-form-field class="col-md-3" *ngIf="jobForm.controls.agency.value != ''">
+        <input ucWords formControlName="not_client" matInput placeholder="Cliente*">
+        <mat-error>
+          Obrigatório, entre 3 e 100 caract.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input ucWords formControlName="event" matInput placeholder="Evento*">
+        <mat-error>
+          Obrigatório, entre 3 e 150 caract.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input formControlName="place" matInput placeholder="Local">
+      </mat-form-field>
+      <div class="col-md-3 p-0">
+        <mat-form-field class="col-md-8">
+          <mat-select  placeholder="Atendimento*" formControlName="attendance" [compareWith]="compareAttendance">
+            <mat-option *ngFor="let attendance of getAttendancesWihoutAttendance2()" [value]="attendance">
+              {{ attendance.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="col-md-4 pl-0">
+          <input (input)="validatePercentage($event, 'attendance_percentage')" formControlName="attendance_percentage" matInput>
+          <a *ngIf="typeForm === 'edit'" class="button-inner-mat-input" mat-button>
+             <span matSuffix>%</span>
+              <mat-icon (click)="addAttendance()" >add</mat-icon>
+          </a>
+          <span *ngIf="typeForm !== 'edit'" matSuffix>%</span>
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Expectativa*" formControlName="main_expectation" [compareWith]="compareMainExpectation">
+          <mat-option *ngFor="let mainExpectation of main_expectations" [value]="mainExpectation">
+            {{ mainExpectation.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input currencyMask formControlName="budget_value" matInput placeholder="Verba estimada*">
+        <mat-error>
+          Obrigatório, até 99.999.999,99
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="col-md-3">
+        <input formControlName="creation_responsible" matInput placeholder="Criação">
+      </mat-form-field>
+
+      <div class="col-md-3 p-0" *ngIf="isAddAttendance">
+        <mat-form-field class="col-md-8">
+          <mat-select placeholder="Atendimento2*" formControlName="attendance2" [compareWith]="compareAttendance2">
+            <mat-option *ngFor="let attendance of getAttendancesWihoutAttendance1()" [value]="attendance.id">
+              {{ attendance.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+            Obrigatório
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="col-md-4 pl-0">
+          <input (input)="validatePercentage($event, 'attendance_percentage2')" formControlName="attendance_percentage2" matInput>
+         <a *ngIf="typeForm === 'edit'" class="button-inner-mat-input" mat-button>
+            <span matSuffix>%</span>
+            <mat-icon (click)="removeAttendance()" >clear</mat-icon>
+          </a>
+          <span *ngIf="typeForm !== 'edit'" matSuffix>%</span>
+         <mat-error>
+          Obrigatório
+        </mat-error>
+        </mat-form-field>
+      </div>
+     
+
+      <mat-form-field class="col-md-3">
+        <input formControlName="detailing_responsible" matInput placeholder="Detalhamento">
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input formControlName="budget_responsible" matInput placeholder="Orçamento">
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input formControlName="production_responsible" matInput placeholder="Produção">
+      </mat-form-field>
+      <cb-stars class="col-md-3 star-input ml-auto d-flex" label="Score"
+        [readonly]="true"
+        [rate]="jobForm.controls.client.value?.rate"
+        [input]="jobForm.controls.rate">
+          <input formControlName="rate" matInput>
+      </cb-stars>
+    </div>
+  </mat-card>
+  <mat-card-title>
+    <p class="lead">Outras informações</p>
+  </mat-card-title>
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Concorrência*" formControlName="competition" [compareWith]="compareCompetition">
+          <mat-option *ngFor="let competition of competitions" [value]="competition">
+            {{ competition.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <input ucWords formControlName="last_provider" matInput placeholder="Último fornecedor">
+        <mat-error>
+          Entre 2 e 100 caract.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Nível entrega*" formControlName="levels" [compareWith]="compareLevel" multiple>
+          <mat-option *ngFor="let level of levels" [value]="level">
+            {{ level.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Como chegou*" formControlName="how_come" [compareWith]="compareHowCome">
+          <mat-option *ngFor="let how_come of how_comes" [value]="how_come">
+            {{ how_come.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <cb-stars class="col-md-3 star-input" label="Expectativa de aprovação*" [rate]="job != undefined ? (job.approval_expectation_rate + 1) : 0"
+        [input]="jobForm.controls.approval_expectation_rate">
+        <input formControlName="approval_expectation_rate" matInput>
+      </cb-stars>
+      <mat-form-field class="col-md-3">
+        <input matInput formControlName="history" readonly placeholder="Histórico - Aprovação/Participação*">
+        <mat-error>
+          Obrigatório
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Status*" formControlName="status" [compareWith]="compareStatus">
+          <mat-option *ngFor="let s of status" [value]="s">
+            {{ s.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+  <mat-card-title>
+    <p class="lead">Observações</p>
+  </mat-card-title>
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-md-12">
+        <textarea matInput formControlName="note" placeholder="Observação"></textarea>
+        <mat-error>
+          Máximo de caracteres 5000.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <mat-card-actions class="col-md-12 text-right">
+      <button [disabled]="!buttonEnable" class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save()" mat-raised-button>
+        SALVAR
+      </button>
+      <button [disabled]="!buttonEnable" class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit()" mat-raised-button>
+        EDITAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <!--
+  <mat-card-title>
+    <p class="lead">Referências</p>
+  </mat-card-title>
+  <mat-card>
+    <div class="row" formArrayName="files">
+      <div *ngFor="let control of getFilesControls(); let i = index" class="col-md-4">
+        <form [formGroup]="getFilesControls()[i]" novalidate autocomplete="off" class="flex contact-item">
+          <mat-form-field>
+            <input formControlName="name" matInput placeholder="Referência*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <button type="button" class="download-file" mat-button (click)="previewFile(job, getFilesControls()[i].controls.name.value, 'job')">
+            <mat-icon>file_download</mat-icon>
+          </button>
+          <button type="button" class="delete-file" (click)="deleteFile(i)" mat-button>
+            <mat-icon>clear</mat-icon>
+          </button>
+        </form>
+      </div>
+      <div class="col-md-12">
+        <input [disabled]="typeForm == 'show'" #inputFiles type="file" multiple accept="image/jpeg,application/pdf" (change)="uploadFile(inputFiles)"
+          style="display:none;" />
+        <button *ngIf="getFilesControls().length > 0" type="button" class="add-file" (click)="inputFiles.click()" mat-button>
+          <mat-icon>add</mat-icon>
+        </button>
+        <button *ngIf="getFilesControls().length == 0" type="button" class="cb-button" (click)="inputFiles.click()" mat-raised-button>
+          Adicionar referência
+        </button>
+      </div>
+    </div>
+  </mat-card>
+  -->
+</form>

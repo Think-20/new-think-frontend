@@ -1,0 +1,161 @@
+<mat-menu #menu="matMenu">
+  <ng-template *ngIf="bodyData.hasMenuButton && data?.length > 0" matMenuContent let-obj="obj">
+    <button *ngFor="let menuItem of bodyData.menuItems" [disabled]="menuItem.actions.disabled(obj)" (click)="clickMenuItem(menuItem, obj, data)" mat-menu-item>
+      <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+    </button>
+  </ng-template>
+</mat-menu>
+
+<div class="col-md-12" id="searchForm">
+  <form [formGroup]="searchForm" autocomplete="off">
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Lista
+        </div>
+        <mat-form-field class="bar">
+          <input #search matInput formControlName="search" [placeholder]="searchPlaceholder" autocomplete="off">
+        </mat-form-field>
+        <div class="buttons">
+          <a mat-button (click)="search.focus()">
+            <mat-icon>search</mat-icon>
+          </a>
+          <a *ngIf="!filter" matTooltip="Abrir filtro" mat-button (click)="filter = !filter"
+            [class.filter-button-active]="hasFilterActive">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </a>
+          <a *ngIf="filter" matTooltip="Fechar filtro" mat-button (click)="filter = !filter"
+            [class.filter-button-active]="hasFilterActive">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </a>
+          <a matTooltip="Adicionar novo" [routerLink]="[addActionUrl]" mat-button>
+            <mat-icon>add</mat-icon>
+          </a>
+          <a matTooltip="Limpar filtro" *ngIf="hasFilterActive" (click)="clearFilter()" mat-button>
+            <mat-icon>clear</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card *ngIf="filter" class="filter-grid">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let filterField of filterFields" [class]="filterField.class">
+            <mat-form-field *ngIf="filterField.type == 'select'">
+              <mat-select [placeholder]="filterField.placeholder" [multiple]="filterField.multiple"
+                [formControlName]="filterField.formcontrolname"
+                [compareWith]="filterField.compareWith">
+                <mat-option></mat-option>
+                <mat-option *ngFor="let obj of (filterField.arrayValues | async)" [value]="filterField.showOptionValue(obj)">
+                  {{ filterField.showOptionDescription(obj) }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="filterField.type == 'input'">
+              <input matInput [placeholder]="filterField.placeholder" [formControlName]="filterField.formcontrolname">
+            </mat-form-field>
+            <cb-stars *ngIf="filterField.type == 'stars'" [label]="filterField.placeholder"
+              [rate]="filterField.starsRate" [input]="searchForm.controls[filterField.formcontrolname]">
+              <input [formControlName]="filterField.formcontrolname" matInput>
+            </cb-stars>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <mat-paginator *ngIf="data" [length]="pagination?.total" [pageSize]="pagination?.per_page" [pageIndex]="pageIndex"
+      [pageSizeOptions]="[pagination?.per_page]" (page)="changePage($event)"></mat-paginator>
+    <mat-card>
+      <div *ngIf="data?.length > 0">
+        <table class="table mat-table">
+          <div class="mat-header-row">
+            <div *ngFor="let dataField of bodyData.dataFields" class="mat-header-cell"
+              [ngStyle]="dataField.style">
+              {{ dataField.label }}
+            </div>
+            <div *ngIf="bodyData.hasMenuButton" [ngStyle]="bodyData.buttonStyle" class="mat-header-cell">
+              Ação
+            </div>
+          </div>
+          <div class="mat-row" *ngFor="let line of data" [ngStyle]="bodyData.customRowStyle != undefined ? bodyData.customRowStyle(line): null" [@rowAppeared]="rowAppearedState">
+            <cb-data-field *ngFor="let dataField of bodyData.dataFields" class="mat-cell"
+              [ngStyle]="dataField.style" [dataField]="dataField" [data]="line">
+            </cb-data-field>
+            <div *ngIf="bodyData.hasMenuButton" [ngStyle]="bodyData.buttonStyle" class="mat-cell">
+              <button mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ obj: line }">
+                  <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+          </div>
+        </table>
+      </div>
+      <div *ngIf="searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Aguarde...
+          </small>
+        </p>
+      </div>
+      <div *ngIf="data.length == 0 && searchForm.controls.search.value != '' && !searching"
+        class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Não encontramos resultados para sua busca. :(
+          </small>
+        </p>
+      </div>
+      <div *ngIf="data.length == 0 && searchForm.controls.search.value == '' && !searching"
+        class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Ainda não existe nenhum registro. Que tal
+            <a [routerLink]="[addActionUrl]">cadastrar</a> agora?
+          </small>
+        </p>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Relatório
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card *ngIf="!footerData">
+      <table class="table mat-table report">
+        <div class="mat-header-row">
+          <div class="mat-header-cell col-md-2 text-center">
+            Total
+          </div>
+          <div *ngIf="dataInfo?.updatedInfo?.date" class="mat-header-cell col-md-10 text-right">
+            Última atualização
+          </div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell col-md-2 text-center default">
+            {{ data?.length }}
+          </div>
+          <div *ngIf="dataInfo?.updatedInfo?.date" class="mat-cell col-md-10 text-right">
+            <cb-updated-info [dataInfo]="dataInfo"></cb-updated-info>
+          </div>
+        </div>
+      </table>
+    </mat-card>
+    <mat-card *ngIf="footerData && data?.length > 0">
+      <table class="table mat-table report">
+        <div class="mat-header-row">
+          <div *ngFor="let dataField of footerData.dataFields" class="mat-header-cell"
+            [ngStyle]="dataField.style">
+            {{ dataField.label }}
+          </div>
+        </div>
+        <div class="mat-row">
+          <cb-data-field *ngFor="let dataField of footerData.dataFields" class="mat-cell"
+            [ngStyle]="dataField.style" [dataField]="dataField" [data]="data" [dataInfo]="dataInfo">
+          </cb-data-field>
+        </div>
+      </table>
+    </mat-card>
+    <mat-paginator *ngIf="data" [length]="pagination?.total" [pageSize]="pagination?.per_page" [pageIndex]="pageIndex"
+      [pageSizeOptions]="[pagination?.per_page]" (page)="changePage($event)"></mat-paginator>
+  </form>
+</div>

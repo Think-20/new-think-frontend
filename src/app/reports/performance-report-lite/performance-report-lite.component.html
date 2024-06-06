@@ -1,0 +1,205 @@
+<div class="my-container">
+  <h3 class="lead">Relatório de performance (lite)</h3>
+</div>
+
+<div class="col-md-12" id="searchForm">
+  <form [formGroup]="searchForm" autocomplete="off">
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Parâmetros
+        </div>
+        <div class="bar"></div>
+        <div class="buttons">
+          <a mat-button (click)="filterOpen = !filterOpen">
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card *ngIf="filterOpen" class="filter-grid">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field class="col-md-3">
+            <mat-select formControlName="month" placeholder="Mês" [compareWith]="compareMonth">
+              <mat-option *ngFor="let month of months" [value]="month">
+                {{ month.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-3">
+            <input formControlName="year" matInput placeholder="Ano*">
+          </mat-form-field>
+          <mat-form-field class="col-md-3">
+            <mat-select formControlName="time_to_analyze" placeholder="Tempo de análise*">
+              <mat-option></mat-option>
+              <mat-option value="15">15 dias</mat-option>
+              <mat-option value="30">1 mês</mat-option>
+              <mat-option value="90">3 meses</mat-option>
+              <mat-option value="180">6 meses</mat-option>
+              <mat-option value="365">1 ano</mat-option>
+              <mat-option value="730">2 anos</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-3">
+            <mat-select formControlName="attendances" placeholder="Atendimento" [compareWith]="compareAttendance" multiple>
+              <mat-option></mat-option>
+              <mat-option *ngFor="let attendance of attendances" [value]="attendance">
+                {{ attendance.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>
+
+<!-- Quando houver algum registro -->
+<div *ngIf="performanceLite" class="col-md-12 data">
+  <mat-card class="col-md-12">
+    <table class="table mat-table report">
+      <div class="mat-header-row">
+        <div class="cb-title">
+          Resultado
+          <br>
+          <small>{{ searchForm.controls.month.value.name + ' de ' + searchForm.controls.year.value }}</small>
+        </div>
+        <div class="cb-items opportunity opportunity-quantity">
+          <div class="title">oportunidades un:</div>
+          <div class="content">
+            <div class="split full">
+              <div class="percent {{ percent(performanceLite.opportunity.quantity, opportunity_quantity_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent(performanceLite.opportunity.quantity, opportunity_quantity_goal) >= 0 ? '+' : '' }}{{ percent(performanceLite.opportunity.quantity,
+                opportunity_quantity_goal) }}%
+              </div>
+              <div class="value">{{ performanceLite.opportunity.quantity }}</div>
+            </div>
+          </div>
+          <div class="title">meta:</div>
+          <div class="content">
+            <div class="split full">
+              <div class="value">{{ opportunity_quantity_goal }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="cb-items opportunity opportunity-value">
+          <div class="title">oportunidades $:</div>
+          <div class="content">
+            <div class="split full">
+              <div class="percent {{ percent(performanceLite.opportunity.value, opportunity_value_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent(performanceLite.opportunity.value, opportunity_value_goal) >= 0 ? '+' : '' }}{{ percent(performanceLite.opportunity.value,
+                opportunity_value_goal) }}%
+              </div>
+              <div class="value strong">{{ performanceLite.opportunity.value | numberAbrev }}</div>
+            </div>
+          </div>
+          <div class="title">meta:</div>
+          <div class="content">
+            <div class="split full">
+              <div class="value">{{ opportunity_value_goal | numberAbrev }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="cb-items">
+          <div class="title">tendencia mensal de aprovação % | $:</div>
+          <div class="content">
+            <div class="split">
+              <div class="percent {{ percent((performanceLite.tendency.quantity_approved * 100 / performanceLite.tendency.quantity_total), tendency_quantity_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent((performanceLite.tendency.quantity_approved * 100 / performanceLite.tendency.quantity_total), tendency_quantity_goal)
+                >= 0 ? '+' : '' }}{{ percent((performanceLite.tendency.quantity_approved * 100 / performanceLite.tendency.quantity_total),
+                tendency_quantity_goal) }}%
+              </div>
+              <div class="value">
+                {{ (performanceLite.tendency.quantity_approved * 100 / performanceLite.tendency.quantity_total) | number : '1.1-1' }}%
+              </div>
+            </div>
+            <div class="split">
+              <div class="percent {{ percent((performanceLite.tendency.budget_approved / (searchForm.controls.time_to_analyze.value / 30)), tendency_value_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent((performanceLite.tendency.budget_approved / (searchForm.controls.time_to_analyze.value / 30)), tendency_value_goal)
+                >= 0 ? '+' : '' }}{{ percent((performanceLite.tendency.budget_approved / (searchForm.controls.time_to_analyze.value
+                / 30)), tendency_value_goal) }}%
+              </div>
+              <div class="value">
+                {{ (performanceLite.tendency.budget_approved / (searchForm.controls.time_to_analyze.value / 30) | numberAbrev) }}
+              </div>
+            </div>
+          </div>
+          <div class="title">meta de aprovação % | $:</div>
+          <div class="content">
+            <div class="split">
+              <div class="value">{{ tendency_quantity_goal }}%</div>
+            </div>
+            <div class="split">
+              <div class="value">{{ tendency_value_goal | numberAbrev }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="cb-items">
+          <div class="title">aprovação atual mês % | $:</div>
+          <div class="content">
+            <div class="split">
+              <div class="percent {{ percent((performanceLite.monthly_approval.quantity_approved * 100 / performanceLite.monthly_approval.quantity_total), monthly_approval_quantity_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent((performanceLite.monthly_approval.quantity_approved * 100 / performanceLite.monthly_approval.quantity_total),
+                monthly_approval_quantity_goal) >= 0 ? '+' : '' }}{{ percent((performanceLite.monthly_approval.quantity_approved
+                * 100 / performanceLite.monthly_approval.quantity_total), monthly_approval_quantity_goal) }}%
+              </div>
+              <div class="value">
+                {{ (performanceLite.monthly_approval.quantity_approved * 100 / performanceLite.monthly_approval.quantity_total) | number
+                : '1.1-1' }}%
+              </div>
+            </div>
+            <div class="split">
+              <div class="percent {{ percent(performanceLite.monthly_approval.budget_approved, monthly_approval_value_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent(performanceLite.monthly_approval.budget_approved, monthly_approval_value_goal) >= 0 ? '+' : '' }}{{ percent(performanceLite.monthly_approval.budget_approved,
+                monthly_approval_value_goal) }}%
+              </div>
+              <div class="value">{{ performanceLite.monthly_approval.budget_approved | numberAbrev }}</div>
+            </div>
+          </div>
+          <div class="title">meta de aprovação % | $:</div>
+          <div class="content">
+            <div class="split">
+              <div class="value">{{ monthly_approval_quantity_goal }}%</div>
+            </div>
+            <div class="split">
+              <div class="value">{{ monthly_approval_value_goal | numberAbrev }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="cb-items">
+          <div class="title">consolidado anual % | $:</div>
+          <div class="content">
+            <div class="split">
+              <div class="percent {{ percent(performanceLite.consolidated_annual.quantity_approved, consolidated_annual_quantity_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent((performanceLite.consolidated_annual.quantity_approved * 100 / performanceLite.consolidated_annual.quantity_total),
+                consolidated_annual_quantity_goal) >= 0 ? '+' : '' }}{{ percent((performanceLite.consolidated_annual.quantity_approved
+                * 100 / performanceLite.consolidated_annual.quantity_total), consolidated_annual_quantity_goal) }}%
+              </div>
+              <div class="value">
+                {{ (performanceLite.consolidated_annual.quantity_approved * 100 / performanceLite.consolidated_annual.quantity_total) | number
+                : '1.1-1' }}%
+              </div>
+            </div>
+            <div class="split">
+              <div class="percent {{ percent(performanceLite.consolidated_annual.budget_approved, consolidated_annual_value_goal) > 0 ? 'positive' : 'negative' }}">
+                {{ percent(performanceLite.consolidated_annual.budget_approved, consolidated_annual_value_goal) >= 0 ? '+' : '' }}{{ percent(performanceLite.consolidated_annual.budget_approved,
+                consolidated_annual_value_goal) }}%
+              </div>
+              <div class="value">{{ performanceLite.consolidated_annual.budget_approved | numberAbrev }}</div>
+            </div>
+          </div>
+          <div class="title">meta de aprovação % | $:</div>
+          <div class="content">
+            <div class="split">
+              <div class="value">{{ consolidated_annual_quantity_goal }}%</div>
+            </div>
+            <div class="split">
+              <div class="value">{{ consolidated_annual_value_goal | numberAbrev }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </table>
+  </mat-card>
+</div>

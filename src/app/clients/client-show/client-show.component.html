@@ -1,0 +1,137 @@
+<div id="dataTableShow" class="col-md-12" *ngIf="client">
+  <mat-card-title>
+    <p class="lead">Dados do cliente</p>
+  </mat-card-title>
+  <mat-card>
+    <dl>
+      <dt>Nome</dt>
+      <dd>{{client.name}}</dd>
+      <dt>Nome fantasia</dt>
+      <dd>{{client.fantasy_name}}</dd>
+      <dt>CNPJ</dt>
+      <dd>{{client.cnpj}}</dd>
+      <dt>Inscrição estadual</dt>
+      <dd>{{client.ie}}</dd>
+      <dt>Telefone principal</dt>
+      <dd>{{client.mainphone}}</dd>
+      <dt>Telefone secundário</dt>
+      <dd>{{client.secundaryphone}}</dd>
+      <dt>Site</dt>
+      <dd>{{client.site}}</dd>
+      <dt>Score</dt>
+      <dd>
+        <cb-stars [readonly]="true" [rate]="client.rate"></cb-stars>
+      </dd>
+      <dt>Atendimento</dt>
+      <dd>{{client.employee.name}}</dd>
+      <dt>Data de cadastro</dt>
+      <dd>{{client.created_at | date: 'dd/MM/yyyy'}}</dd>
+    </dl>
+  </mat-card>
+  <div *ngFor="let contact of client.contacts; let i = index">
+    <mat-card-title>
+      <p class="lead">Contato {{i+1}}</p>
+    </mat-card-title>
+    <mat-card>
+      <dl>
+        <dt>Nome</dt>
+        <dd>{{contact.name}}</dd>
+        <dt>E-mail</dt>
+        <dd>{{contact.email}}</dd>
+        <dt>Departamento</dt>
+        <dd>{{contact.department}}</dd>
+        <dt>Celular</dt>
+        <dd>{{contact.cellphone}}</dd>
+      </dl>
+    </mat-card>
+  </div>
+  <mat-card-title>
+    <p class="lead">Endereço</p>
+  </mat-card-title>
+  <mat-card>
+    <dl>
+      <dt>Logradouro</dt>
+      <dd>{{client.street}}</dd>
+      <dt>Número</dt>
+      <dd>{{client.number}}</dd>
+      <dt>Bairro</dt>
+      <dd>{{client.neighborhood}}</dd>
+      <dt>Complemento</dt>
+      <dd>{{client.complement}}</dd>
+      <dt>Cidade</dt>
+      <dd>{{client.city.name}}</dd>
+      <dt>CEP</dt>
+      <dd>{{client.cep}}</dd>
+    </dl>
+  </mat-card>
+  <mat-card-title>
+    <p class="lead">Histórico de jobs</p>
+  </mat-card-title>
+  <mat-card>
+    <table class="table mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell mat-column-id">ID</div>
+        <div class="mat-header-cell mat-column-name">Nome</div>
+        <div class="mat-header-cell mat-column-name">Evento</div>
+        <div class="mat-header-cell mat-column-date">Data</div>
+        <div class="mat-header-cell mat-column-attendance">Atendimento</div>
+        <div class="mat-header-cell mat-column-creation">Criação</div>
+        <div class="mat-header-cell mat-column-budget_value">Valor</div>
+        <div class="mat-header-cell mat-column-status">Status</div>
+      </div>
+      <div class="mat-row" *ngFor="let job of client.jobs">
+        <div class="mat-cell mat-column-id">
+          <a [routerLink]="['/jobs/show/', job.id]">{{ jobService.showId(job) }}</a>
+        </div>
+        <div class="mat-cell mat-column-name">
+          {{ jobService.displayNameJob(job) || '-' }}
+        </div>
+        <div class="mat-cell mat-column-name">
+          {{ job.event }}
+        </div>
+        <div class="mat-cell mat-column-date">
+          {{ job.created_at | date:'dd/MM/yy' }}
+        </div>
+        <div class="mat-cell mat-column-attendance">
+          {{ job.attendance.name }}
+        </div>
+        <div class="mat-cell mat-column-creation">
+          {{ jobService.displayCreation(job) }}
+        </div>
+        <div class="mat-cell mat-column-budget_value">
+          {{ job.budget_value | currency: 'BRL' }}
+        </div>
+        <div class="mat-cell mat-column-status">
+          {{ job.status.description }}
+        </div>
+      </div>
+    </table>
+  </mat-card>
+  <mat-card-title>
+    <p class="lead">Histórico do cadastro</p>
+  </mat-card-title>
+  <mat-card>
+    <table class="table mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell mat-column2-id">ID</div>
+        <div class="mat-header-cell mat-column2-description">Descrição</div>
+        <div class="mat-header-cell mat-column2-type">Tipo</div>
+        <div class="mat-header-cell mat-column2-date">Data</div>
+      </div>
+      <div class="mat-row" *ngFor="let log of client.logs">
+        <div class="mat-cell mat-column2-id">
+          {{ log.id }}
+        </div>
+        <div class="mat-cell mat-column2-description">
+          {{ log.description }}
+        </div>
+        <div class="mat-cell mat-column2-type">
+          {{ log.type }}
+        </div>
+        <div class="mat-cell mat-column2-date">
+          {{ log.date | date:'dd/MM/yy hh:mm:ss' }}
+        </div>
+      </div>
+    </table>
+  </mat-card>
+</div>

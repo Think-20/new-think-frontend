@@ -1,0 +1,8 @@
+.filter-grid .row .col-md-12 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.report .default {
+  margin-top: 8px;
+}

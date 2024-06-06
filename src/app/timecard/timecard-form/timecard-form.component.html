@@ -1,0 +1,74 @@
+<div class="col-md-12" *ngIf="accessNew">
+  <form [formGroup]="timecardForm" novalidate>
+    <input type="hidden" formControlName="id">
+    <mat-card-title>
+      <p class="lead">Dados do registro</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+          <mat-form-field class="col-md-4">
+            <input type="datetime-local" formControlName="entry" matInput placeholder="Entrada*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-4">
+            <input type="datetime-local" formControlName="exit" matInput placeholder="Saída*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-4">
+            <input matInput formControlName="employee" [matAutocomplete]="autocompleteEmployee" placeholder="Funcionário*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-autocomplete #autocompleteEmployee="matAutocomplete" [displayWith]="displayEmployee">
+              <mat-option *ngFor="let employee of employees" [value]="employee">
+                {{ employee.name }}
+              </mat-option>
+          </mat-autocomplete>
+          <div *ngIf="justifyHours">
+            <mat-form-field class="col-md-12">
+              <input formControlName="reason" matInput placeholder="Motivo*">
+              <mat-error>
+                Obrigatório
+              </mat-error>
+            </mat-form-field>
+          </div>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(timecardForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(timecardForm.value, timecard.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+
+<div class="col-md-12" *ngIf="!accessNew">
+  <form [formGroup]="justifyForm" novalidate>
+    <mat-card-title>
+      <p class="lead">Registrar</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+          <mat-form-field class="col-md-12" *ngIf="justifyHours">
+            <input formControlName="reason" matInput placeholder="Motivo*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+      </div>
+      <mat-card-actions class="col-md-12 text-center">
+        <button class="cb-button" color="primary" (click)="register(justifyForm.value)" mat-raised-button>
+          {{ buttonText }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

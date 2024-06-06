@@ -1,0 +1,41 @@
+<cb-image-viewer [images]="images"></cb-image-viewer>
+
+<div [formGroup]="fileForm">
+  <mat-progress-bar *ngIf="(progress > 0 && progress < 100) && (getFilesControls().length > 0)" class="cb-progress" mode="determinate" value="{{progress}}"></mat-progress-bar>
+  <div class="row" formArrayName="files">
+    <div *ngFor="let control of getFilesControls(); let i = index" class="col-md-2 project-image-container">
+      <form [formGroup]="getFilesControls()[i]" novalidate autocomplete="off" class="flex item">
+        <div class="project-image" (click)="openModal(i)" [class.pdf]="getType(getFilesControls()[i]) == 'pdf'"
+          [ngStyle]="{'background-image': 'url(' + getImageUrl(getFilesControls()[i]) + ')'}"></div>
+        <input type="hidden" formControlName="original_name">
+        <button type="button" class="download-file" mat-button (click)="previewFile(getFilesControls()[i].value)">
+          <mat-icon>file_download</mat-icon>
+        </button>
+        <button type="button" class="delete-file" (click)="deleteFile(i)" mat-button>
+          <mat-icon>clear</mat-icon>
+        </button>
+      </form>
+    </div>
+    <div class="col-md-12">
+      <input [disabled]="typeForm == 'show'" #inputFiles type="file" multiple accept="image/jpeg,application/pdf"
+        (change)="uploadFile(inputFiles)" style="display:none;" />
+      <div class="text-right">
+        <button *ngIf="getFilesControls().length > 0 && (max == null || getFilesControls().length < max)" type="button" class="aux-button" (click)="inputFiles.click()"
+          mat-button>
+          <mat-icon>add</mat-icon>
+        </button>
+        <div class="row container-bar-add">
+          <div class="content-bar">
+            <mat-progress-bar *ngIf="(progress > 0 && progress < 100) && (getFilesControls().length == 0)" class="cb-progress" mode="determinate" value="{{progress}}"></mat-progress-bar>
+          </div>
+          <div class="content-add text-right">
+            <button *ngIf="getFilesControls().length == 0" type="button" class="cb-button" (click)="inputFiles.click()"
+              mat-raised-button>
+              <mat-icon>cloud_upload</mat-icon> &nbsp; Adicionar arquivos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

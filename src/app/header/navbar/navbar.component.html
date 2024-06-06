@@ -1,0 +1,37 @@
+<mat-toolbar>
+  <img *ngIf="!opened" id="logoNavBar" src="{{ API }}/assets/images/logo/think-normal.png" alt="Think Ideias">
+  <div class="flex-spacer"></div>
+  <button class="my-button" mat-button (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <button [routerLink]="['/timecard']" class="my-button" mat-button>
+    <mat-icon>query_builder</mat-icon>
+  </button>
+  <button class="my-button" mat-button [matMenuTriggerFor]="menuNotifications" (menuClosed)="readMessages()">
+    <mat-icon
+      matBadge="{{notReads}}"
+      matBadgeHidden="{{notReads == 0}}"
+      matBadgeColor="warn">notifications</mat-icon>
+  </button>
+  <mat-menu #menuNotifications
+    class="menuNotifications">
+    <div mat-menu-item
+      class="menuItemNotification"
+      *ngFor="let userNotification of userNotifications">
+      <cb-notification-item
+        class="cbNotificationItem"
+        [printNew]="true"
+        [userNotification]="userNotification">
+      </cb-notification-item>
+    </div>
+  </mat-menu>
+  <button [routerLink]="['/employees/profile']" class="my-button" mat-button>
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <button class="my-button" mat-button>
+    <mat-icon>message</mat-icon>
+  </button>
+  <button [routerLink]="['/login']" class="my-button" mat-button>
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>

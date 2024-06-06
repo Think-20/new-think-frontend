@@ -1,0 +1,170 @@
+.hidden {
+  display: none !important;
+}
+
+.container-schedule {
+  height: calc(100% - 22px);
+}
+
+.other-attendance .mat-cell {
+  color: #888 !important;
+}
+
+.mat-column-date {
+  width: 5%;
+}
+
+.mat-column-date > div {
+  display: block;
+}
+
+.mat-column-date > div > span {
+  display: block;
+  width: 100%;
+}
+
+.updated-message {
+  font-size: 16px;
+  padding-right: 25px;
+}
+
+.lead {
+  align-items: baseline;
+}
+
+.icon-with-text {
+  display: inline;
+  font-size: 10px;
+  color: #777;
+}
+
+.content-icon {
+  margin-top: 5px;
+}
+
+.lead small {
+  color: rgba(0,0,0,.5);
+  font-weight: 300;
+  text-align: right;
+  display: block;
+}
+
+.actualMonth {
+  cursor: pointer;
+}
+
+.mat-column-job {
+  width: 9%;
+}
+.mat-column-type {
+  width: 8%;
+}
+.mat-column-event {
+  width: 7%;
+}
+.mat-column-event-date {
+  width: 9%;
+}
+.mat-column-client {
+  width: 10%;
+}
+.mat-column-agency {
+  width: 8%;
+}
+.mat-column-budget {
+  width: 10%;
+}
+.mat-column-time {
+  width: 6%;
+}
+.mat-column-deadline {
+  width: 8%;
+}
+.mat-column-attendance {
+  width: 8%;
+}
+.mat-column-creation {
+  width: 9%;
+}
+.mat-column-stat {
+  width: 7%;
+}
+.mat-column-area {
+  width: 5%;
+}
+
+.select-hidden {
+  visibility: hidden;
+  height: 0;
+  font-size: 14px;
+}
+
+.time-icon {
+  font-size: 18px !important;
+}
+
+.time-icon-done {
+  color: #9EB25D;
+}
+
+.time-icon-alarm {
+  color: #C44536;
+}
+
+.signal {
+  background-color: #fbfbfb;
+  border-top: 1px solid #ccc !important;
+  border-right: 1px solid #ccc !important;
+  border-bottom: 1px solid #ccc !important;
+}
+
+.approved-budget {
+  background-color: #fbfbfb;
+  border-top: 1px solid #c377e0 !important;
+  border-right: 1px solid #c377e0 !important;
+  border-bottom: 1px solid #c377e0 !important;
+}
+
+.approved-creation {
+  background-color: #fbfbfb;
+  border-top: 1px solid #00aff2 !important;
+  border-right: 1px solid #00aff2 !important;
+  border-bottom: 1px solid #00aff2 !important;
+}
+
+.no-border {
+  border-bottom: none !important;
+}
+
+.line-chrono {
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.line-chrono:first-child {
+  border-top: 0 !important;
+}
+
+.line-chrono:last-child {
+  margin-bottom: 0px;
+}
+
+.day-chrono {
+  align-self: stretch;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.mat-cell {
+  font-size: 12px;
+  text-align: center;
+  min-height: 40px;
+  padding: 3px;
+}
+
+.line-job {
+  display: flex;
+  width: 100%;
+}
+

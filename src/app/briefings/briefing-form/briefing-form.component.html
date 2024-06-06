@@ -1,0 +1,52 @@
+<form [formGroup]="briefingForm" novalidate autocomplete="off">
+  <input type="hidden" formControlName="id">
+  <mat-card>
+    <div class="row">
+      <mat-form-field class="col-md-3">
+        <input [readonly]="!isAdmin" type="date" formControlName="available_date" matInput placeholder="Data disponível*">
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select #responsible (click)="toggleCreation()" placeholder="Criação*" formControlName="responsible" [compareWith]="compareResponsible">
+          <mat-option *ngFor="let responsible of responsibles" [value]="responsible">
+            {{ responsible.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-md-3">
+        <mat-select placeholder="Apresentação*" formControlName="presentations" [compareWith]="comparePresentation"
+          multiple>
+          <mat-option *ngFor="let presentation of presentations" [value]="presentation">
+            {{ presentation.description }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+  <div *ngIf="job?.job_type?.description == 'Stand'">
+    <mat-card-title>
+      <p class="lead">Stand</p>
+    </mat-card-title>
+    <cb-stand-form [job]="job" [briefing]="briefing" [stand]="briefing?.stand" [briefingForm]="briefingForm">
+    </cb-stand-form>
+  </div>
+  <mat-card-title>
+    <p class="lead">Tempo estimado de produção</p>
+  </mat-card-title>
+  <mat-card>
+    <div class="row">
+      <cb-production-time [readonly]="typeForm === 'show' ? true : false" class="col-md-12 production-time-input" label="Tempo estimado"
+        [rate]="briefing != undefined ? (briefing.estimated_time) : 1" [input]="briefingForm.controls.estimated_time" [min]="0"
+        [max]="10">
+        <input formControlName="estimated_time" type="hidden">
+      </cb-production-time>
+    </div>
+    <mat-card-actions class="col-md-12 text-right">
+      <button class="cb-button" *ngIf="typeForm === 'new' || briefing == null" color="primary" (click)="save()" mat-raised-button>
+        AGENDAR
+      </button>
+      <button class="cb-button" *ngIf="typeForm === 'edit' && briefing != null" color="primary" (click)="edit()" mat-raised-button>
+        EDITAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

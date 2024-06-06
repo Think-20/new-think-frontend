@@ -1,0 +1,139 @@
+#brand:hover, #brand:active, #brand:visited, #brand:focus {
+  text-decoration: none;
+}
+
+.my-container {
+  padding: 20px 15px;
+}
+
+#sidenav-container {
+  height: 100%;
+  font-weight: 300;
+}
+
+#sidenav {
+  padding-bottom: 20px;
+}
+
+.cb-version {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  font-size: 10px;
+  background-color: white;
+  padding: 5px;
+  color: #ccc;
+}
+
+#sidenav {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#menu-container {
+  height: calc(100% - 64px);
+  overflow: auto;
+}
+
+#menu-container > .my-container:first-child {
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+}
+
+.sub-navbar {
+  padding-right: 33px;
+}
+
+.sub-navbar .sub-navbar {
+  padding-right: 25px;
+}
+
+#logo-container {
+  background-color: #e5e6e8 !important;
+  padding: 12px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  color: white !important;
+}
+
+#logo-container img {
+  width: 124px;
+  margin-left: 5px;
+}
+
+
+#username-sidenav {
+  padding-right: 9px;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-top: 27px;
+}
+
+.user-photo img {
+  display: block;
+}
+
+.user-name {
+  color: #212529;
+  font-size: 20px;
+  margin-right: 12px;
+  font-weight: 300;
+  line-height: 21px;
+}
+
+.nav-navbar {
+  margin-top: 30px;
+  padding-right: 8px;
+}
+
+.nav-navbar .nav-item {
+  text-indent: 10px;
+  margin-bottom: 15px;
+}
+
+.nav-item a[disabled] {
+  background-color: white;
+  color: #AAA !important;
+}
+
+.nav-navbar .nav-item a {
+  line-height: 18px;
+  display: block;
+  font-size: 13px;
+  color: #7b7b7b;
+  box-shadow: none;
+  text-align: right;
+  font-weight: 300;
+}
+
+.nav-navbar .nav-item > a {
+  padding: 3px 0;
+  font-size: 16px !important;
+  color: #212529;
+}
+
+.nav-navbar .nav-item a {
+  text-decoration: none;
+  padding-left: 0;
+}
+
+#menu-sidenav {
+  display: none;
+}
+
+@media screen and (max-width: 500px) {
+  #sidenav-container {
+    position: static;
+  }
+
+  #menu-sidenav {
+    display: block;
+    margin-right: -10px;
+  }
+}
+

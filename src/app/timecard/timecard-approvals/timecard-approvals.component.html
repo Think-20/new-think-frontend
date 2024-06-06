@@ -1,0 +1,98 @@
+<div class="col-md-12" id="searchForm">
+  <form autocomplete="off">
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Aprovações
+        </div>
+        <div class="buttons">
+          <a mat-button>
+            <mat-icon>search</mat-icon>
+          </a>
+          <a mat-button>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </a>
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card>
+      <div *ngIf="timecards?.length > 0">
+        <table class="table mat-table">
+          <div class="mat-header-row">
+            <div class="mat-header-cell mat-column-id">ID</div>
+            <div class="mat-header-cell mat-column-entry">Entrada</div>
+            <div class="mat-header-cell mat-column-exit">Saída</div>
+            <div class="mat-header-cell mat-column-reason">Motivo</div>
+            <div class="mat-header-cell mat-column-approved">Aprovação</div>
+            <div class="mat-header-cell mat-column-action">Ação</div>
+          </div>
+          <div class="mat-row" *ngFor="let timecard of timecards" [@rowAppeared]="rowAppearedState">
+            <div class="mat-cell mat-column-id">
+              {{ timecard.id }}
+            </div>
+            <div class="mat-cell mat-column-entry">
+              {{ timecard.entry | date:'dd/MM/yyyy HH:mm'  }}
+            </div>
+            <div class="mat-cell mat-column-exit" *ngIf="timecard.exit == ''">
+
+            </div>
+            <div class="mat-cell mat-column-exit" *ngIf="timecard.exit != ''">
+              {{ timecard.exit | date:'dd/MM/yyyy HH:mm'  }}
+            </div>
+            <div class="mat-cell mat-column-reason">
+              {{ timecard.reason }}
+            </div>
+            <div class="mat-cell mat-column-approved">
+              <mat-icon>{{ timecard.approved == 1 ? 'done' : 'close'}}</mat-icon>
+            </div>
+            <div class="mat-cell mat-column-action">
+              <mat-menu #menu="matMenu">
+                <button (click)="approve(timecard)" mat-menu-item>
+                  <mat-icon>done</mat-icon> Aprovar
+                </button>
+                <button (click)="delete(timecard)" mat-menu-item>
+                  <mat-icon>delete</mat-icon> Remover
+                </button>
+              </mat-menu>
+
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>menu</mat-icon>
+              </button>
+            </div>
+          </div>
+        </table>
+      </div>
+      <div *ngIf="searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Aguarde...
+          </small>
+        </p>
+      </div>
+      <div *ngIf="timecards.length == 0 && !searching" class="col-md-12 records-not-found">
+        <p>
+          <small>
+            Nenhuma aprovação pendente.
+          </small>
+        </p>
+      </div>
+    </mat-card>
+    <mat-card-title>
+      <div class="row search-bar-group">
+        <div class="title">
+          Relatório
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card>
+      <table class="table mat-table report">
+        <div class="mat-header-row">
+          <div class="mat-header-cell col-md-2 text-center">Total</div>
+        </div>
+        <div class="mat-row">
+          <div class="mat-cell col-md-2 text-center">{{ timecards?.length }}</div>
+        </div>
+      </table>
+    </mat-card>
+  </form>
+</div>

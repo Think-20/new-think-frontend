@@ -1,0 +1,464 @@
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-job="job">
+      <a [disabled]="!permissionVerify('show', job)" [routerLink]="['/jobs/show', job.id]" mat-menu-item>
+        <mat-icon>subject</mat-icon> Visualização
+      </a>
+      <a [disabled]="!permissionVerify('edit', job)" [routerLink]="['/jobs/edit', job.id]" mat-menu-item>
+        <mat-icon>mode_edit</mat-icon> Editar
+      </a>
+      <button [disabled]="!permissionVerify('delete', job)" (click)="delete(job)" mat-menu-item>
+        <mat-icon>delete</mat-icon> Remover
+      </button>
+  </ng-template>
+</mat-menu>
+
+<div class="container-job">
+  <div class="my-container">
+    <!-- <h3 class="lead">Relatórios</h3> -->
+    <h3 class="lead row">
+      <div class="col-md-8">
+        <div class="flex center">
+          <button mat-button type="button" class="month-arrow">
+            <mat-icon (click)="addMonth(-1)">keyboard_arrow_left</mat-icon>
+          </button>
+          &nbsp;Relatórios de
+          <span class="actualMonth" (click)="monthSelect.open()">
+            &nbsp;{{ month?.name }}
+            <mat-select class="select-hidden col-md-3" #monthSelect>
+              <mat-option *ngFor="let month of months" (click)="updateMonth(month)">{{month?.name}}</mat-option>
+            </mat-select>
+          </span>
+          <span class="actualYear" (click)="yearSelect.open()">
+            {{ year }}
+            <mat-select class="select-hidden col-md-3" #yearSelect>
+              <mat-option *ngFor="let year of years" (click)="updateYear(year)">{{year}}</mat-option>
+            </mat-select>
+          </span>
+          <span>até</span>
+          <span class="actualMonth" (click)="nextMonthSelect.open()">
+            &nbsp;{{ nextMonth?.name }}
+            <mat-select class="select-hidden col-md-3" #nextMonthSelect>
+              <mat-option *ngFor="let month of months" (click)="updateNextMonth(month)">{{month?.name}}</mat-option>
+            </mat-select>
+          </span>
+          <span class="actualYear" (click)="nextYearSelect.open()">
+            {{ nextYear }}
+            <mat-select class="select-hidden col-md-3" #nextYearSelect>
+              <mat-option *ngFor="let year of years" (click)="updateNextYear(year)">{{year}}</mat-option>
+            </mat-select>
+          </span>
+          <button mat-button type="button" class="month-arrow">
+            <mat-icon (click)="addMonth(1)">keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6 updated-message" *ngIf="dataInfo != null">
+        <small>{{lastUpdateMessage}}</small>
+      </div>
+    </h3>
+  </div>
+
+  <div class="col-md-12" id="searchForm">
+    <form [formGroup]="searchForm" autocomplete="off">
+      <mat-card-title>
+        <div class="row search-bar-group">
+          <div class="title">Lista</div>
+          <mat-form-field class="bar">
+            <input #search matInput formControlName="search" placeholder="Qual job você procura?" autocomplete="off" />
+          </mat-form-field>
+          <div class="buttons">
+            <a mat-button (click)="search.focus()">
+              <mat-icon>search</mat-icon>
+            </a>
+            <a mat-button (click)="filter = filter ? false : true" [class.filter-button-active]="hasFilterActive">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </a>
+            <a [routerLink]="['/jobs/new']" mat-button>
+              <mat-icon>add</mat-icon>
+            </a>
+            <a matTooltip="Limpar filtro" *ngIf="hasFilterActive" (click)="clearFilter()" mat-button>
+              <mat-icon>clear</mat-icon>
+            </a>
+          </div>
+        </div>
+      </mat-card-title>
+      <mat-card *ngIf="filter" class="filter-grid">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="col-md-2-4">
+              <input matInput formControlName="client" [matAutocomplete]="autocompleteclient" placeholder="Cliente" />
+            </mat-form-field>
+            <mat-autocomplete #autocompleteclient="matAutocomplete">
+              <mat-option *ngFor="let client of clients" [value]="client.fantasy_name">
+                {{ client.fantasy_name }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-form-field class="col-md-2-4">
+              <mat-select #selectAttendance placeholder="Atendimento" formControlName="attendance" multiple>
+                <div class="select-all">
+                  <mat-checkbox class="custom-checkbox" [(ngModel)]="selectAllAttendance" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelectionAllAttendance()">Selecionar todos</mat-checkbox>
+                </div>
+                <mat-option (click)="optionClickAllAttendance()" *ngFor="let attendance of attendances" [value]="attendance.id">
+                  {{ attendance.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <mat-select #selectCreation placeholder="Projetista" formControlName="creation" multiple>
+                <div class="select-all">
+                  <mat-checkbox class="custom-checkbox" [(ngModel)]="selectAllCreation" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelectionAllCreation()">Selecionar todos</mat-checkbox> 
+                </div>
+                <div class="select-all">
+                  <mat-checkbox class="custom-checkbox" [(ngModel)]="selectAllExternalCreation" [ngModelOptions]="{standalone: true}" (change)="toggleAllExternalSelectionAllCreation()">Sem projetista (Externo)</mat-checkbox> 
+                </div>
+                <mat-option (click)="optionClickAllCreation()" *ngFor="let creation of creations" [value]="creation.id">
+                  {{ creation.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <mat-select #selectJobType placeholder="Tipo" formControlName="job_type" multiple>
+                <div class="select-all">
+                  <mat-checkbox class="custom-checkbox" [(ngModel)]="selectAllJobType" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelectionAllJobType()">Selecionar todos</mat-checkbox>
+                </div>
+                <mat-option (click)="optionClickAllJobType()" *ngFor="let job_type of job_types" [value]="job_type.id">
+                  {{ job_type.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <mat-select #selectStatus placeholder="Status" formControlName="status" multiple>
+                <div class="select-all">
+                  <mat-checkbox class="custom-checkbox" [(ngModel)]="selectAllStatus" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelectionAllStatus()">Selecionar todos</mat-checkbox>
+                </div>
+                <mat-option (click)="optionClickAllStatus()" *ngFor="let s of status" [value]="s.id">
+                  {{ s.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2-4">
+              <input matInput formControlName="event" [matAutocomplete]="autocompletEvent" placeholder="Evento">
+            </mat-form-field>
+            <mat-autocomplete #autocompletEvent="matAutocomplete" [displayWith]="displayEvent">
+              <mat-option *ngFor="let e of events" [value]="e">
+                {{ e }}
+              </mat-option>
+            </mat-autocomplete>
+
+            <mat-form-field class="col-md-2-4">
+              <mat-select #selectJobActivity placeholder="Atividade" formControlName="job_activity" multiple>
+                <div class="select-all">
+                  <mat-checkbox class="custom-checkbox" [(ngModel)]="selectAllJobActivity" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelectionAllJobActivity()">Selecionar todos</mat-checkbox>
+                </div>
+                <mat-option (click)="optionClickAllJobActivity()" *ngFor="let job_activity of job_activities_fixed" [value]="job_activity.id">
+                  {{ job_activity.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <hr />
+            <div class="col-md-12">
+              <p>
+                <small>Você também pode filtrar por período do cronograma</small>
+              </p>
+              <br />
+            </div>
+            <mat-form-field class="col-md-3">
+              <input [matDatepicker]="initialDatepicker" formControlName="date_init" matInput
+                placeholder="Data inicial" />
+              <mat-datepicker-toggle matSuffix [for]="initialDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #initialDatepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="col-md-3">
+              <input [matDatepicker]="finalDatepicker" formControlName="date_end" matInput placeholder="Data final" />
+              <mat-datepicker-toggle matSuffix [for]="finalDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #finalDatepicker></mat-datepicker>
+            </mat-form-field> -->
+          </div>
+        </div>
+      </mat-card>
+      <!-- <mat-paginator *ngIf="jobs" [length]="pagination?.total" [pageSize]="pagination?.per_page" [pageIndex]="pageIndex"
+        [pageSizeOptions]="[pagination?.per_page]" (page)="changePage($event)"></mat-paginator> -->
+      <mat-card>
+        <div style="overflow-y: hidden; overflow-x: auto;">
+          <table class="table mat-table">
+            <div class="mat-header-row">
+              <div class="mat-header-cell mat-column-num" title="Numero">NUM</div>
+              <div class="mat-header-cell mat-column-id" title="ID">ID</div>
+              <div class="mat-header-cell mat-column-service" title="Atendimento">Atend</div>
+              <div class="mat-header-cell mat-column-budget" title="Orçamento">Orçam</div>
+              <div class="mat-header-cell mat-column-creation" title="Criação">Criação</div>
+              <div class="mat-header-cell mat-column-production" title="Produção">Prod</div>
+              <div class="mat-header-cell mat-column-date" title="Data">
+                  <span>Cadastro</span>
+                  <span>Proposta</span>
+              </div>
+              <div class="mat-header-cell mat-column-client" title="Cliente">Cliente</div>
+              <div class="mat-header-cell mat-column-event" title="Evento">Evento</div>
+              <div class="mat-header-cell mat-column-type" title="Tipo">Tipo</div>
+              <div class="mat-header-cell mat-column-value" title="Valor previsto">Valor Previsto</div>
+              <div class="mat-header-cell mat-column-budgeted" title="Valor orçado">
+                <span>Aprovado</span>
+                <span>Extra</span>
+              </div>
+              <div class="mat-header-cell mat-column-status" title="status">Status</div>
+              <div class="mat-header-cell mat-column-fatured" title="Faturado">Fat</div>
+              <div class="mat-header-cell mat-column-portin" title="Parcela">Parc</div>
+              <div class="mat-header-cell mat-column-margem" title="Parcela">Margem</div>
+              <div class="mat-header-cell mat-column-rate" title="Satisfação">Satisfação</div>
+            </div>
+            <div class="space-table-header"></div>
+            <div class="mat-row-scroll" [class.has-filter]="filter">
+              <div class="mat-row" *ngFor="let job of jobs" [@rowAppeared]="rowAppearedState">
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-num">
+                  {{ job.index }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-id">
+                  {{ jobService.showId(job) }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-service">
+                  <div *ngIf="job.specialAttendance">
+                      <span class="d-block" *ngFor="let name of job.specialAttendance.split('/')">{{ name }}</span>
+                  </div>
+                  <div *ngIf="!job.specialAttendance">{{ job.attendance.name }}</div>
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-budget">
+                  Pamela
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-creation">
+                  {{ jobService.displayCreation(job) }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-production">
+                  {{ job?.production_responsible?.name ? job?.production_responsible?.name : '-' }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-date">
+                    <div>{{ job.created_at | date : "dd/MM/yy" }} </div>
+                    <div>{{ job.project_conclusion ? (job.project_conclusion | date : "dd/MM/yy") : '-' }}</div>
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-client">
+                  
+                  {{ job.client ? job.client.fantasy_name : job.not_client || '-' }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-event">
+                  {{ job.event }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-type">
+                  {{ job.job_type.description }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-value">
+                  {{ job.specialBudget ? (job.specialBudget | number: '1.2') : (job.budget_value | number: '1.2') }} <br />
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-budgeted">
+                    <span *ngIf="specialFinalValue">{{ specialFinalValue }}</span>
+                    <span *ngIf="!specialFinalValue">{{ job.lastValue ? (job.lastValue | number: '1.2') : '-' }}<br /></span>
+                  {{ '-' }}
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-status">
+                  <div>
+                    {{ job.status.description }}
+                  </div>
+                  <div>
+                    {{ job.status_updated_at | date : "dd/MM/yy" }}
+                  </div>
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-fatured">
+                  -
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-portin">
+                  -
+                </div>
+                <div [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ job: job }" class="mat-cell mat-column-margem">
+                  <mat-icon *ngIf="job.status.description == 'Aprovado' && toNumber(job.lastValue) > toNumber(job.budget_value)" class="keyboard_arrow_up">keyboard_arrow_up</mat-icon>
+                  <mat-icon *ngIf="job.status.description == 'Aprovado' && toNumber(job.lastValue) < toNumber(job.budget_value)" class="keyboard_arrow_down">keyboard_arrow_down</mat-icon>
+                  <!-- <mat-icon *ngIf="job.status.description == 'Aprovado' && getProfitValue(job)" class="icon-close">close</mat-icon> -->
+                </div>
+                <div class="mat-cell mat-column-rate">
+                  <cb-stars [hasLabel]="false" class="star-input" label="Score"
+                    [readonly]="true"
+                    [rate]="1">
+                      <input matInput>
+                  </cb-stars>
+                </div>
+              </div>
+
+              <div *ngIf="searching" class="col-md-12 records-not-found">
+                <p>
+                  <small> Aguarde... </small>
+                </p>
+              </div>
+              <div *ngIf="
+                  jobs.length == 0 &&
+                  searchForm.controls.search.value != '' &&
+                  !searching
+                " class="col-md-12 records-not-found">
+                <p>
+                  <small> Não encontramos resultados para sua busca. :( </small>
+                </p>
+              </div>
+              <div *ngIf="
+                  jobs.length == 0 &&
+                  searchForm.controls.search.value == '' &&
+                  !searching
+                " class="col-md-12 records-not-found">
+                <p>
+                  <small>
+                    Ainda não existe nenhum job cadastrado. Que tal
+                    <a [routerLink]="['/jobs/new']">cadastrar</a> agora?
+                  </small>
+                </p>
+              </div>
+              <mat-divider style="margin-top: 10px;position: initial;"></mat-divider>
+              <mat-grid-list *ngIf="jobs?.length > 0" cols="6" rowHeight="88px">
+                <mat-grid-tile class="mat-grid-item keep-padding-r">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Total de jobs:">Total de jobs:</div>
+                  <div class="data-report-dashboard text-truncate" [title]="reportData?.jobs?.total">{{reportData?.jobs?.total}}</div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Valor total:">Valor total:</div>
+                  <div class="data-report-dashboard text-truncate" [title]="reportData?.total_value">{{reportData?.total_value}}</div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Ticket médio:">Ticket médio:</div>
+                  <div class="data-report-dashboard text-truncate" [title]="reportData?.average_ticket">{{reportData?.average_ticket}}</div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Tempo médio de aprovação:">Tempo médio de aprovação:</div>
+                  <div class="data-report-dashboard text-truncate" [title]="reportData?.averate_time_to_aproval">{{reportData?.averate_time_to_aproval}} dias</div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-left text-truncate" title="Intervalo médio entre aprovações:">Intervalo médio entre aprovações:</div>
+                  <div class="data-report-dashboard text-truncate">-</div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item keep-padding-l" [rowspan]="2">
+                  <div class="d-flex flex-column align-items-end align-self-end">
+                    <div class="mat-header-cell m-0 p-0 mb-2">Tipo</div>
+                    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+                      <div class="mat-grid-type m-0 p-0">stand: </div>
+                      <div class="m-0 p-0 ml-2 text-right min-w-2 data-report-dashboard">{{reportData?.types?.stand.toString().padStart(4, '0')}}</div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+                      <div class="mat-grid-type m-0 p-0">cenografia: </div>
+                      <div class="m-0 p-0 ml-2 text-right min-w-2 data-report-dashboard">{{reportData?.types?.cenografia.toString().padStart(4, '0')}}</div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+                      <div class="mat-grid-type m-0 p-0">pdv: </div>
+                      <div class="m-0 p-0 ml-2 text-right min-w-2 data-report-dashboard">{{reportData?.types?.pdv.toString().padStart(4, '0')}}</div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+                      <div class="mat-grid-type m-0 p-0">showroom: </div>
+                      <div class="m-0 p-0 ml-2 text-right min-w-2 data-report-dashboard">{{reportData?.types?.showroom.toString().padStart(4, '0')}}</div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+                      <div class="mat-grid-type m-0 p-0">outsider: </div>
+                      <div class="m-0 p-0 ml-2 text-right min-w-2 data-report-dashboard">{{reportData?.types?.outsider.toString().padStart(4, '0')}}</div>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item keep-padding-r">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Taxa de conversão:">Taxa de conversão:</div>
+                  <div class="d-flex justify-content-between data-report-dashboard">
+                    <p *ngFor="let rate of reportData?.conversion_rate"  class="text-truncate" [title]="rate">{{ rate }}</p>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Projetos em stand-by:">Projetos em stand-by:</div>
+                  <div class="d-flex justify-content-between data-report-dashboard">
+                    <p class="text-truncate" [title]="reportData?.standby_projects?.amountl">{{reportData?.standby_projects?.amount}}</p>
+                    <p class="text-truncate" [title]="reportData?.standby_projects?.value">{{reportData?.standby_projects?.value}}</p>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-truncate" title="Projetos avançados:">Projetos avançados:</div>
+                  <div class="d-flex justify-content-between w-100 data-report-dashboard">
+                    <p class="text-truncate" [title]="reportData.averageAdvancedJobs.sum">{{ reportData.averageAdvancedJobs.sum }}</p>
+                    <p class="text-truncate" [title]="reportData.averageAdvancedJobs.count">{{ reportData.averageAdvancedJobs.count }}</p>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-left text-truncate" title="Média de aprovação mensal:">Média de aprovação mensal:</div>
+                  <div class="d-flex justify-content-between w-100 data-report-dashboard">
+                    <p class="text-truncate" [title]="reportData?.averageApprovedJobsPerMonth?.amount">{{reportData?.averageApprovedJobsPerMonth?.amount}}</p>
+                    <p class="text-truncate" [title]="reportData?.averageApprovedJobsPerMonth?.value">{{reportData?.averageApprovedJobsPerMonth?.value}}</p>
+                  </div>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-grid-item">
+                  <div class="title-report-dashboard m-0 p-0 mb-2 text-left text-truncate" title="Tendencia anual de aprovação:">Tendencia anual de aprovação:</div>
+                  <div class="data-report-dashboard text-truncate" [title]="reportData.anualTendenceAprovation">{{ reportData.anualTendenceAprovation }}</div>
+                </mat-grid-tile>
+              </mat-grid-list>
+              <hr class="hr">
+              <div class="mat-grid-item see-last">
+                <div class="title-report-dashboard m-0 p-0 mb-2 text-left text-truncate" title="Ultima atualização:">Ultima atualização:</div>
+                <div>
+                  <p class="text-truncate data-report-dashboard" [title]="reportData?.updatedInfo?.date">{{reportData?.updatedInfo?.date}}</p>
+                  <p class="text-truncate title-report-dashboard" [title]="reportData?.updatedInfo?.employee">{{reportData?.updatedInfo?.employee}}</p>
+                </div>
+              </div>
+            </div>
+          </table>
+        </div>
+      </mat-card>
+      <!-- <hr class="hr" />
+      <div >
+        <mat-card>
+          <table class="table mat-table report">
+            <div class="mat-header-row">
+            <div class="mat-header-row">
+              <div class="mat-header-cell-report text-start">Total de jobs:</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+            </div>
+            <div class="mat-row" >
+              <div class="mat-cell-report text-start">
+                {{ ''}}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{''}}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+            </div>
+          </table>
+          <table class="table mat-table report">
+            <div class="mat-header-row">
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+              <div class="mat-header-cell-report text-start">Total</div>
+            </div>
+            <div class="mat-row">
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+              <div class="mat-cell-report text-start">
+                {{ "1234" }}
+              </div>
+            </div>
+          </table>
+        </mat-card>
+      </div> -->
+
+      <mat-paginator *ngIf="jobs" [length]="pagination?.total" [pageSize]="pagination?.per_page" [pageIndex]="pageIndex"
+      [pageSizeOptions]="[30, 60, 90]" (page)="changePage($event)"></mat-paginator>
+    </form>
+  </div>
+</div>

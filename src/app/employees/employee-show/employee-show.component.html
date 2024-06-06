@@ -1,0 +1,32 @@
+<div id="dataTableShow" class="col-md-12" *ngIf="employee">
+  <mat-card-title>
+    <p class="lead">Dados do funcionário</p>
+  </mat-card-title>
+  <mat-card>
+    <div class="photo-container">
+        <img src="{{ API }}/assets/images/{{ employee.image }}" alt="Foto do funcionário">
+    </div>
+    <dl>
+      <dt>Nome</dt>
+      <dd>{{employee.name}}</dd>
+      <dt>Salário</dt>
+      <dd>{{employee.payment}}</dd>
+      <dt>Função</dt>
+      <dd>{{employee.position.name}}</dd>
+      <dt>Departamento</dt>
+      <dd>{{employee.department.description}}</dd>
+      <dt>Ativo para cronograma</dt>
+      <dd>{{employee.schedule_active == 1 ? 'Sim' : 'Não'}}</dd>
+      <dt>Criado em</dt>
+      <dd>{{employee.created_at | date:'dd/MM/yyyy'}}</dd>
+      <dt>Criado/Atualizado por</dt>
+      <dd>{{employee.updated_by.name}}</dd>
+      <dt>Atualizado em</dt>
+      <dd>{{employee.updated_at | date:'dd/MM/yyyy'}}</dd>
+      <dt>Usuário</dt>
+      <dd>{{employee.user?.email}}</dd>
+      <dt>Último login</dt>
+      <dd>{{employee.user?.lastAccess | date:'dd/MM/yyyy hh:mm'}}</dd>
+    </dl>
+  </mat-card>
+</div>

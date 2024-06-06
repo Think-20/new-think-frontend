@@ -1,0 +1,13 @@
+<div class="col-md-12">
+  <mat-tab-group [selectedIndex]="selectedIndex">
+    <mat-tab label="Dados pessoais">
+      <cb-employee-form [typeForm]="typeForm" (employeeEmitter)="setEmployee($event)" (isAdminEmitter)="setAdmin($event)"></cb-employee-form>
+    </mat-tab>
+    <mat-tab label="Usuário">
+      <cb-user-form  *ngIf="employee != null" [typeForm]="typeForm" [employee]="employee"></cb-user-form>
+    </mat-tab>
+    <mat-tab label="Permissões">
+      <cb-user-permission *ngIf="employee != null && isAdmin" [typeForm]="typeForm" [employee]="employee"></cb-user-permission>
+    </mat-tab>
+  </mat-tab-group>
+</div>

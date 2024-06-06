@@ -1,0 +1,220 @@
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-item="item" let-task="item.task" let-chrono="chrono">
+    <div *ngIf="jobDisplay(item).indexOf('Continuação de') == -1">
+      <a *ngIf="task.job.id == undefined" (click)="addTask(chrono.day)" mat-menu-item>
+        <mat-icon>add</mat-icon> Adicionar
+      </a>
+      <a [disabled]="!permissionVerify('show', task.job)" *ngIf="task.job.id != undefined" [routerLink]="['/jobs/show', task.job.id]" [queryParams]="getQueryParams(task)"
+        mat-menu-item>
+        <mat-icon>done</mat-icon> {{ task.done ? 'Tarefa realizada' : 'Realizar tarefa' }}
+      </a>
+      <a [disabled]="!permissionVerify('show', task.job)" *ngIf="task.job.id != undefined" [routerLink]="['/jobs/show', task.job.id]"
+        mat-menu-item>
+        <mat-icon>subject</mat-icon> Visualizar job
+      </a>
+      <a [disabled]="!permissionVerify('task.edit', task.job)" *ngIf="task.id != undefined" [routerLink]="['/schedule/edit', task.id]"
+        mat-menu-item>
+        <mat-icon>mode_edit</mat-icon> Editar agendamento
+      </a>
+      <a [disabled]="!permissionVerify('edit', task.job)" *ngIf="task.job.id != undefined" [routerLink]="['/jobs/edit', task.job.id]" [queryParams]="{ taskId: item.task.id }"
+        mat-menu-item>
+        <mat-icon>mode_edit</mat-icon> Editar job
+      </a>
+      <a [disabled]="!permissionVerify('edit', task.job)" *ngIf="task.job.id != undefined && (task.job.status?.id == 5 || task.job.status?.id == 1)"
+        (click)="signal(task)" mat-menu-item>
+        <span *ngIf="task.job.status?.id == 1">
+          <mat-icon>flag</mat-icon> Sinalizar
+        </span>
+        <span *ngIf="task.job.status?.id == 5">
+          <mat-icon>outlined_flag</mat-icon> Remover sinalização
+        </span>
+      </a>
+      <button [disabled]="!permissionVerify('delete', task.job)" *ngIf="task.job.id != undefined" (click)="deleteTask(item)" mat-menu-item>
+        <mat-icon>delete</mat-icon> Remover tarefa
+      </button>
+      <button [disabled]="!permissionVerify('delete', task.job)" *ngIf="task.job.id != undefined" (click)="deleteJob(item)" mat-menu-item>
+        <mat-icon>delete</mat-icon> Remover job
+      </button>
+    </div>
+  </ng-template>
+</mat-menu>
+
+<div class="container-schedule">
+  <div class="my-container">
+    <h3 class="lead row">
+      <div class="col-md-6">
+        <div class="flex center">
+          <button mat-button type="button" class="month-arrow">
+            <mat-icon (click)="addMonth(-1)">keyboard_arrow_left</mat-icon>
+          </button>
+          &nbsp;Agenda -
+          <span class="actualMonth" (click)="monthSelect.open()">
+            &nbsp;{{ month?.name }}
+            <mat-select class="select-hidden col-md-3" #monthSelect>
+              <mat-option *ngFor="let month of months" (click)="updateMonth(month)">{{month?.name}}</mat-option>
+            </mat-select>
+          </span>
+          <span class="actualYear" (click)="yearSelect.open()">
+            {{ year }}
+            <mat-select class="select-hidden col-md-3" #yearSelect>
+              <mat-option *ngFor="let year of years" (click)="updateYear(year)">{{year}}</mat-option>
+            </mat-select>
+          </span>
+          <button mat-button type="button" class="month-arrow">
+            <mat-icon (click)="addMonth(1)">keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6 updated-message" *ngIf="dataInfo != null">
+        <small>{{lastUpdateMessage}}</small>
+      </div>
+    </h3>
+  </div>
+  <div class="col-md-12" id="searchForm">
+    <form [formGroup]="searchForm" autocomplete="off">
+      <mat-card-title class="header-form">
+        <div class="row search-bar-group">
+          <div class="title">
+            Lista
+          </div>
+          <mat-form-field class="bar">
+            <input #search matInput formControlName="search" placeholder="Qual job você procura?" autocomplete="off">
+          </mat-form-field>
+          <div class="buttons">
+            <a mat-button (click)="search.focus()">
+              <mat-icon>search</mat-icon>
+            </a>
+            <a mat-button (click)="filter = !filter" [class.filter-button-active]="hasFilterActive">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </a>
+            <a [routerLink]="['new']" mat-button>
+              <mat-icon>add</mat-icon>
+            </a>
+            <a matTooltip="Limpar filtro" *ngIf="hasFilterActive" (click)="clearFilter()" mat-button>
+              <mat-icon>clear</mat-icon>
+            </a>
+          </div>
+        </div>
+      </mat-card-title>
+      <mat-card *ngIf="filter" class="filter-grid">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="col-md-1-7">
+              <mat-select placeholder="Departamento" formControlName="department_array"
+                [compareWith]="compareDepartment" multiple>
+                <mat-option disabled (click)="toggleDepartments()">Selecionar todos</mat-option>
+                <mat-option *ngFor="let department of departments" [value]="department">
+                  {{ department.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-1-7">
+              <mat-select placeholder="Responsável" formControlName="responsible_array"
+                [compareWith]="compareAttendance" multiple>
+                <mat-option disabled (click)="toggleResponsibles()">Selecionar todos</mat-option>
+                <mat-option *ngFor="let employee of employees" [value]="employee">
+                  {{ employee.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-1-7">
+              <mat-select placeholder="Job" formControlName="job_activity_array" [compareWith]="compareJobActivity"
+                multiple>
+                <mat-option disabled (click)="toggleJobActivities()">Selecionar todos</mat-option>
+                <mat-option *ngFor="let activity of jobActivities" [value]="activity">
+                  {{ activity.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-1-7">
+              <mat-select placeholder="Tipo" formControlName="job_type_array" [compareWith]="compareJobType" multiple>
+                <mat-option disabled (click)="toggleJobTypes()">Selecionar todos</mat-option>
+                <mat-option *ngFor="let type of jobTypes" [value]="type">
+                  {{ type.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-1-7">
+              <input matInput formControlName="client" [matAutocomplete]="autocompleteclient" placeholder="Cliente">
+            </mat-form-field>
+            <mat-autocomplete #autocompleteclient="matAutocomplete">
+              <mat-option *ngFor="let client of clients" [value]="client.fantasy_name">
+                {{ client.fantasy_name }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-form-field class="col-md-1-7">
+              <mat-select placeholder="Atendimento" formControlName="attendance_array" [compareWith]="compareAttendance"
+                multiple>
+                <mat-option disabled (click)="toggleAttendances()">Selecionar todos</mat-option>
+                <mat-option *ngFor="let attendance of attendances" [value]="attendance">
+                  {{ attendance.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-1-7">
+              <mat-select placeholder="Status" formControlName="status_array" [compareWith]="compareStatus" multiple>
+                <mat-option disabled (click)="toggleStatus()">Selecionar todos</mat-option>
+                <mat-option *ngFor="let s of jobStatus" [value]="s">
+                  {{ s.description }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card>
+    </form>
+    <mat-card class="schedule-card">
+      <table class="table mat-table schedule-table">
+        <div class="mat-header-row">
+          <div class="mat-header-cell mat-column-date">Data</div>
+          <div class="mat-header-cell mat-column-creation">Respons.</div>
+          <div class="mat-header-cell mat-column-job">Job</div>
+          <div class="mat-header-cell mat-column-type">Tipo</div>
+          <div class="mat-header-cell mat-column-client">Cliente</div>
+          <div class="mat-header-cell mat-column-agency">Agência</div>
+          <div class="mat-header-cell mat-column-event">Evento</div>
+          <div class="mat-header-cell mat-column-event-date">Data do evento</div>
+          <div class="mat-header-cell mat-column-budget">Verba/Valor</div>
+          <div class="mat-header-cell mat-column-area">Área</div>
+          <div class="mat-header-cell mat-column-time">Prazo</div>
+          <div class="mat-header-cell mat-column-deadline">Deadline</div>
+          <div class="mat-header-cell mat-column-attendance">Atend.</div>
+          <div class="mat-header-cell mat-column-stat">Status</div>
+        </div>
+        <div #rowScroll class="mat-row-scroll" (scroll)="scrolling($event)">
+          <div #list class="mat-row" *ngFor="let chr of chrono; let i = index" [@rowAppeared]="rowAppearedState">
+            <h4 *ngIf="chrono[i - 1]?.month != chrono[i]?.month" class="month-line">
+              {{ months[chrono[i]?.month - 1].name }}
+            </h4>
+            <div class="line-chrono" [class.hidden]="paramsHasFilter && chr.length == 0"
+             [ngClass]="lineChronoClass(chr, employees)">
+              <div class="mat-cell mat-column-date day-chrono day-{{ chr.day }} month-{{ chr.month }} year-{{ chr.year }}">
+                <div>
+                  <span>{{ chr.day }}-{{ chr.dayOfWeek?.abbrev }}</span>
+                  <button *ngIf="isAdmin" class="cb-button add-chrono" (click)="addTask(chr.day)">
+                    EXTRA
+                  </button>
+                  <button *ngIf="isAdmin" class="cb-button add-block" (click)="openBlockDialog(chr)">
+                    <mat-icon class="icon" *ngIf="blockText(chr) == 'BLOCK'">lock</mat-icon>
+                    <mat-icon class="icon" *ngIf="blockText(chr) == 'UNBLOCK'" matBadge="{{blockedNumber(chr)}}">
+                      lock_open</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="line-jobs">
+                <cb-schedule-line *ngFor="let item of chrono[i].items"
+                  class="line-job" [menu]="menu" [cdkDragData]="item"
+                  cdkDrag cdkDragLockAxis="y" (cdkDragMoved)="dragMoved($event)"
+                  (cdkDragEnded)="dragEnded($event)" (mouseup)="mouseUp(item)"
+                  [chrono]="chrono[i]" [item]="item" [today]="today" [jobStatus]="jobStatus"
+                  [month]="month" [paramsHasFilter]="paramsHasFilter" [date]="date"
+                  (changeMonthEmitter)="changeMonthByLine($event)">
+                </cb-schedule-line>
+              </div>
+            </div>
+          </div>
+        </div>
+      </table>
+    </mat-card>
+  </div>
+</div>

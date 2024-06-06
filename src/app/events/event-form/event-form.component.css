@@ -1,0 +1,27 @@
+.mat-column-id {
+  width: 13%;
+}
+
+.mat-column-name {
+    width: 25%;
+}
+
+.mat-column-date {
+    width: 12%;
+}
+
+.mat-column-attendance {
+    width: 20%;
+}
+
+.mat-column-creation {
+    width: 20%;
+}
+
+.mat-column-budget_value {
+    width: 15%;
+}
+
+.mat-column-status {
+    width: 15%;
+}

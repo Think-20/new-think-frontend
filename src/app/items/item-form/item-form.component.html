@@ -1,0 +1,202 @@
+<div class="col-md-12">
+  <form [formGroup]="itemForm" novalidate autocomplete="off">
+    <mat-card-title>
+      <p class="lead">Dados do item</p>
+    </mat-card-title>
+    <mat-card>
+      <div class="row">
+          <div class="col-md-12 image-container text-center">
+            <div class="text-right">
+              <mat-slide-toggle formControlName="item_type">Item composto</mat-slide-toggle>
+            </div>
+            <img [src]="imagePath" alt="Imagem de item">
+            <input type="hidden" formControlName="image">
+            <div>
+              <button class="button-image-add" mat-button type="button" (click)="fileInput.click()">
+                <mat-icon>library_add</mat-icon> FOTO
+                <input #fileInput type="file" (change)="showImage()" style="display:none;" />
+              </button>
+            </div>
+          </div>
+          <mat-form-field class="col-md-6">
+            <input formControlName="name" matInput placeholder="Nome*">
+            <mat-error>
+              Obrigatório, entre 3 e 50 caract.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input formControlName="description" matInput placeholder="Descrição*">
+            <mat-error>
+              Obrigatório, entre 3 e 255 caract.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-md-6">
+            <input matInput formControlName="item_category" [matAutocomplete]="autocompleteItemCategory" placeholder="Categoria de item*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-autocomplete #autocompleteItemCategory="matAutocomplete" [displayWith]="displayItemCategory">
+              <mat-option *ngFor="let itemCategory of itemCategories" [value]="itemCategory">
+                {{ itemCategory.description }}
+              </mat-option>
+          </mat-autocomplete>
+          <mat-form-field class="col-md-6">
+            <input matInput formControlName="cost_category" [matAutocomplete]="autocompleteCostCategory" placeholder="Categoria de custo*">
+            <mat-error>
+              Obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-autocomplete #autocompleteCostCategory="matAutocomplete" [displayWith]="displayCostCategory">
+              <mat-option *ngFor="let costCategory of costCategories" [value]="costCategory">
+                {{ costCategory.description }}
+              </mat-option>
+          </mat-autocomplete>
+      </div>
+      <mat-card-actions class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new'" color="primary" (click)="save(itemForm.value)" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit'" color="primary" (click)="edit(itemForm.value, item.id)" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+    <div *ngIf="!compositeItem">
+      <mat-card-title>
+        <p class="lead">Preços</p>
+      </mat-card-title>
+      <mat-card>
+        <div *ngIf="item == null" class="col-md-12 records-not-found">
+          <p>
+            <small>
+              Primeiro cadastre o item para poder relacionar com os preços.
+            </small>
+          </p>
+        </div>
+        <div *ngIf="item != null">
+          <div class="form-array" formArrayName="pricings">
+            <div *ngFor="let control of getPricingsControls(itemForm); let i = index">
+              <form [formGroup]="getPricingsControls(itemForm)[i]" novalidate autocomplete="off" class="flex pricing-item">
+                <input formControlName="id" type="hidden">
+                <mat-form-field class="col-md-3">
+                  <input formControlName="price" matInput placeholder="Preço*">
+                  <mat-error>
+                    Obrigatório
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-4">
+                  <input formControlName="measure" matInput [matAutocomplete]="autocompleteMeasure" placeholder="Medida*">
+                  <mat-error>
+                    Obrigatório
+                  </mat-error>
+                </mat-form-field>
+                <mat-autocomplete #autocompleteMeasure="matAutocomplete" [displayWith]="displayMeasure">
+                    <mat-option *ngFor="let measure of measures | async" [value]="measure">
+                      {{ measure.description }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-form-field class="col-md-4">
+                  <input formControlName="provider" matInput [matAutocomplete]="autocompleteProvider" placeholder="Fornecedor*">
+                  <mat-error>
+                    Obrigatório
+                  </mat-error>
+                </mat-form-field>
+                <mat-autocomplete #autocompleteProvider="matAutocomplete" [displayWith]="displayProvider">
+                    <mat-option *ngFor="let provider of providers" [value]="provider">
+                      {{ provider.fantasy_name }}
+                    </mat-option>
+                </mat-autocomplete>
+                <button
+                  *ngIf="getPricingsControls(itemForm)[i].enabled == true"
+                  type="button"
+                  class="save-pricing" (click)="savePricing(i)" mat-button>
+                  <mat-icon>done</mat-icon>
+                </button>
+                <button
+                  *ngIf="getPricingsControls(itemForm)[i].enabled == false"
+                  type="button"
+                  class="edit-pricing" (click)="editPricing(i)" mat-button>
+                  <mat-icon>mode_edit</mat-icon>
+                </button>
+                <button type="button" class="delete-pricing" (click)="deletePricing(i)" mat-button>
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </form>
+            </div>
+            <div class="col-md-12">
+              <button type="button" class="add-pricing" (click)="addPricing()" mat-button>
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div *ngIf="compositeItem">
+      <mat-card-title>
+        <p class="lead">Itens relacionados</p>
+      </mat-card-title>
+      <mat-card>
+        <div *ngIf="item == null" class="col-md-12 records-not-found">
+          <p>
+            <small>
+              Primeiro cadastre o item para poder relacionar com outros itens.
+            </small>
+          </p>
+        </div>
+        <div *ngIf="item != null">
+          <div class="form-array" formArrayName="pricings">
+            <div *ngFor="let control of getChildItemsControls(itemForm); let i = index">
+              <form [formGroup]="getChildItemsControls(itemForm)[i]" novalidate autocomplete="off" class="flex pricing-item">
+                <input formControlName="id" type="hidden">
+                <mat-autocomplete #autocompleteItem="matAutocomplete" [displayWith]="displayItem">
+                    <mat-option *ngFor="let item of items" [value]="item">
+                      {{ item.name }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-form-field class="col-md-4">
+                  <input formControlName="item" matInput placeholder="Item*" [matAutocomplete]="autocompleteItem">
+                </mat-form-field>
+                <mat-autocomplete #autocompleteMeasure="matAutocomplete" [displayWith]="displayMeasure">
+                    <mat-option *ngFor="let measure of measures | async" [value]="measure">
+                      {{ measure.description }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-form-field class="col-md-3">
+                  <input formControlName="measure" matInput placeholder="Medida*" [matAutocomplete]="autocompleteMeasure">
+                </mat-form-field>
+                <mat-form-field class="col-md-3">
+                  <input formControlName="quantity" matInput placeholder="Quantidade*">
+                  <mat-error>
+                    Obrigatório
+                  </mat-error>
+                </mat-form-field>
+                <button
+                  *ngIf="getChildItemsControls(itemForm)[i].enabled == true"
+                  type="button"
+                  class="save-pricing" (click)="saveChildItem(i)" mat-button>
+                  <mat-icon>done</mat-icon>
+                </button>
+                <button
+                  *ngIf="getChildItemsControls(itemForm)[i].enabled == false"
+                  type="button"
+                  class="edit-pricing" (click)="editChildItem(i)" mat-button>
+                  <mat-icon>mode_edit</mat-icon>
+                </button>
+                <button type="button" class="delete-pricing" (click)="deleteChildItem(i)" mat-button>
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </form>
+            </div>
+            <div class="col-md-12">
+              <button type="button" class="add-pricing" (click)="addChildItem()" mat-button>
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </form>
+</div>

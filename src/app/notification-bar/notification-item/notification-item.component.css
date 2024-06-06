@@ -1,0 +1,74 @@
+.mat-card-photo {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.mat-card-avatar {
+  border-radius: 0;
+}
+
+.mat-card-title {
+  font-size: 16px;
+  background-color: inherit;
+}
+
+.mat-card-subtitle {
+  background-color: inherit;
+  font-size: 10px;
+  margin-bottom: 0 !important;
+}
+
+.mat-card {
+  padding: 10px;
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+
+.mat-card:last-child {
+  margin-bottom: 0px !important;
+}
+
+.notification-item-content {
+  line-height: normal;
+  white-space: pre-wrap;
+}
+
+.new {
+  background-color: #fbfbfb;
+}
+
+.button-fixed {
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  color: #BBB !important;
+  min-width: 24px;
+  max-width: 34px;
+  padding: 0px 5px;
+}
+
+.mat-card-content {
+  padding-left: 53px;
+  font-weight: lighter;
+  font-size: 13px;
+}
+
+.mat-card-image {
+  width: calc(100% + 28px);
+  margin: 0 -14px 16px -14px;
+}
+
+.mat-card-title, .mat-card-subtitle {
+  padding: 6px;
+  border: 0;
+}
+
+.mat-card-title {
+  padding-bottom: 0;
+}
+
+.mat-card-subtitle {
+  padding-top: 0;
+  font-size: 12px;
+}

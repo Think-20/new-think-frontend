@@ -1,0 +1,294 @@
+.hidden {
+  display: none !important;
+}
+
+.container-schedule {
+  height: calc(100% - 22px);
+}
+
+.container-schedule .my-container .lead {
+  height: 24px;
+}
+
+.other-attendance .mat-cell {
+  color: #888 !important;
+}
+
+.mat-column-date {
+  width: 5%;
+}
+
+.mat-column-date > div {
+  display: block;
+}
+
+.mat-column-date > div > span {
+  display: block;
+  width: 100%;
+}
+
+.updated-message {
+  font-size: 16px;
+  padding-right: 25px;
+}
+
+.lead {
+  align-items: baseline;
+}
+
+.lead small {
+  color: rgba(0,0,0,.5);
+  font-weight: 300;
+  text-align: right;
+  display: block;
+}
+
+.actualMonth, .actualYear {
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.actualYear {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.mat-column-job {
+  width: 9%;
+}
+.mat-column-type {
+  width: 8%;
+}
+.mat-column-event {
+  width: 7%;
+}
+.mat-column-event-date {
+  width: 9%;
+}
+.mat-column-client {
+  width: 10%;
+}
+.mat-column-agency {
+  width: 8%;
+}
+.mat-column-budget {
+  width: 10%;
+}
+.mat-column-time {
+  width: 6%;
+}
+.mat-column-deadline {
+  width: 8%;
+}
+.mat-column-attendance {
+  width: 8%;
+}
+.mat-column-creation {
+  width: 9%;
+}
+.mat-column-stat {
+  width: 7%;
+}
+.mat-column-area {
+  width: 5%;
+}
+
+.select-hidden {
+  visibility: hidden;
+  /* min-height: 0; */
+  /* height: 0; */
+  /* min-width: 0; */
+  font-size: 14px;
+  width: 0;
+  /* flex: 0; */
+  /* display: block; */
+  margin: -17px;
+}
+
+.add-chrono {
+  padding: 0;
+  width: 100%;
+  border: none !important;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+.add-block {
+  width: 100%;
+  padding: 0;
+  border: none !important;
+  margin-top: 10px;
+}
+
+.add-block .icon {
+  font-size: 20px;
+}
+
+.signal {
+  background-color: #fbfbfb;
+  border-top: 1px solid #ccc !important;
+  border-right: 1px solid #ccc !important;
+  border-bottom: 1px solid #ccc !important;
+}
+
+.approved-budget {
+  background-color: #fbfbfb;
+  border-top: 1px solid #c377e0 !important;
+  border-right: 1px solid #c377e0 !important;
+  border-bottom: 1px solid #c377e0 !important;
+}
+
+.approved-creation {
+  background-color: #fbfbfb;
+  border-top: 1px solid #00aff2 !important;
+  border-right: 1px solid #00aff2 !important;
+  border-bottom: 1px solid #00aff2 !important;
+}
+
+.no-border {
+  border-bottom: none !important;
+}
+
+.schedule-card {
+  padding: 0;
+  background: transparent;
+}
+
+.schedule-table {
+  margin-bottom: 0;
+  padding-bottom: 5px;
+  background: transparent;
+}
+
+.mat-row-scroll > .mat-row {
+  display: block;
+}
+
+.mat-row-scroll > .mat-row .month-line {
+  font-size: 20px;
+  font-weight: lighter;
+  margin: 10px 0px 20px 0px;
+  padding: 0;
+  background-color: transparent;
+}
+
+.line-chrono {
+  background-color: white;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.line-chrono-block {
+  opacity: 0.5;
+}
+
+.line-chrono:first-child {
+  border-top: 0 !important;
+}
+
+.line-jobs {
+  width: 100%;
+}
+
+.line-job {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+}
+
+.line-job:last-child {
+  border-bottom: 0;
+}
+
+.day-chrono {
+  align-self: stretch;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.schedule-table .mat-cell, .schedule-table .mat-header-cell {
+  font-size: 12px;
+  text-align: center;
+  min-height: 40px;
+  padding: 3px;
+}
+
+.schedule-table .mat-header-cell {
+  font-size: 11px;
+  background-color: white;
+}
+
+#searchForm {
+  height: calc(100% - 76px);
+}
+
+#searchForm .mat-card {
+  height: calc(100% - 68px);
+}
+
+.mat-row-scroll {
+  height: calc(100% - 41px) !important;
+}
+
+#searchForm .header-form {
+  border-top: 1px solid #ccc !important;
+}
+
+.mat-header-row {
+  border-bottom: 1px solid #ccc !important;
+}
+
+.mat-header-row, #searchForm .header-form {
+  width: calc(100% - 8px);
+}
+
+#searchForm .filter-grid {
+  width: calc(100% - 8px);
+}
+
+.schedule-table {
+  height: 100%;
+}
+
+.schedule-table::-webkit-scrollbar {
+    border-radius: 9px;
+    width: 8px;
+    height: 12px;
+}
+
+.schedule-table::-webkit-scrollbar-thumb {
+    border-radius: 9px;
+    background-color: rgba(231,230,239,0.5);
+}
+
+.month-arrow {
+  z-index: 10;
+  min-width: 10px !important;
+  padding: 0px !important;
+  color: rgba(0,0,0,0.5);
+}
+
+.line-job {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.line-job:last-child {
+  border-bottom: 0;
+}
+
+.cdk-drag-placeholder	{
+  border: 3px solid #848C8E !important;
+  opacity: 0;
+}
+
+.cdk-drag-preview {
+  opacity: 0;
+}
+
+.cdk-drag-dragging {
+  opacity: 0;
+}

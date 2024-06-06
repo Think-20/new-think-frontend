@@ -1,0 +1,23 @@
+.mat-column-name {
+    width: 45%;
+}
+
+.mat-column-type {
+    width: 13%;
+}
+
+.mat-column-status {
+    width: 12%;
+}
+
+.mat-column-rate {
+    width: 25%;
+}
+
+.mat-column-employee {
+    width: 20%;
+}
+
+.mat-column-action {
+    width: 5%;
+}

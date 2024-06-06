@@ -1,0 +1,275 @@
+<form [formGroup]="budgetForm" autocomplete="off">
+  <mat-card>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-baseline">
+        <h3 class="title pt-0">Proposta A</h3>
+        <p class="sub-title ml-2">Pamela Cristina - 04 Julho 2023</p>
+      </div>
+      <div class="d-flex">
+        <div>Memorial Descritivo 03</div>
+        <div class="ml-4">Modificação 03</div>
+      </div>
+    </div>
+
+    <hr class="hr-top mt-0">
+    <div class="row">
+      <div class="col-md-12 d-flex">
+        <div class="col-md-6 d-flex justify-content-start p-0">
+          <div class="col-md-3 d-flex flex-column justify-content-between p-0 mr-4">
+            <label class="comitions">Comissões:</label>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Outros (8%)"
+                formControlName="orders_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 p-0 mr-4">
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Atendimento (8%)"
+                formControlName="attendance_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Criação (3%)"
+                formControlName="creation_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Pré Produção (1%)"
+                formControlName="pre_production_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 border-right p-0 mr-4">
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Produção (1%)"
+                formControlName="production_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Detalham. (0,5%)"
+                formControlName="details_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Orçamento (1%)"
+                formControlName="budget_si_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-end p-0">
+          <div class="col-md-3 border-right p-0 ml-4">
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="BV (10%)"
+                formControlName="bv_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Over/Taxas:"
+                formControlName="over_rates_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Desconto:"
+                formControlName="discounts_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 border-right p-0 ml-4">
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Impostos (15,5%)"
+                formControlName="taxes_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Logística:"
+                formControlName="logistics_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Equipamentos:"
+                formControlName="equipment_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+          </div>
+          <div class="col-md-3 border-right p-0 ml-4">
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Custo Total:"
+                formControlName="total_cost_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Lucro Bruto"
+                formControlName="gross_profit_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+            <mat-form-field class="pr-2">
+              <input
+                matInput
+                type="text"
+                class="text-right"
+                placeholder="Lucro %"
+                formControlName="profit_value"
+                (keypress)="allowOnlyNumbers($event)">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <hr class="hr mb-0">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h3 class="title">Valor Estimado: R$ 600.000,00</h3>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            currencyMask
+            matInput placeholder="Valor Final:"
+            formControlName="final_value">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="mt-2 d-flex justify-content-end">
+      <button (click)="sendValues()" class="btn-send">Enviar</button>
+    </div>
+  </mat-card>
+</form>
+<!-- <form [formGroup]="budgetForm" novalidate autocomplete="off">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-12 text-left">
+        <p class="lead">Valor</p>
+        <p *ngIf="budget != null" class="lead subtitle">{{ budget?.responsible?.name + ' | ' + (budget.updated_at | date: 'dd/MM/yyyy HH:mm') }}</p>
+      </div>
+    </div>
+    <hr class="divisor">
+    <div class="row align-center row-commission">
+      <div class="col-md-6">
+        <div class="row">
+            <mat-form-field class="col-md-6">
+              <input currencyMask formControlName="sales_commission_value" matInput placeholder="Comissão de atendimento*">
+            </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="total > 0" class="col-md-6 text-right">
+        <p class="lead total-value">{{ total | currency: 'BRL' }}</p>
+        <p class="lead subtitle">Valor total da proposta</p>
+      </div>
+    </div>
+  </mat-card>
+  <div *ngIf="isAdmin || isAttendance">
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="task_id">
+    <input type="hidden" formControlName="tax_aliquot">
+    <mat-card>
+      <hr class="divisor">
+      <div class="row">
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="gross_value" matInput placeholder="Valor bruto*">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="bv_value" matInput placeholder="Valor BV*">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="equipments_value" matInput placeholder="Equipamentos*">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="logistics_value" matInput placeholder="Logística*">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="optional_value" matInput placeholder="Opcionais">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="tax_value" matInput placeholder="Impostos">
+        </mat-form-field>
+        <mat-form-field class="col-md-3">
+          <input currencyMask formControlName="others_value" matInput placeholder="Outros">
+        </mat-form-field>
+        <mat-form-field *ngIf="isAttendance" class="col-md-3">
+          <input currencyMask formControlName="discount_value" matInput placeholder="Descontos">
+        </mat-form-field>
+     
+        <mat-form-field *ngIf="!isAttendance" class="col-md-1">
+          <input currencyMask [options]="{prefix: ''}" class="text-right" formControlName="markup_aliquot" matInput placeholder="Fator">
+          <span matSuffix>%</span>
+        </mat-form-field>
+        <mat-form-field *ngIf="!isAttendance" class="col-md-2">
+          <input currencyMask class="text-right" formControlName="markup_value" matInput placeholder="Markup">
+        </mat-form-field>
+      </div>
+      <mat-card-actions *ngIf="isAdmin" class="col-md-12 text-right">
+        <button class="cb-button" *ngIf="typeForm === 'new' || budget == null" color="primary" (click)="save()" mat-raised-button>
+          SALVAR
+        </button>
+        <button class="cb-button" *ngIf="typeForm === 'edit' && budget != null" color="primary" (click)="edit()" mat-raised-button>
+          EDITAR
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</form>
+ -->

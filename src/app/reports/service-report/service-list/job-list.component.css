@@ -1,0 +1,287 @@
+.mat-header-row {
+  justify-content: center;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.mat-row {
+  justify-content: center;
+}
+
+.mat-column-num {
+  width: 4%;
+  font-size: 11px;
+}
+
+.mat-column-service {
+  width: 8.25%;
+  font-size: 11px;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.mat-column-budget {
+  width: 6.25%;
+  font-size: 11px;
+}
+
+.mat-column-creation {
+  width: 7.25%;
+  font-size: 11px;
+}
+
+.mat-column-production {
+  width: 4%;
+  font-size: 11px;
+}
+
+.mat-column-date {
+  width: 5%;
+  min-width: 85px !important;
+  font-size: 11px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.mat-column-id {
+  width: 4%;
+  font-size: 11px;
+}
+
+.mat-column-client {
+  width: 7.25%;
+  font-size: 11px;
+  min-width: 60px !important;
+}
+
+.mat-column-event {
+  width: 8.25%;
+  min-width: 60px !important;
+  font-size: 11px;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.mat-column-type {
+  width: 5.25%;
+  min-width: 65px !important;
+  font-size: 11px;
+}
+
+.mat-column-value {
+  width: 8.50%;
+  font-size: 11px;
+}
+
+.mat-column-budgeted {
+  width: 8.25%;
+  min-width: 65px !important;
+  font-size: 11px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mat-column-status {
+  width: 7.25%;
+  font-size: 11px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.mat-column-fatured {
+  width: 2.5%;
+  font-size: 11px;
+}
+
+.mat-column-portin {
+  width: 3.5%;
+  font-size: 11px;
+}
+
+.mat-column-rate {
+  width: 7%;
+  min-width: 80px !important;
+  font-size: 11px;
+}
+
+.mat-column-margem {
+  width: 3.5%;
+  min-width: 45px !important;
+  font-size: 11px;
+}
+
+::ng-deep .langSelect div.mat-select-arrow-wrapper {
+  display: none;
+}
+
+::ng-deep .langSelect.mat-select {
+  display: inline;
+}
+
+::ng-deep .langSelect.mat-select .mat-select-trigger > * {
+  display: none;
+}
+
+::ng-deep .langSelect.mat-select .mat-select-trigger {
+  height: 0;
+  margin-top: 0;
+}
+
+.mat-header-cell {
+  text-align: center;
+  align-self: start;
+  padding-top: 2px;
+  font-size: 10px !important;
+  min-width: 20px;
+}
+
+.mat-cell-report {
+  text-align: start;
+  font-size: 20px;
+  color: gray;
+
+}
+
+.mat-header-cell-report {
+  text-align: start;
+  margin-top: 14px;
+}
+
+.updated-info-employee {
+  font-size: 12px;
+}
+
+
+::ng-deep .mat-grid-item > figure {
+  padding: 0.5rem !important;
+  flex-direction: column;
+  align-items: start !important;
+}
+
+::ng-deep .mat-grid-item:is(.keep-padding-r) > figure {
+  padding: 0.5rem 0.5rem 0.5rem 1rem !important;
+}
+
+::ng-deep .mat-grid-item:is(.keep-padding-l) > figure {
+  padding: 0.5rem 1rem 0.5rem 0.5rem !important;
+}
+
+
+
+.mat-grid-type {
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.min-w-2 {
+  min-width: 2rem;
+}
+
+.title-report-dashboard {
+  font-size: 13px !important;
+  color: #212529;
+  width: 100%;
+}
+
+.data-report-dashboard {
+  font-size: 14px !important;
+  color: rgb(158, 158, 158);
+  width: 100% !important;
+}
+
+.select-hidden {
+  visibility: hidden;
+  /* min-height: 0; */
+  /* height: 0; */
+  /* min-width: 0; */
+  font-size: 14px;
+  width: 0;
+  /* flex: 0; */
+  /* display: block; */
+  margin: -17px;
+}
+
+.actualMonth, .actualYear {
+  cursor: pointer;
+  display: inline-flex;
+}
+
+.actualYear {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.actualYearSecondary {
+  margin-left: 10px;
+}
+
+.mat-cell {
+  padding: 3px 10px;
+  text-align: center;
+  min-width: 20px;
+  font-size: 10.5px !important;
+}
+
+.see-last {
+  width: 6.8rem;
+  margin-left: 1rem;
+}
+
+.space-table-header {
+  height: 6px;
+  width: 100%;
+  background-color: #f8f8fa;
+}
+.select-all{
+  margin: 10px 4px 0px 15px;
+  color: rgba(0,0,0,.38) !important;
+}
+
+::ng-deep .mat-checkbox-frame {
+  border-color:rgba(0,0,0,.28);
+}
+
+#searchForm[_ngcontent-nkq-c29] {
+  height: calc(100% - 76px);
+}
+
+.container-job {
+  height: calc(100% - 22px);
+}
+
+.container-job .my-container .lead {
+  height: 24px;
+}
+
+.mat-row-scroll {
+  height: calc(100vh - 365px) !important;
+}
+
+.mat-row-scroll.has-filter {
+  height: calc(100vh - 520px) !important;
+}
+
+::ng-deep #all-container.service-report {
+  overflow: hidden !important;
+}
+
+.keyboard_arrow_up {
+  color: #00a35d;
+}
+.keyboard_arrow_down {
+  color: #e5301a;
+}
+.icon-close {
+  color: #e5301a;
+  font-size: 13px;
+  font-weight: 600;
+}

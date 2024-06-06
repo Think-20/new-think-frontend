@@ -1,0 +1,49 @@
+<form [formGroup]="userPermissionForm" novalidate autocomplete="off">
+  <mat-card>
+    <div class="row">
+      <div class="col-md-12">
+        <h5 class="lead">Permissões igual a</h5>
+      </div>
+      <mat-form-field class="col-md-4">
+        <mat-select placeholder="Funcionário" formControlName="employee">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let employee of employees" [value]="employee">
+            {{ employee.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="col-md-12">
+        <h5 class="lead">Acesso das telas</h5>
+        <br>
+      </div>
+      <div class="col-md-12" formArrayName="displays">
+        <div *ngFor="let display of displays; let i = index">
+          <mat-checkbox class="cb-normal-checkbox" [formControlName]="i">
+            {{ display.description }}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <br>
+        <hr>
+        <br>
+      </div>
+      <div class="col-md-12">
+        <h5 class="lead">Funcionalidades da API</h5>
+        <br>
+      </div>
+      <div class="col-md-12" formArrayName="functionalities">
+        <div *ngFor="let functionality of functionalities; let i = index">
+          <mat-checkbox [formControlName]="i" class="cb-normal-checkbox">
+            {{ functionality.description }}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <mat-card-actions class="col-md-12 text-right">
+      <button class="cb-button" (click)="edit()" mat-raised-button>
+        EDITAR
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

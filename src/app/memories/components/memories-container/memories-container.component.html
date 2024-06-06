@@ -1,0 +1,214 @@
+<div class="my-container">
+  <h3 class="title">Memórias</h3>
+</div>
+
+<div class="col-md-12">
+  <mat-card class="container-fluid d-flex flex-column" style="min-height: 25rem; padding: 0;">
+
+    <div *ngFor="let table of tables; let i = index">
+      <div *ngIf="table.show">
+
+        <mat-card-title>
+          <div class="title">
+            {{ table.name === 'jobs' ? 'Há 01 ano você agendou estes projetos:' : (table.name === 'jobsApproveds' ? 'Há 01 ano você aprovou estes projetos:' : 'Há um ano você cadastrou novos clientes') }}
+          </div>
+        </mat-card-title>
+
+        <table class="table mat-table fade-in">
+
+          <ng-container *ngIf="table.name === 'jobs'">
+            <div class="mat-header-row">
+              <div class="mat-header-cell job-column-id" title="id">ID</div>
+              <div class="mat-header-cell job-column-client" title="Cliente">Cliente</div>
+              <div class="mat-header-cell job-column-agency" title="Agência">agência</div>
+              <div class="mat-header-cell job-column-event" title="Evento">evento</div>
+              <div class="mat-header-cell job-column-budget" title="Verba">verba</div>
+              <div class="mat-header-cell job-column-designer" title="Projetista">projetista</div>
+              <div class="mat-header-cell job-column-estimate" title="Orçamento">orçamento</div>
+              <div class="mat-header-cell job-column-producer" title="Produtor">produtor</div>
+              <div class="mat-header-cell job-column-status" title="Status">status</div>
+              <div class="mat-header-cell job-column-payment" title="Pagamento">pagamento</div>
+              <div class="mat-header-cell job-column-rate" title="Satisfação">satisfação</div>
+            </div>
+            <div class="space-table-header"></div>
+            <div class="mat-row" *ngFor="let job of memories[0]?.jobs">
+              <div class="mat-cell job-column-id">
+                {{ job.id }}
+              </div>
+              <div class="mat-cell job-column-client">
+                {{ job.client?.name ? job.client?.name : '-' }}
+              </div>
+              <div class="mat-cell job-column-agency">
+                {{ job.agency?.name ? job.agency?.fantasy_name : '-' }}
+              </div>
+              <div class="mat-cell job-column-event">
+                {{ job.event }}
+              </div>
+              <div class="mat-cell job-column-budget">
+                {{ job.budget_value | number: '1.2' }}
+              </div>
+              <div class="mat-cell job-column-designer">
+                {{ job.attendance?.name }}
+              </div>
+              <div class="mat-cell job-column-estimate">
+                {{ "Pamela" }}
+              </div>
+              <div class="mat-cell job-column-producer">
+                {{ job?.production_responsible?.name ? job?.production_responsible?.name : '-' }}
+              </div>
+              <div class="mat-cell job-column-status">
+                {{ job.status?.description }}
+              </div>
+              <div class="mat-cell job-column-payment">
+                {{ job.created_at | date : "dd/MM/yy" }}
+              </div>
+              <div class="mat-cell job-column-rate">
+                <cb-stars [hasLabel]="false" class="star-input" label="Score"
+                  [readonly]="true"
+                  [rate]="1">
+                    <input matInput>
+                </cb-stars>
+              </div>
+            </div>
+
+            <div *ngIf="!memories[0]?.jobs.length" class="d-flex justify-content-center align-items-center records-not-found" style="min-height: 15rem;">
+              <p>
+                <small>
+                  Nenhum projeto para exibir
+                </small>
+              </p>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="table.name === 'jobsApproveds'">
+            <div class="mat-header-row">
+              <div class="mat-header-cell job-column-id" title="id">ID</div>
+              <div class="mat-header-cell job-column-client" title="Cliente">Cliente</div>
+              <div class="mat-header-cell job-column-agency" title="Agência">agência</div>
+              <div class="mat-header-cell job-column-event" title="Evento">evento</div>
+              <div class="mat-header-cell job-column-budget" title="Verba">verba</div>
+              <div class="mat-header-cell job-column-designer" title="Projetista">projetista</div>
+              <div class="mat-header-cell job-column-estimate" title="Orçamento">orçamento</div>
+              <div class="mat-header-cell job-column-producer" title="Produtor">produtor</div>
+              <div class="mat-header-cell job-column-status" title="Status">status</div>
+              <div class="mat-header-cell job-column-payment" title="Pagamento">pagamento</div>
+              <div class="mat-header-cell job-column-rate" title="Satisfação">satisfação</div>
+            </div>
+            <div class="space-table-header"></div>
+            <div class="mat-row" *ngFor="let job of memories[2]?.jobs_approveds">
+              <div class="mat-cell job-column-id">
+                {{ job.id }}
+              </div>
+              <div class="mat-cell job-column-client">
+                {{ job.client?.name ? job.client?.name : '-' }}
+              </div>
+              <div class="mat-cell job-column-agency">
+                {{ job.agency?.name ? job.agency?.fantasy_name : '-' }}
+              </div>
+              <div class="mat-cell job-column-event">
+                {{ job.event }}
+              </div>
+              <div class="mat-cell job-column-budget">
+                {{ job.budget_value | number: '1.2' }}
+              </div>
+              <div class="mat-cell job-column-designer">
+                {{ job.attendance?.name }}
+              </div>
+              <div class="mat-cell job-column-estimate">
+                {{ "Pamela" }}
+              </div>
+              <div class="mat-cell job-column-producer">
+                {{ job?.production_responsible?.name ? job?.production_responsible?.name : '-' }}
+              </div>
+              <div class="mat-cell job-column-status">
+                {{ job.status?.description }}
+              </div>
+              <div class="mat-cell job-column-payment">
+                {{ job.created_at | date : "dd/MM/yy" }}
+              </div>
+              <div class="mat-cell job-column-rate">
+                <cb-stars [hasLabel]="false" class="star-input" label="Score"
+                  [readonly]="true"
+                  [rate]="1">
+                    <input matInput>
+                </cb-stars>
+              </div>
+            </div>
+
+            <div *ngIf="!memories[2]?.jobs_approveds.length" class="d-flex justify-content-center align-items-center records-not-found" style="min-height: 15rem;">
+              <p>
+                <small>
+                  Nenhum projeto para exibir
+                </small>
+              </p>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="table.name === 'clients'">
+            <div class="mat-header-row">
+              <div class="mat-header-cell client-column-client" title="Cliente">cliente</div>
+              <div class="mat-header-cell client-column-type" title="type">tipo</div>
+              <div class="mat-header-cell client-column-agency" title="Agência">status</div>
+              <div class="mat-header-cell client-column-event" title="Evento">ultimo job</div>
+              <div class="mat-header-cell client-column-budget" title="Verba">evento</div>
+              <div class="mat-header-cell client-column-rate" title="Projetista">score</div>
+            </div>
+            <div class="space-table-header"></div>
+            <div class="mat-row" *ngFor="let client of memories[1]?.clients">
+              <div class="mat-cell client-column-client">
+                {{ client.name }}
+              </div>
+              <div class="mat-cell client-column-type">
+                {{ client.type.description }}
+              </div>
+              <div class="mat-cell client-column-agency">
+                {{ client.status.description }}
+              </div>
+              <div class="mat-cell client-column-budget">
+                {{ client.lastJobId ? client.lastJobId : '-' }}
+              </div>
+              <div class="mat-cell client-column-event">
+                {{ client.lastJobEvent ? client.lastJobEvent : '-' }}
+              </div>
+              <div class="mat-cell client-column-rate">
+                <cb-stars [hasLabel]="false" class="star-input" label="Score"
+                  [readonly]="true"
+                  [rate]="1">
+                    <input matInput>
+                </cb-stars>
+              </div>
+            </div>
+
+            <div *ngIf="!memories[1]?.clients.length" class="d-flex justify-content-center align-items-center records-not-found" style="min-height: 15rem;">
+              <p>
+                <small>
+                  Nenhum cliente para exibir
+                </small>
+              </p>
+            </div>
+          </ng-container>
+
+        </table>
+
+      </div>
+    </div>
+
+    <div class="mt-auto">
+      <hr class="hr">
+      <div class="d-flex justify-content-between">
+        <div class="pl-2 pt-1">
+          <p *ngIf="tables[currentTableIndex].name === 'jobs'" class="fs-12">
+            Que tal relembrar todos os projetos que você aprovou?
+          </p>
+          <p *ngIf="tables[currentTableIndex].name === 'jobsApproveds'" class="fs-12">
+            Que tal relembrar todos os envolvidos nesse Job?
+          </p>
+        </div>
+        <div class="d-flex justify-content-end pr-2 pb-2">
+          <button class="button-next-prev" (click)="toggleTables('previous', currentTableIndex)" *ngIf="tables[currentTableIndex].previousButton">Anterior</button>
+          <button class="button-next-prev ml-3" (click)="toggleTables('next', currentTableIndex)" *ngIf="tables[currentTableIndex].nextButton">Próximo</button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

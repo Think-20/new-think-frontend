@@ -1,0 +1,36 @@
+.contact-item {
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.add-contact, .add-file, .delete-file, .delete-contact, .download-file {
+  z-index: 10;
+  min-width: 10px !important;
+  padding: 0px !important;
+  color: #BBB;
+}
+
+.add-contact, .add-file {
+  position: relative;
+  margin-top: -20px;
+  left: 0px;
+}
+
+.add-contact {
+  top: -16px;
+}
+
+.add-file {
+  top: -9px;
+}
+
+.delete-contact, .delete-file, .download-file {
+position: absolute;
+z-index: 10;
+right: -4px;
+top: -6px;
+}
+
+.download-file {
+  right: 22px;
+}

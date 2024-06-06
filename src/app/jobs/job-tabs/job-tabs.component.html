@@ -1,0 +1,51 @@
+<div class="my-container">
+  <h3 class="lead">{{ job?.id != undefined ? 'Job ' + showId(job) + ' | ' + displayNameEvent(job) : 'Jobs'}}</h3>
+</div>
+<div id="containerJobTabs" class="col-md-12">
+  <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="tab($event)">
+    <mat-tab label="Informações">
+      <cb-job-form [typeForm]="typeForm" (jobEmitter)="setJob($event)" (isAdminEmitter)="setIsAdmin($event)"></cb-job-form>
+    </mat-tab>
+    <mat-tab label="Briefing">
+      <!--
+      <cb-briefing-form *ngIf="job?.id != undefined && job?.job_activity?.description != 'Orçamento'" [typeForm]="typeForm" [job]="job"
+        [isAdmin]="isAdmin">
+      </cb-briefing-form>
+      -->
+    </mat-tab>
+    <mat-tab label="Projeto">
+      <cb-projects (requestJobReloadEmitter)="reload()" *ngIf="job?.id != undefined" [job]="job"></cb-projects>
+    </mat-tab>
+    <mat-tab label="Memorial descritivo">
+      <cb-specification *ngIf="job?.id != undefined" [job]="job"></cb-specification>
+    </mat-tab>
+    <mat-tab label="Proposta">
+      <cb-proposals *ngIf="job?.id != undefined" [job]="job" [containerWidth]="containerWidth"></cb-proposals>
+    </mat-tab>
+    <mat-tab label="Orçamento">
+      <cb-budget-form *ngIf="job?.id != undefined" [typeForm]="typeForm" [job]="job">
+      </cb-budget-form>
+    </mat-tab>
+    <mat-tab label="Check-in">
+      Check-in
+    </mat-tab>
+    <mat-tab label="Detalhamento">
+      Detalhamento
+    </mat-tab>
+    <mat-tab label="Ficha de custo">
+      Ficha de custo
+    </mat-tab>
+    <mat-tab label="Lista de compras">
+      Lista de compras
+    </mat-tab>
+    <mat-tab label="Contrato e NF">
+      Contrato e NF
+    </mat-tab>
+    <mat-tab label="Feedback">
+      Feedback
+    </mat-tab>
+    <mat-tab label="Fotos do projeto">
+      Fotos do projeto
+    </mat-tab>
+  </mat-tab-group>
+</div>
